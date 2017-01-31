@@ -20,12 +20,12 @@ public class VisualiserMouseControls implements MouseListener {
 	}
 
 	public int toPointX(int px) {
-		return (px + (editorUI.resX / gridGraph.sizeX / 2)) * gridGraph.sizeX / editorUI.resX;
+		return (px + (editorUI.resX / gridGraph.getSizeX() / 2)) * gridGraph.getSizeX() / editorUI.resX;
 	}
 
 	public int toPointY(int py) {
 		//py = editorUI.resY - py;
-		return (py + (editorUI.resY / gridGraph.sizeY / 2)) * gridGraph.sizeY / editorUI.resY;
+		return (py + (editorUI.resY / gridGraph.getSizeY() / 2)) * gridGraph.getSizeY() / editorUI.resY;
 	}
 
 	@Override

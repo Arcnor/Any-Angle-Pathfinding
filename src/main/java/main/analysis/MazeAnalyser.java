@@ -11,7 +11,7 @@ public class MazeAnalyser {
 	public final ArrayList<ProblemAnalysis> problemList;
 
 	public MazeAnalyser(GridGraph gridGraph, int nProblems) {
-		System.out.println("-Starting Maze Analysis: " + gridGraph.sizeX + "x" + gridGraph.sizeY);
+		System.out.println("-Starting Maze Analysis: " + gridGraph.getSizeX() + "x" + gridGraph.getSizeY());
 		mazeAnalysis = new MazeAnalysis(gridGraph);
 
 		System.out.println("-Starting Problem Generation");
@@ -25,7 +25,7 @@ public class MazeAnalyser {
 
 	public MazeAnalyser(GridGraph gridGraph, ArrayList<TwoPoint> twoPointList, boolean analyseMaze) {
 		if (analyseMaze) {
-			System.out.println("-Starting Maze Analysis: " + gridGraph.sizeX + "x" + gridGraph.sizeY);
+			System.out.println("-Starting Maze Analysis: " + gridGraph.getSizeX() + "x" + gridGraph.getSizeY());
 			mazeAnalysis = new MazeAnalysis(gridGraph);
 		} else {
 			mazeAnalysis = null;
@@ -42,7 +42,7 @@ public class MazeAnalyser {
 		ArrayList<ProblemAnalysis> list = new ArrayList<>();
 		for (TwoPoint tp : twoPointList) {
 			ProblemAnalysis problem = new ProblemAnalysis(gridGraph,
-					tp.p1.x, tp.p1.y, tp.p2.x, tp.p2.y);
+					tp.p1.getX(), tp.p1.getY(), tp.p2.getX(), tp.p2.getY());
 			list.add(problem);
 			System.out.print(tp + " | ");
 		}

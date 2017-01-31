@@ -14,7 +14,7 @@ public class GraphExporter {
 
 	public GraphExporter(GridGraph gridGraph) {
 		this.gridGraph = gridGraph;
-		this.maxLines = gridGraph.sizeY;
+		this.maxLines = gridGraph.getSizeY();
 	}
 
 	/**
@@ -31,7 +31,7 @@ public class GraphExporter {
 	public String nextLine() {
 		String result = null;
 		if (line == -1) {
-			result = gridGraph.sizeX + " " + gridGraph.sizeY;
+			result = gridGraph.getSizeX() + " " + gridGraph.getSizeY();
 		} else {
 			result = currentLineToString();
 		}
@@ -42,7 +42,7 @@ public class GraphExporter {
 	protected String currentLineToString() {
 		StringBuilder sb = new StringBuilder();
 		String delim = "";
-		for (int i = 0; i < gridGraph.sizeX; i++) {
+		for (int i = 0; i < gridGraph.getSizeX(); i++) {
 			int value = gridGraph.isBlocked(i, line) ? 1 : 0;
 			sb.append(delim).append(value);
 			delim = " ";

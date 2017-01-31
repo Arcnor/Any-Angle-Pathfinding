@@ -27,7 +27,7 @@ public class Utility {
 
 	public static double computeOptimalPathLength(GridGraph gridGraph, Point start, Point end) {
 		// Optimal algorithm.
-		PathFindingAlgorithm algo = new VisibilityGraphAlgorithm(gridGraph, start.x, start.y, end.x, end.y);
+		PathFindingAlgorithm algo = new VisibilityGraphAlgorithm(gridGraph, start.getX(), start.getY(), end.getX(), end.getY());
 		algo.computePath();
 		int[][] path = algo.getPath();
 		path = removeDuplicatesInPath(path);

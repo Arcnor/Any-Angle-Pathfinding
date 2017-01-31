@@ -48,8 +48,8 @@ public class GridLineDrawer implements Drawer {
 	}
 
 	private void drawFractionLine(Graphics g, FractionLine line) {
-		float width = (float) resX / gridGraph.sizeX;
-		float height = (float) resY / gridGraph.sizeY;
+		float width = (float) resX / gridGraph.getSizeX();
+		float height = (float) resY / gridGraph.getSizeY();
 		int x1 = (int) (width * line.x1.n / line.x1.d);
 		int y1 = (int) (height * line.y1.n / line.y1.d);
 		int x2 = (int) (width * line.x2.n / line.x2.d);
@@ -63,8 +63,8 @@ public class GridLineDrawer implements Drawer {
 	}
 
 	private void drawLine(Graphics g, GridLineSet.Line line) {
-		float width = (float) resX / gridGraph.sizeX;
-		float height = (float) resY / gridGraph.sizeY;
+		float width = (float) resX / gridGraph.getSizeX();
+		float height = (float) resY / gridGraph.getSizeY();
 		int x1 = (int) (width * line.x1);
 		int y1 = (int) (height * line.y1);
 		int x2 = (int) (width * line.x2);

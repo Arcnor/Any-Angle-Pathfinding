@@ -17,14 +17,14 @@ public class AcceleratedAStar extends AStar {
 
 	@Override
 	public void computePath() {
-		int totalSize = (graph.sizeX + 1) * (graph.sizeY + 1);
+		int totalSize = (getGraph().getSizeX() + 1) * (getGraph().getSizeY() + 1);
 
-		int start = toOneDimIndex(sx, sy);
-		finish = toOneDimIndex(ex, ey);
+		int start = toOneDimIndex(getSx(), getSy());
+		finish = toOneDimIndex(getEx(), getEy());
 
 		distance = new Float[totalSize];
-		parent = new int[totalSize];
-		maxRanges = graph.computeMaxDownLeftRanges(); // O(size of gridGraph) computation. See actual method.
+		setParent(new int[totalSize]);
+		maxRanges = getGraph().computeMaxDownLeftRanges(); // O(size of gridGraph) computation. See actual method.
 
 		initialise(start);
 		visited = new boolean[totalSize];
@@ -62,19 +62,19 @@ public class AcceleratedAStar extends AStar {
 
 	private void relaxSuccessorsSizeZero(int current, int x, int y) {
 		boolean[] udlr = new boolean[4];
-		if (!graph.isBlocked(x - 1, y - 1)) { // bottom left
+		if (!getGraph().isBlocked(x - 1, y - 1)) { // bottom left
 			udlr[2] = true;
 			udlr[1] = true;
 		}
-		if (!graph.isBlocked(x, y - 1)) { // bottom right
+		if (!getGraph().isBlocked(x, y - 1)) { // bottom right
 			udlr[3] = true;
 			udlr[1] = true;
 		}
-		if (!graph.isBlocked(x - 1, y)) { // top left
+		if (!getGraph().isBlocked(x - 1, y)) { // top left
 			udlr[2] = true;
 			udlr[0] = true;
 		}
-		if (!graph.isBlocked(x, y)) { // top right
+		if (!getGraph().isBlocked(x, y)) { // top right
 			udlr[3] = true;
 			udlr[0] = true;
 		}
@@ -124,9 +124,9 @@ public class AcceleratedAStar extends AStar {
 			int fromY = toTwoDimY(fromNode);
 			float newFValue = distance[fromNode] + weight(fromX, fromY, destX, destY);
 			if (newFValue < distance[destination]) {
-				if (graph.lineOfSight(fromX, fromY, destX, destY)) {
+				if (getGraph().lineOfSight(fromX, fromY, destX, destY)) {
 					distance[destination] = newFValue;
-					parent[destination] = fromNode;
+					getParent()[destination] = fromNode;
 					changed = true;
 				}
 			}
@@ -150,7 +150,7 @@ public class AcceleratedAStar extends AStar {
 		int lower = 0;
 		int upper = getMaxSize(x, y);
 		int newUpper;
-		int i = x - y + sizeY;
+		int i = x - y + getSizeY();
 		int j = Math.min(x, y);
 		if (upper <= lower) return 0;
 
@@ -200,7 +200,7 @@ public class AcceleratedAStar extends AStar {
 	 * Compares the tile with the end point to set an upper bound on the size.
 	 */
 	private int getMaxSize(int x, int y) {
-		return Math.max(Math.abs(x - ex), Math.abs(y - ey));
+		return Math.max(Math.abs(x - getEx()), Math.abs(y - getEy()));
 	}
 
 	/**
@@ -219,18 +219,18 @@ public class AcceleratedAStar extends AStar {
 		int upY = y + size - 1;
 
 		for (int i = leftX; i <= rightX; i++) {
-			if (graph.isBlocked(i, upY)) {
+			if (getGraph().isBlocked(i, upY)) {
 				return true;
 			}
-			if (graph.isBlocked(i, downY)) {
+			if (getGraph().isBlocked(i, downY)) {
 				return true;
 			}
 		}
 		for (int i = downY + 1; i < upY; i++) {
-			if (graph.isBlocked(leftX, i)) {
+			if (getGraph().isBlocked(leftX, i)) {
 				return true;
 			}
-			if (graph.isBlocked(rightX, i)) {
+			if (getGraph().isBlocked(rightX, i)) {
 				return true;
 			}
 		}

@@ -30,6 +30,6 @@ public class TwoPoint {
 
 	@Override
 	public String toString() {
-		return p1.x + " " + p1.y + " " + p2.x + " " + p2.y;
+		return p1.getX() + " " + p1.getY() + " " + p2.getX() + " " + p2.getY();
 	}
 }

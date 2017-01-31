@@ -60,7 +60,7 @@ public class TextOutputVisualisation {
 				Color col = Color.red;
 				if (j == i) col = Color.green;
 
-				SnapshotItem e = SnapshotItem.generate(paths[j], col);
+				SnapshotItem e = SnapshotItem.Companion.generate(paths[j], col);
 				snapshot.add(e);
 			}
 

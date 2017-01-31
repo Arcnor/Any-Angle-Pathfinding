@@ -56,7 +56,7 @@ public class VisibilityGraphAlgorithm extends AStar {
 		setupVisibilityGraph();
 
 		distance = new Float[visibilityGraph.size()];
-		parent = new int[visibilityGraph.size()];
+		setParent(new int[visibilityGraph.size()]);
 
 		initialise(visibilityGraph.startNode());
 		visited = new boolean[visibilityGraph.size()];
@@ -70,9 +70,9 @@ public class VisibilityGraphAlgorithm extends AStar {
 
 	protected void setupVisibilityGraph() {
 		if (reuseGraph) {
-			visibilityGraph = VisibilityGraph.getStoredGraph(graph, sx, sy, ex, ey);
+			visibilityGraph = VisibilityGraph.getStoredGraph(getGraph(), getSx(), getSy(), getEx(), getEy());
 		} else {
-			visibilityGraph = new VisibilityGraph(graph, sx, sy, ex, ey);
+			visibilityGraph = new VisibilityGraph(getGraph(), getSx(), getSy(), getEx(), getEy());
 		}
 
 		if (isRecording()) {
@@ -140,7 +140,7 @@ public class VisibilityGraphAlgorithm extends AStar {
 				if (!visited[edge.dest] && relax(edge)) {
 					// If relaxation is done.
 					Point dest = visibilityGraph.coordinateOf(edge.dest);
-					pq.decreaseKey(edge.dest, distance[edge.dest] + heuristic(dest.x, dest.y));
+					pq.decreaseKey(edge.dest, distance[edge.dest] + heuristic(dest.getX(), dest.getY()));
 				}
 			}
 
@@ -158,7 +158,7 @@ public class VisibilityGraphAlgorithm extends AStar {
 		float newWeight = distance[u] + weightUV;
 		if (newWeight < distance[v]) {
 			distance[v] = newWeight;
-			parent[v] = u;
+			getParent()[v] = u;
 			return true;
 		}
 		return false;
@@ -169,7 +169,7 @@ public class VisibilityGraphAlgorithm extends AStar {
 		int length = 0;
 		int current = visibilityGraph.endNode();
 		while (current != -1) {
-			current = parent[current];
+			current = getParent()[current];
 			length++;
 		}
 		return length;
@@ -184,15 +184,15 @@ public class VisibilityGraphAlgorithm extends AStar {
 		int index = length - 1;
 		while (current != -1) {
 			Point point = visibilityGraph.coordinateOf(current);
-			int x = point.x;
-			int y = point.y;
+			int x = point.getX();
+			int y = point.getY();
 
 			path[index] = new int[2];
 			path[index][0] = x;
 			path[index][1] = y;
 
 			index--;
-			current = parent[current];
+			current = getParent()[current];
 		}
 
 		return path;
@@ -206,13 +206,13 @@ public class VisibilityGraphAlgorithm extends AStar {
 	@Override
 	protected Integer[] snapshotEdge(int endIndex) {
 		Integer[] edge = new Integer[4];
-		int startIndex = parent[endIndex];
+		int startIndex = getParent()[endIndex];
 		Point startPoint = visibilityGraph.coordinateOf(startIndex);
 		Point endPoint = visibilityGraph.coordinateOf(endIndex);
-		edge[0] = startPoint.x;
-		edge[1] = startPoint.y;
-		edge[2] = endPoint.x;
-		edge[3] = endPoint.y;
+		edge[0] = startPoint.getX();
+		edge[1] = startPoint.getY();
+		edge[2] = endPoint.getX();
+		edge[3] = endPoint.getY();
 		return edge;
 	}
 
@@ -221,8 +221,8 @@ public class VisibilityGraphAlgorithm extends AStar {
 		if (selected(index)) {
 			Point point = visibilityGraph.coordinateOf(index);
 			Integer[] edge = new Integer[2];
-			edge[0] = point.x;
-			edge[1] = point.y;
+			edge[0] = point.getX();
+			edge[1] = point.getY();
 			return edge;
 		}
 		return null;
@@ -245,12 +245,12 @@ public class VisibilityGraphAlgorithm extends AStar {
 					Point end = visibilityGraph.coordinateOf(edge.dest);
 
 					Integer[] path = new Integer[4];
-					path[0] = start.x;
-					path[1] = start.y;
-					path[2] = end.x;
-					path[3] = end.y;
+					path[0] = start.getX();
+					path[1] = start.getY();
+					path[2] = end.getX();
+					path[3] = end.getY();
 
-					SnapshotItem snapshotItem = SnapshotItem.generate(path, Color.GREEN);
+					SnapshotItem snapshotItem = SnapshotItem.Companion.generate(path, Color.GREEN);
 					snapshotItemList.add(snapshotItem);
 				}
 			}

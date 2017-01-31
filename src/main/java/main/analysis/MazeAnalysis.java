@@ -23,8 +23,8 @@ public class MazeAnalysis {
 	public Options options;
 
 	public MazeAnalysis(GridGraph gridGraph) {
-		this.sizeX = gridGraph.sizeX;
-		this.sizeY = gridGraph.sizeY;
+		this.sizeX = gridGraph.getSizeX();
+		this.sizeY = gridGraph.getSizeY();
 		this.nBlocked = gridGraph.getNumBlocked();
 		this.blockDensity = (float) nBlocked / (sizeX * sizeY);
 		this.hasSqueezableCorners = checkHasSqueezableCorners(gridGraph);
@@ -34,8 +34,8 @@ public class MazeAnalysis {
 	}
 
 	private MazeAnalysis(GridGraph gridGraph, Options o) {
-		if (o.sizeX) this.sizeX = gridGraph.sizeX;
-		if (o.sizeY) this.sizeY = gridGraph.sizeY;
+		if (o.sizeX) this.sizeX = gridGraph.getSizeX();
+		if (o.sizeY) this.sizeY = gridGraph.getSizeY();
 		if (o.nBlocked) this.nBlocked = gridGraph.getNumBlocked();
 		if (o.blockDensity) this.blockDensity = (float) nBlocked / (sizeX * sizeY);
 		if (o.hasSqueezableCorners) this.hasSqueezableCorners = checkHasSqueezableCorners(gridGraph);
@@ -50,8 +50,8 @@ public class MazeAnalysis {
 	}
 
 	public static boolean checkHasSqueezableCorners(GridGraph gridGraph) {
-		for (int y = 1; y < gridGraph.sizeY; y++) {
-			for (int x = 1; x < gridGraph.sizeX; x++) {
+		for (int y = 1; y < gridGraph.getSizeY(); y++) {
+			for (int x = 1; x < gridGraph.getSizeX(); x++) {
 				if (gridGraph.bottomLeftOfBlockedTile(x, y) && gridGraph.topRightOfBlockedTile(x, y) &&
 						!gridGraph.bottomRightOfBlockedTile(x, y) && !gridGraph.topLeftOfBlockedTile(x, y)) {
 					return true;
@@ -83,8 +83,8 @@ public class MazeAnalysis {
 		HashSet<Point> hashSet = new HashSet<>();
 		ArrayList<ArrayList<Point>> connectedSets = new ArrayList<>();
 
-		for (int y = 0; y <= gridGraph.sizeY; y++) {
-			for (int x = 0; x <= gridGraph.sizeX; x++) {
+		for (int y = 0; y <= gridGraph.getSizeY(); y++) {
+			for (int x = 0; x <= gridGraph.getSizeX(); x++) {
 				Point point = new Point(x, y);
 				if (!hashSet.contains(point)) {
 					ArrayList<Point> list;
@@ -106,11 +106,11 @@ public class MazeAnalysis {
 		long count = 0;
 
 		int[][] maxRanges = gridGraph.computeMaxDownLeftRanges();
-		for (int y = 0; y < gridGraph.sizeY; ++y) {
-			for (int x = 0; x < gridGraph.sizeX; ++x) {
+		for (int y = 0; y < gridGraph.getSizeY(); ++y) {
+			for (int x = 0; x < gridGraph.getSizeX(); ++x) {
 				if (gridGraph.isUnblockedCoordinate(x, y)) {
 					count += 1;
-					int maxSquare = detectMaxSquare(maxRanges, gridGraph.sizeY, x, y);
+					int maxSquare = detectMaxSquare(maxRanges, gridGraph.getSizeY(), x, y);
 					total += maxSquare;
 				}
 			}

@@ -458,7 +458,7 @@ public class AlgoTest {
 				long[] runningTimes = runningTimesList.get(i);
 
 				StringBuilder sb = new StringBuilder();
-				sb.append(tp.p1.x + "-" + tp.p1.y + "_" + tp.p2.x + "-" + tp.p2.y);
+				sb.append(tp.p1.getX() + "-" + tp.p1.getY() + "_" + tp.p2.getX() + "-" + tp.p2.getY());
 				for (long runningTime : runningTimes) {
 					sb.append(" ");
 					sb.append(runningTime);
@@ -472,10 +472,10 @@ public class AlgoTest {
 	private static long testAlgorithmTimeOnce(GridGraph gridGraph,
 	                                          AlgoFunction algoFunction, TwoPoint tp, int nTrials) {
 
-		int startX = tp.p1.x;
-		int startY = tp.p1.y;
-		int endX = tp.p2.x;
-		int endY = tp.p2.y;
+		int startX = tp.p1.getX();
+		int startY = tp.p1.getY();
+		int endX = tp.p2.getX();
+		int endY = tp.p2.getY();
 
 		long start = System.nanoTime();
 		for (int i = 0; i < nTrials; i++) {
@@ -496,10 +496,10 @@ public class AlgoTest {
 		double sum = 0;
 		double sumSquare = 0;
 
-		int startX = tp.p1.x;
-		int startY = tp.p1.y;
-		int endX = tp.p2.x;
-		int endY = tp.p2.y;
+		int startX = tp.p1.getX();
+		int startY = tp.p1.getY();
+		int endX = tp.p2.getX();
+		int endY = tp.p2.getY();
 
 		for (int s = 0; s < sampleSize; s++) {
 			long start = System.nanoTime();
@@ -528,7 +528,7 @@ public class AlgoTest {
 	                                                  AlgoFunction algoFunction, TwoPoint tp) {
 
 		int[][] path = Utility.generatePath(algoFunction, gridGraph,
-				tp.p1.x, tp.p1.y, tp.p2.x, tp.p2.y);
+				tp.p1.getX(), tp.p1.getY(), tp.p2.getX(), tp.p2.getY());
 		double pathLength = Utility.computePathLength(gridGraph, path);
 		boolean isTaut = Utility.isPathTaut(gridGraph, path);
 
@@ -638,8 +638,8 @@ public class AlgoTest {
 		while (library.hasNextData()) {
 			StartEndPointData data = library.getNextData();
 
-			TestResult testResult = AlgoTest.testAlgorithm(algo, gridGraph, data.start.x,
-					data.start.y, data.end.x, data.end.y, 10, library.getNTrials());
+			TestResult testResult = AlgoTest.testAlgorithm(algo, gridGraph, data.start.getX(),
+					data.start.getY(), data.end.getX(), data.end.getY(), 10, library.getNTrials());
 
 			boolean valid = (testResult.pathLength > 0.00001f);
 			double ratio = testResult.pathLength / data.shortestPath;

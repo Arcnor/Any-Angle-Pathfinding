@@ -85,7 +85,7 @@ public class GraphImporter {
 	public static GridAndGoals loadStoredMaze(String mazeName, String problemName) {
 		String path = AnyAnglePathfinding.PATH_MAZEDATA + mazeName + "/maze.txt";
 		TwoPoint tp = readProblem(problemName);
-		return importGraphFromFile(path, tp.p1.x, tp.p1.y, tp.p2.x, tp.p2.y);
+		return importGraphFromFile(path, tp.p1.getX(), tp.p1.getY(), tp.p2.getX(), tp.p2.getY());
 	}
 
 	public static GridGraph loadStoredMaze(String mazeName) {

@@ -7,9 +7,9 @@ import com.github.ohohcakester.grid.GridGraph;
 
 public class AStar extends PathFindingAlgorithm {
 
-	protected boolean postSmoothingOn = false;
-	protected boolean repeatedPostSmooth = true;
-	protected float heuristicWeight = 1f;
+	boolean postSmoothingOn = false;
+	boolean repeatedPostSmooth = true;
+	float heuristicWeight = 1f;
 
 	protected Float[] distance;
 	protected boolean[] visited;
@@ -20,7 +20,7 @@ public class AStar extends PathFindingAlgorithm {
 
 
 	public AStar(GridGraph graph, int sx, int sy, int ex, int ey) {
-		super(graph, graph.sizeX, graph.sizeY, sx, sy, ex, ey);
+		super(graph, graph.getSizeX(), graph.getSizeY(), sx, sy, ex, ey);
 	}
 
 	public static AStar postSmooth(GridGraph graph, int sx, int sy, int ex, int ey) {
@@ -37,13 +37,13 @@ public class AStar extends PathFindingAlgorithm {
 
 	@Override
 	public void computePath() {
-		int totalSize = (graph.sizeX + 1) * (graph.sizeY + 1);
+		int totalSize = (getGraph().getSizeX() + 1) * (getGraph().getSizeY() + 1);
 
-		int start = toOneDimIndex(sx, sy);
-		finish = toOneDimIndex(ex, ey);
+		int start = toOneDimIndex(getSx(), getSy());
+		finish = toOneDimIndex(getEx(), getEy());
 
 		distance = new Float[totalSize];
-		parent = new int[totalSize];
+		setParent(new int[totalSize]);
 
 		initialise(start);
 		visited = new boolean[totalSize];
@@ -87,13 +87,13 @@ public class AStar extends PathFindingAlgorithm {
 	}
 
 	protected void tryRelaxNeighbour(int current, int currentX, int currentY, int x, int y) {
-		if (!graph.isValidCoordinate(x, y))
+		if (!getGraph().isValidCoordinate(x, y))
 			return;
 
 		int destination = toOneDimIndex(x, y);
 		if (visited[destination])
 			return;
-		if (!graph.neighbourLineOfSight(currentX, currentY, x, y))
+		if (!getGraph().neighbourLineOfSight(currentX, currentY, x, y))
 			return;
 
 		if (relax(current, destination, weight(currentX, currentY, x, y))) {
@@ -104,12 +104,12 @@ public class AStar extends PathFindingAlgorithm {
 
 	protected float heuristic(int x, int y) {
 		//return 0;
-		return heuristicWeight * graph.distance(x, y, ex, ey);
+		return heuristicWeight * getGraph().distance(x, y, getEx(), getEy());
 	}
 
 
 	protected float weight(int x1, int y1, int x2, int y2) {
-		return graph.distance(x1, y1, x2, y2);
+		return getGraph().distance(x1, y1, x2, y2);
 	}
 
 
@@ -118,7 +118,7 @@ public class AStar extends PathFindingAlgorithm {
 	}
 
 	public int[] getParent() {
-		return parent;
+		return super.getParent();
 	}
 
 	protected boolean relax(int u, int v, float weightUV) {
@@ -127,7 +127,7 @@ public class AStar extends PathFindingAlgorithm {
 		float newWeight = distance[u] + weightUV;
 		if (newWeight < distance[v]) {
 			distance[v] = newWeight;
-			parent[v] = u;
+			getParent()[v] = u;
 			//maybeSaveSearchSnapshot();
 			return true;
 		}
@@ -138,7 +138,7 @@ public class AStar extends PathFindingAlgorithm {
 	protected final void initialise(int s) {
 		for (int i = 0; i < distance.length; i++) {
 			distance[i] = Float.POSITIVE_INFINITY;
-			parent[i] = -1;
+			getParent()[i] = -1;
 		}
 		distance[s] = 0f;
 	}
@@ -147,7 +147,7 @@ public class AStar extends PathFindingAlgorithm {
 		int length = 0;
 		int current = finish;
 		while (current != -1) {
-			current = parent[current];
+			current = getParent()[current];
 			length++;
 		}
 		return length;
@@ -158,7 +158,7 @@ public class AStar extends PathFindingAlgorithm {
 		int y1 = toTwoDimY(node1);
 		int x2 = toTwoDimX(node2);
 		int y2 = toTwoDimY(node2);
-		return graph.lineOfSight(x1, y1, x2, y2);
+		return getGraph().lineOfSight(x1, y1, x2, y2);
 	}
 
 	protected float physicalDistance(int node1, int node2) {
@@ -166,13 +166,13 @@ public class AStar extends PathFindingAlgorithm {
 		int y1 = toTwoDimY(node1);
 		int x2 = toTwoDimX(node2);
 		int y2 = toTwoDimY(node2);
-		return graph.distance(x1, y1, x2, y2);
+		return getGraph().distance(x1, y1, x2, y2);
 	}
 
 	protected float physicalDistance(int x1, int y1, int node2) {
 		int x2 = toTwoDimX(node2);
 		int y2 = toTwoDimY(node2);
-		return graph.distance(x1, y1, x2, y2);
+		return getGraph().distance(x1, y1, x2, y2);
 	}
 
 	protected void maybePostSmooth() {
@@ -190,13 +190,13 @@ public class AStar extends PathFindingAlgorithm {
 
 		int current = finish;
 		while (current != -1) {
-			int next = parent[current]; // we can skip checking this one as it always has LoS to current.
+			int next = getParent()[current]; // we can skip checking this one as it always has LoS to current.
 			if (next != -1) {
-				next = parent[next];
+				next = getParent()[next];
 				while (next != -1) {
 					if (lineOfSight(current, next)) {
-						parent[current] = next;
-						next = parent[next];
+						getParent()[current] = next;
+						next = getParent()[next];
 						didSomething = true;
 						maybeSaveSearchSnapshot();
 					} else {
@@ -205,7 +205,7 @@ public class AStar extends PathFindingAlgorithm {
 				}
 			}
 
-			current = parent[current];
+			current = getParent()[current];
 		}
 
 		return didSomething;
@@ -227,7 +227,7 @@ public class AStar extends PathFindingAlgorithm {
 			path[index][1] = y;
 
 			index--;
-			current = parent[current];
+			current = getParent()[current];
 		}
 
 		return path;

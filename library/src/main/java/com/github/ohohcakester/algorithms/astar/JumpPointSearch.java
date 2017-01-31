@@ -32,10 +32,10 @@ public class JumpPointSearch extends AStarStaticMemory {
 		neighboursdY = new int[8];
 		neighbourCount = 0;
 
-		int totalSize = (graph.sizeX + 1) * (graph.sizeY + 1);
+		int totalSize = (getGraph().getSizeX() + 1) * (getGraph().getSizeY() + 1);
 
-		int start = toOneDimIndex(sx, sy);
-		finish = toOneDimIndex(ex, ey);
+		int start = toOneDimIndex(getSx(), getSy());
+		finish = toOneDimIndex(getEx(), getEy());
 
 		pq = new ReusableIndirectHeap(totalSize);
 		this.initialiseMemory(totalSize, Float.POSITIVE_INFINITY, -1, false);
@@ -102,8 +102,8 @@ public class JumpPointSearch extends AStarStaticMemory {
 		while (true) {
 			x -= 1;
 			y -= 1;
-			if (graph.isBlocked(x, y)) return -1;
-			if (x == ex && y == ey) return toOneDimIndex(x, y);
+			if (getGraph().isBlocked(x, y)) return -1;
+			if (x == getEx() && y == getEy()) return toOneDimIndex(x, y);
 			// diagonal cannot be forced on vertices.
 			if (jumpL(x, y) != -1) return toOneDimIndex(x, y);
 			if (jumpD(x, y) != -1) return toOneDimIndex(x, y);
@@ -114,8 +114,8 @@ public class JumpPointSearch extends AStarStaticMemory {
 		while (true) {
 			x += 1;
 			y -= 1;
-			if (graph.isBlocked(x - 1, y)) return -1;
-			if (x == ex && y == ey) return toOneDimIndex(x, y);
+			if (getGraph().isBlocked(x - 1, y)) return -1;
+			if (x == getEx() && y == getEy()) return toOneDimIndex(x, y);
 			// diagonal cannot be forced on vertices.
 			if (jumpD(x, y) != -1) return toOneDimIndex(x, y);
 			if (jumpR(x, y) != -1) return toOneDimIndex(x, y);
@@ -126,8 +126,8 @@ public class JumpPointSearch extends AStarStaticMemory {
 		while (true) {
 			x -= 1;
 			y += 1;
-			if (graph.isBlocked(x, y - 1)) return -1;
-			if (x == ex && y == ey) return toOneDimIndex(x, y);
+			if (getGraph().isBlocked(x, y - 1)) return -1;
+			if (x == getEx() && y == getEy()) return toOneDimIndex(x, y);
 			// diagonal cannot be forced on vertices.
 			if (jumpL(x, y) != -1) return toOneDimIndex(x, y);
 			if (jumpU(x, y) != -1) return toOneDimIndex(x, y);
@@ -138,8 +138,8 @@ public class JumpPointSearch extends AStarStaticMemory {
 		while (true) {
 			x += 1;
 			y += 1;
-			if (graph.isBlocked(x - 1, y - 1)) return -1;
-			if (x == ex && y == ey) return toOneDimIndex(x, y);
+			if (getGraph().isBlocked(x - 1, y - 1)) return -1;
+			if (x == getEx() && y == getEy()) return toOneDimIndex(x, y);
 			// diagonal cannot be forced on vertices.
 			if (jumpU(x, y) != -1) return toOneDimIndex(x, y);
 			if (jumpR(x, y) != -1) return toOneDimIndex(x, y);
@@ -149,68 +149,68 @@ public class JumpPointSearch extends AStarStaticMemory {
 	private int jumpL(int x, int y) {
 		while (true) {
 			x -= 1;
-			if (graph.isBlocked(x, y)) {
-				if (graph.isBlocked(x, y - 1)) {
+			if (getGraph().isBlocked(x, y)) {
+				if (getGraph().isBlocked(x, y - 1)) {
 					return -1;
 				} else {
-					if (!graph.isBlocked(x - 1, y)) return toOneDimIndex(x, y);
+					if (!getGraph().isBlocked(x - 1, y)) return toOneDimIndex(x, y);
 				}
 			}
-			if (graph.isBlocked(x, y - 1)) {
-				if (!graph.isBlocked(x - 1, y - 1)) return toOneDimIndex(x, y);
+			if (getGraph().isBlocked(x, y - 1)) {
+				if (!getGraph().isBlocked(x - 1, y - 1)) return toOneDimIndex(x, y);
 			}
-			if (x == ex && y == ey) return toOneDimIndex(x, y);
+			if (x == getEx() && y == getEy()) return toOneDimIndex(x, y);
 		}
 	}
 
 	private int jumpR(int x, int y) {
 		while (true) {
 			x += 1;
-			if (graph.isBlocked(x - 1, y)) {
-				if (graph.isBlocked(x - 1, y - 1)) {
+			if (getGraph().isBlocked(x - 1, y)) {
+				if (getGraph().isBlocked(x - 1, y - 1)) {
 					return -1;
 				} else {
-					if (!graph.isBlocked(x, y)) return toOneDimIndex(x, y);
+					if (!getGraph().isBlocked(x, y)) return toOneDimIndex(x, y);
 				}
 			}
-			if (graph.isBlocked(x - 1, y - 1)) {
-				if (!graph.isBlocked(x, y - 1)) return toOneDimIndex(x, y);
+			if (getGraph().isBlocked(x - 1, y - 1)) {
+				if (!getGraph().isBlocked(x, y - 1)) return toOneDimIndex(x, y);
 			}
-			if (x == ex && y == ey) return toOneDimIndex(x, y);
+			if (x == getEx() && y == getEy()) return toOneDimIndex(x, y);
 		}
 	}
 
 	private int jumpD(int x, int y) {
 		while (true) {
 			y -= 1;
-			if (graph.isBlocked(x, y)) {
-				if (graph.isBlocked(x - 1, y)) {
+			if (getGraph().isBlocked(x, y)) {
+				if (getGraph().isBlocked(x - 1, y)) {
 					return -1;
 				} else {
-					if (!graph.isBlocked(x, y - 1)) return toOneDimIndex(x, y);
+					if (!getGraph().isBlocked(x, y - 1)) return toOneDimIndex(x, y);
 				}
 			}
-			if (graph.isBlocked(x - 1, y)) {
-				if (!graph.isBlocked(x - 1, y - 1)) return toOneDimIndex(x, y);
+			if (getGraph().isBlocked(x - 1, y)) {
+				if (!getGraph().isBlocked(x - 1, y - 1)) return toOneDimIndex(x, y);
 			}
-			if (x == ex && y == ey) return toOneDimIndex(x, y);
+			if (x == getEx() && y == getEy()) return toOneDimIndex(x, y);
 		}
 	}
 
 	private int jumpU(int x, int y) {
 		while (true) {
 			y += 1;
-			if (graph.isBlocked(x, y - 1)) {
-				if (graph.isBlocked(x - 1, y - 1)) {
+			if (getGraph().isBlocked(x, y - 1)) {
+				if (getGraph().isBlocked(x - 1, y - 1)) {
 					return -1;
 				} else {
-					if (!graph.isBlocked(x, y)) return toOneDimIndex(x, y);
+					if (!getGraph().isBlocked(x, y)) return toOneDimIndex(x, y);
 				}
 			}
-			if (graph.isBlocked(x - 1, y - 1)) {
-				if (!graph.isBlocked(x - 1, y)) return toOneDimIndex(x, y);
+			if (getGraph().isBlocked(x - 1, y - 1)) {
+				if (!getGraph().isBlocked(x - 1, y)) return toOneDimIndex(x, y);
 			}
-			if (x == ex && y == ey) return toOneDimIndex(x, y);
+			if (x == getEx() && y == getEy()) return toOneDimIndex(x, y);
 		}
 	}
 
@@ -225,7 +225,7 @@ public class JumpPointSearch extends AStarStaticMemory {
 					if (x == 0 && y == 0) continue;
 					int px = cx + x;
 					int py = cy + y;
-					if (graph.neighbourLineOfSight(cx, cy, px, py)) {
+					if (getGraph().neighbourLineOfSight(cx, cy, px, py)) {
 						addNeighbour(x, y);
 					}
 				}
@@ -239,36 +239,36 @@ public class JumpPointSearch extends AStarStaticMemory {
 		if (dirX < 0) {
 			if (dirY < 0) {
 				// down-left
-				if (!graph.isBlocked(cx - 1, cy - 1)) {
+				if (!getGraph().isBlocked(cx - 1, cy - 1)) {
 					addNeighbour(-1, -1);
 					addNeighbour(-1, 0);
 					addNeighbour(0, -1);
 				} else {
-					if (!graph.isBlocked(cx - 1, cy)) addNeighbour(-1, 0);
-					if (!graph.isBlocked(cx, cy - 1)) addNeighbour(0, -1);
+					if (!getGraph().isBlocked(cx - 1, cy)) addNeighbour(-1, 0);
+					if (!getGraph().isBlocked(cx, cy - 1)) addNeighbour(0, -1);
 				}
 			} else if (dirY > 0) {
 				// up-left
-				if (!graph.isBlocked(cx - 1, cy)) {
+				if (!getGraph().isBlocked(cx - 1, cy)) {
 					addNeighbour(-1, 1);
 					addNeighbour(-1, 0);
 					addNeighbour(0, 1);
 				} else {
-					if (!graph.isBlocked(cx - 1, cy - 1)) addNeighbour(-1, 0);
-					if (!graph.isBlocked(cx, cy)) addNeighbour(0, 1);
+					if (!getGraph().isBlocked(cx - 1, cy - 1)) addNeighbour(-1, 0);
+					if (!getGraph().isBlocked(cx, cy)) addNeighbour(0, 1);
 				}
 			} else {
 				// left
-				if (graph.isBlocked(cx, cy)) {
-					if (!graph.isBlocked(cx - 1, cy)) {
+				if (getGraph().isBlocked(cx, cy)) {
+					if (!getGraph().isBlocked(cx - 1, cy)) {
 						addNeighbour(-1, 1);
 						addNeighbour(0, 1);
 						addNeighbour(-1, 0);
 					} else {
 						throw new UnsupportedOperationException("wrong");
 					}
-				} else if (graph.isBlocked(cx, cy - 1)) {
-					if (!graph.isBlocked(cx - 1, cy - 1)) {
+				} else if (getGraph().isBlocked(cx, cy - 1)) {
+					if (!getGraph().isBlocked(cx - 1, cy - 1)) {
 						addNeighbour(-1, -1);
 						addNeighbour(0, -1);
 						addNeighbour(-1, 0);
@@ -282,36 +282,36 @@ public class JumpPointSearch extends AStarStaticMemory {
 		} else if (dirX > 0) {
 			if (dirY < 0) {
 				// down-right
-				if (!graph.isBlocked(cx, cy - 1)) {
+				if (!getGraph().isBlocked(cx, cy - 1)) {
 					addNeighbour(1, -1);
 					addNeighbour(1, 0);
 					addNeighbour(0, -1);
 				} else {
-					if (!graph.isBlocked(cx, cy)) addNeighbour(1, 0);
-					if (!graph.isBlocked(cx - 1, cy - 1)) addNeighbour(0, -1);
+					if (!getGraph().isBlocked(cx, cy)) addNeighbour(1, 0);
+					if (!getGraph().isBlocked(cx - 1, cy - 1)) addNeighbour(0, -1);
 				}
 			} else if (dirY > 0) {
 				// up-right
-				if (!graph.isBlocked(cx, cy)) {
+				if (!getGraph().isBlocked(cx, cy)) {
 					addNeighbour(1, 1);
 					addNeighbour(1, 0);
 					addNeighbour(0, 1);
 				} else {
-					if (!graph.isBlocked(cx, cy - 1)) addNeighbour(1, 0);
-					if (!graph.isBlocked(cx - 1, cy)) addNeighbour(0, 1);
+					if (!getGraph().isBlocked(cx, cy - 1)) addNeighbour(1, 0);
+					if (!getGraph().isBlocked(cx - 1, cy)) addNeighbour(0, 1);
 				}
 			} else {
 				// right
-				if (graph.isBlocked(cx - 1, cy)) {
-					if (!graph.isBlocked(cx, cy)) {
+				if (getGraph().isBlocked(cx - 1, cy)) {
+					if (!getGraph().isBlocked(cx, cy)) {
 						addNeighbour(1, 1);
 						addNeighbour(0, 1);
 						addNeighbour(1, 0);
 					} else {
 						throw new UnsupportedOperationException("wrong");
 					}
-				} else if (graph.isBlocked(cx - 1, cy - 1)) {
-					if (!graph.isBlocked(cx, cy - 1)) {
+				} else if (getGraph().isBlocked(cx - 1, cy - 1)) {
+					if (!getGraph().isBlocked(cx, cy - 1)) {
 						addNeighbour(1, -1);
 						addNeighbour(0, -1);
 						addNeighbour(1, 0);
@@ -325,16 +325,16 @@ public class JumpPointSearch extends AStarStaticMemory {
 		} else {
 			if (dirY < 0) {
 				// down
-				if (graph.isBlocked(cx, cy)) {
-					if (!graph.isBlocked(cx, cy - 1)) {
+				if (getGraph().isBlocked(cx, cy)) {
+					if (!getGraph().isBlocked(cx, cy - 1)) {
 						addNeighbour(1, -1);
 						addNeighbour(1, 0);
 						addNeighbour(0, -1);
 					} else {
 						throw new UnsupportedOperationException("wrong");
 					}
-				} else if (graph.isBlocked(cx - 1, cy)) {
-					if (!graph.isBlocked(cx - 1, cy - 1)) {
+				} else if (getGraph().isBlocked(cx - 1, cy)) {
+					if (!getGraph().isBlocked(cx - 1, cy - 1)) {
 						addNeighbour(-1, -1);
 						addNeighbour(-1, 0);
 						addNeighbour(0, -1);
@@ -346,16 +346,16 @@ public class JumpPointSearch extends AStarStaticMemory {
 				}
 			} else { //dirY > 0
 				// up
-				if (graph.isBlocked(cx, cy - 1)) {
-					if (!graph.isBlocked(cx, cy)) {
+				if (getGraph().isBlocked(cx, cy - 1)) {
+					if (!getGraph().isBlocked(cx, cy)) {
 						addNeighbour(1, 1);
 						addNeighbour(1, 0);
 						addNeighbour(0, 1);
 					} else {
 						throw new UnsupportedOperationException("wrong");
 					}
-				} else if (graph.isBlocked(cx - 1, cy - 1)) {
-					if (!graph.isBlocked(cx - 1, cy)) {
+				} else if (getGraph().isBlocked(cx - 1, cy - 1)) {
+					if (!getGraph().isBlocked(cx - 1, cy)) {
 						addNeighbour(-1, 1);
 						addNeighbour(-1, 0);
 						addNeighbour(0, 1);
@@ -377,7 +377,7 @@ public class JumpPointSearch extends AStarStaticMemory {
 
 	@Override
 	protected float heuristic(int x, int y) {
-		return graph.octileDistance(x, y, ex, ey);
+		return getGraph().octileDistance(x, y, getEx(), getEy());
 	}
 
 	protected void tryRelax(int current, int currX, int currY, int destination) {
@@ -386,7 +386,7 @@ public class JumpPointSearch extends AStarStaticMemory {
 		int destX = toTwoDimX(destination);
 		int destY = toTwoDimY(destination);
 
-		if (relax(current, destination, graph.octileDistance(currX, currY, destX, destY))) {
+		if (relax(current, destination, getGraph().octileDistance(currX, currY, destX, destY))) {
 			// If relaxation is done.
 			pq.decreaseKey(destination, distance(destination) + heuristic(destX, destY));
 		}

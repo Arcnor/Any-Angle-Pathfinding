@@ -21,19 +21,19 @@ public class Anya extends PathFindingAlgorithm {
 	private HashMap<AnyaState, Integer> existingStates;
 
 	public Anya(GridGraph graph, int sx, int sy, int ex, int ey) {
-		super(graph, graph.sizeX, graph.sizeY, sx, sy, ex, ey);
+		super(graph, graph.getSizeX(), graph.getSizeY(), sx, sy, ex, ey);
 	}
 
 	public static void initialiseUpExtents(GridGraph graph) {
 		// Don't reinitialise if graph is the same size as the last time.
-		if (rightDownExtents != null && graph.sizeY + 2 == rightDownExtents.length && graph.sizeX + 1 == rightDownExtents[0].length)
+		if (rightDownExtents != null && graph.getSizeY() + 2 == rightDownExtents.length && graph.getSizeX() + 1 == rightDownExtents[0].length)
 			return;
 
-		rightDownExtents = new int[graph.sizeY + 2][];
-		leftDownExtents = new int[graph.sizeY + 2][];
-		for (int y = 0; y < graph.sizeY + 2; ++y) {
-			rightDownExtents[y] = new int[graph.sizeX + 1];
-			leftDownExtents[y] = new int[graph.sizeX + 1];
+		rightDownExtents = new int[graph.getSizeY() + 2][];
+		leftDownExtents = new int[graph.getSizeY() + 2][];
+		for (int y = 0; y < graph.getSizeY() + 2; ++y) {
+			rightDownExtents[y] = new int[graph.getSizeX() + 1];
+			leftDownExtents[y] = new int[graph.getSizeX() + 1];
 		}
 	}
 
@@ -55,7 +55,7 @@ public class Anya extends PathFindingAlgorithm {
 
 			//System.out.println("Explore " + currState + " :: " + currState.fValue);
 			// Check if goal state.
-			if (currState.y == ey && currState.xL.isLessThanOrEqual(ex) && !currState.xR.isLessThan(ex)) {
+			if (currState.y == getEy() && currState.xL.isLessThanOrEqual(getEx()) && !currState.xR.isLessThan(getEx())) {
 				goalState = currState;
 				break;
 			}
@@ -65,12 +65,12 @@ public class Anya extends PathFindingAlgorithm {
 	}
 
 	private void generateStartingStates() {
-		boolean bottomLeftOfBlocked = graph.bottomLeftOfBlockedTile(sx, sy);
-		boolean bottomRightOfBlocked = graph.bottomRightOfBlockedTile(sx, sy);
-		boolean topLeftOfBlocked = graph.topLeftOfBlockedTile(sx, sy);
-		boolean topRightOfBlocked = graph.topRightOfBlockedTile(sx, sy);
+		boolean bottomLeftOfBlocked = getGraph().bottomLeftOfBlockedTile(getSx(), getSy());
+		boolean bottomRightOfBlocked = getGraph().bottomRightOfBlockedTile(getSx(), getSy());
+		boolean topLeftOfBlocked = getGraph().topLeftOfBlockedTile(getSx(), getSy());
+		boolean topRightOfBlocked = getGraph().topRightOfBlockedTile(getSx(), getSy());
 
-		Point start = new Point(sx, sy);
+		Point start = new Point(getSx(), getSy());
 
 		// Generate up
 		if (!bottomLeftOfBlocked || !bottomRightOfBlocked) {
@@ -78,16 +78,16 @@ public class Anya extends PathFindingAlgorithm {
 
 			if (bottomLeftOfBlocked) {
 				// Explore up-left
-				leftExtent = new Fraction(leftUpExtent(sx, sy));
-				rightExtent = new Fraction(sx);
+				leftExtent = new Fraction(leftUpExtent(getSx(), getSy()));
+				rightExtent = new Fraction(getSx());
 			} else if (bottomRightOfBlocked) {
 				// Explore up-right
-				leftExtent = new Fraction(sx);
-				rightExtent = new Fraction(rightUpExtent(sx, sy));
+				leftExtent = new Fraction(getSx());
+				rightExtent = new Fraction(rightUpExtent(getSx(), getSy()));
 			} else {
 				// Explore up-left-right
-				leftExtent = new Fraction(leftUpExtent(sx, sy));
-				rightExtent = new Fraction(rightUpExtent(sx, sy));
+				leftExtent = new Fraction(leftUpExtent(getSx(), getSy()));
+				rightExtent = new Fraction(rightUpExtent(getSx(), getSy()));
 			}
 
 			this.generateUpwardsStart(leftExtent, rightExtent, start);
@@ -99,16 +99,16 @@ public class Anya extends PathFindingAlgorithm {
 
 			if (topLeftOfBlocked) {
 				// Explore down-left
-				leftExtent = new Fraction(leftDownExtent(sx, sy));
-				rightExtent = new Fraction(sx);
+				leftExtent = new Fraction(leftDownExtent(getSx(), getSy()));
+				rightExtent = new Fraction(getSx());
 			} else if (topRightOfBlocked) {
 				// Explore down-right
-				leftExtent = new Fraction(sx);
-				rightExtent = new Fraction(rightDownExtent(sx, sy));
+				leftExtent = new Fraction(getSx());
+				rightExtent = new Fraction(rightDownExtent(getSx(), getSy()));
 			} else {
 				// Explore down-left-right
-				leftExtent = new Fraction(leftDownExtent(sx, sy));
-				rightExtent = new Fraction(rightDownExtent(sx, sy));
+				leftExtent = new Fraction(leftDownExtent(getSx(), getSy()));
+				rightExtent = new Fraction(rightDownExtent(getSx(), getSy()));
 			}
 
 			this.generateDownwardsStart(leftExtent, rightExtent, start);
@@ -116,12 +116,12 @@ public class Anya extends PathFindingAlgorithm {
 
 		// Generate left
 		if (!topRightOfBlocked || !bottomRightOfBlocked) {
-			this.generateSameLevelStart(start, leftAnyExtent(sx, sy), sx);
+			this.generateSameLevelStart(start, leftAnyExtent(getSx(), getSy()), getSx());
 		}
 
 		// Generate right
 		if (!topLeftOfBlocked || !bottomLeftOfBlocked) {
-			this.generateSameLevelStart(start, sx, rightAnyExtent(sx, sy));
+			this.generateSameLevelStart(start, getSx(), rightAnyExtent(getSx(), getSy()));
 		}
 	}
 
@@ -154,8 +154,8 @@ public class Anya extends PathFindingAlgorithm {
 		AnyaState successor = states[existingHandle];
 		if (successor.visited) return;
 
-		int dx = successor.basePoint.x - source.basePoint.x;
-		int dy = successor.basePoint.y - source.basePoint.y;
+		int dx = successor.basePoint.getX() - source.basePoint.getX();
+		int dy = successor.basePoint.getY() - source.basePoint.getY();
 		float newgValue = source.gValue + (float) Math.sqrt(dx * dx + dy * dy);
 
 		if (newgValue < successor.gValue) {
@@ -172,23 +172,23 @@ public class Anya extends PathFindingAlgorithm {
 
 	private void computeExtents() {
 		// graph.isBlocked(x,y) is the same as graph.bottomLeftOfBlockedTile(x,y)
-		Anya.initialiseUpExtents(graph);
+		Anya.initialiseUpExtents(getGraph());
 
-		for (int y = 0; y < sizeY + 2; ++y) {
+		for (int y = 0; y < getSizeY() + 2; ++y) {
 			boolean lastIsBlocked = true;
 			int lastX = -1;
-			for (int x = 0; x <= sizeX; ++x) {
+			for (int x = 0; x <= getSizeX(); ++x) {
 				leftDownExtents[y][x] = lastX;
-				if (graph.isBlocked(x, y - 1) != lastIsBlocked) {
+				if (getGraph().isBlocked(x, y - 1) != lastIsBlocked) {
 					lastX = x;
 					lastIsBlocked = !lastIsBlocked;
 				}
 			}
 			lastIsBlocked = true;
-			lastX = sizeX + 1;
-			for (int x = sizeX; x >= 0; --x) {
+			lastX = getSizeX() + 1;
+			for (int x = getSizeX(); x >= 0; --x) {
 				rightDownExtents[y][x] = lastX;
-				if (graph.isBlocked(x - 1, y - 1) != lastIsBlocked) {
+				if (getGraph().isBlocked(x - 1, y - 1) != lastIsBlocked) {
 					lastX = x;
 					lastIsBlocked = !lastIsBlocked;
 				}
@@ -202,9 +202,9 @@ public class Anya extends PathFindingAlgorithm {
 	private void generateSuccessors(AnyaState currState) {
 		Point basePoint = currState.basePoint;
 
-		if (basePoint.y == currState.y) {
+		if (basePoint.getY() == currState.y) {
 			exploreFromSameLevel(currState, basePoint);
-		} else if (basePoint.y < currState.y) {
+		} else if (basePoint.getY() < currState.y) {
 			explorefromBelow(currState, basePoint);
 		} else {
 			explorefromAbove(currState, basePoint);
@@ -217,16 +217,16 @@ public class Anya extends PathFindingAlgorithm {
 		// Property 1: basePoint is not strictly between the two endpoints of the interval.
 		// Property 2: the endpoints of the interval are integers.
 
-		assert basePoint.y == currState.y;
+		assert basePoint.getY() == currState.y;
 		assert currState.xL.isWholeNumber();
 		assert currState.xR.isWholeNumber();
 
-		int y = basePoint.y;
+		int y = basePoint.getY();
 
-		if (currState.xR.n <= basePoint.x) { // currState.xR <= point.x  (explore left)
+		if (currState.xR.n <= basePoint.getX()) { // currState.xR <= point.x  (explore left)
 			int xL = currState.xL.n;
-			if (graph.bottomLeftOfBlockedTile(xL, y)) {
-				if (!graph.bottomRightOfBlockedTile(xL, y)) {
+			if (getGraph().bottomLeftOfBlockedTile(xL, y)) {
+				if (!getGraph().bottomRightOfBlockedTile(xL, y)) {
 	                /* ----- |XXXXXXXX|
                      *       |XXXXXXXX|
                      * ----- P========B
@@ -234,8 +234,8 @@ public class Anya extends PathFindingAlgorithm {
 					Fraction leftBound = new Fraction(leftUpExtent(xL, y));
 					generateUpwardsUnobservable(new Point(xL, y), leftBound, currState.xL, currState);
 				}
-			} else if (graph.topLeftOfBlockedTile(xL, y)) {
-				if (!graph.topRightOfBlockedTile(xL, y)) {
+			} else if (getGraph().topLeftOfBlockedTile(xL, y)) {
+				if (!getGraph().topRightOfBlockedTile(xL, y)) {
                     /* ----- P========B
                      *       |XXXXXXXX|
                      * ----- |XXXXXXXX|
@@ -245,17 +245,17 @@ public class Anya extends PathFindingAlgorithm {
 				}
 			}
 
-			if (!graph.bottomRightOfBlockedTile(xL, y) || !graph.topRightOfBlockedTile(xL, y)) {
+			if (!getGraph().bottomRightOfBlockedTile(xL, y) || !getGraph().topRightOfBlockedTile(xL, y)) {
 				int leftBound = leftAnyExtent(xL, y);
 				generateSameLevelObservable(leftBound, xL, currState);
 			}
 
 		} else { // point.x <= currState.xL  (explore right)
-			assert basePoint.x <= currState.xL.n;
+			assert basePoint.getX() <= currState.xL.n;
 
 			int xR = currState.xR.n;
-			if (graph.bottomRightOfBlockedTile(xR, y)) {
-				if (!graph.bottomLeftOfBlockedTile(xR, y)) {
+			if (getGraph().bottomRightOfBlockedTile(xR, y)) {
+				if (!getGraph().bottomLeftOfBlockedTile(xR, y)) {
                     /*  |XXXXXXXX| -----
                      *  |XXXXXXXX|
                      *  B========P -----
@@ -263,8 +263,8 @@ public class Anya extends PathFindingAlgorithm {
 					Fraction rightBound = new Fraction(rightUpExtent(xR, y));
 					generateUpwardsUnobservable(new Point(xR, y), currState.xR, rightBound, currState);
 				}
-			} else if (graph.topRightOfBlockedTile(xR, y)) {
-				if (!graph.topLeftOfBlockedTile(xR, y)) {
+			} else if (getGraph().topRightOfBlockedTile(xR, y)) {
+				if (!getGraph().topLeftOfBlockedTile(xR, y)) {
                     /*  B========P -----
                      *  |XXXXXXXX|
                      *  |XXXXXXXX| -----
@@ -274,7 +274,7 @@ public class Anya extends PathFindingAlgorithm {
 				}
 			}
 
-			if (!graph.bottomLeftOfBlockedTile(xR, y) || !graph.topLeftOfBlockedTile(xR, y)) {
+			if (!getGraph().bottomLeftOfBlockedTile(xR, y) || !getGraph().topLeftOfBlockedTile(xR, y)) {
 				int rightBound = rightAnyExtent(xR, y);
 				generateSameLevelObservable(xR, rightBound, currState);
 			}
@@ -287,13 +287,13 @@ public class Anya extends PathFindingAlgorithm {
 		// Note: basePoint.y < currState.y
 		// Note: basePoint == currState.basePoint
 
-		assert basePoint.y < currState.y;
+		assert basePoint.getY() < currState.y;
 
-		if (graph.bottomLeftOfBlockedTile(currState.xL.floor(), currState.y)) {
+		if (getGraph().bottomLeftOfBlockedTile(currState.xL.floor(), currState.y)) {
 			// Is Blocked Above
 			if (currState.xL.isWholeNumber()) {
 				int xL = currState.xL.n;
-				if (xL < basePoint.x && !graph.bottomRightOfBlockedTile(xL, currState.y)) {
+				if (xL < basePoint.getX() && !getGraph().bottomRightOfBlockedTile(xL, currState.y)) {
                     /* 
                      * .-----|XXXXXXX
                      *  '.   |XXXXXXXX
@@ -305,8 +305,8 @@ public class Anya extends PathFindingAlgorithm {
                      */
 
 					// (Px-Bx)*(Py-By+1)/(Py-By) + Bx
-					int dy = currState.y - basePoint.y;
-					Fraction leftProjection = new Fraction((xL - basePoint.x) * (dy + 1), dy).plus(basePoint.x);
+					int dy = currState.y - basePoint.getY();
+					Fraction leftProjection = new Fraction((xL - basePoint.getX()) * (dy + 1), dy).plus(basePoint.getX());
 
 					int leftBound = leftUpExtent(xL, currState.y);
 					if (leftProjection.isLessThan(leftBound)) { // leftProjection < leftBound
@@ -319,7 +319,7 @@ public class Anya extends PathFindingAlgorithm {
 
 			if (currState.xR.isWholeNumber()) {
 				int xR = currState.xR.n;
-				if (basePoint.x < xR && !graph.bottomLeftOfBlockedTile(xR, currState.y)) {
+				if (basePoint.getX() < xR && !getGraph().bottomLeftOfBlockedTile(xR, currState.y)) {
                     /* 
                      *  XXXXXXX|-----.
                      * XXXXXXXX|   .'
@@ -331,8 +331,8 @@ public class Anya extends PathFindingAlgorithm {
                      */
 
 					// (Px-Bx)*(Py-By+1)/(Py-By) + Bx
-					int dy = currState.y - basePoint.y;
-					Fraction rightProjection = new Fraction((xR - basePoint.x) * (dy + 1), dy).plus(basePoint.x);
+					int dy = currState.y - basePoint.getY();
+					Fraction rightProjection = new Fraction((xR - basePoint.getX()) * (dy + 1), dy).plus(basePoint.getX());
 
 					int rightBound = rightUpExtent(xR, currState.y);
 					if (!rightProjection.isLessThanOrEqual(rightBound)) { // rightBound < rightProjection
@@ -354,8 +354,8 @@ public class Anya extends PathFindingAlgorithm {
              */
 
 			// (Px-Bx)*(Py-By+1)/(Py-By) + Bx
-			int dy = currState.y - basePoint.y;
-			Fraction leftProjection = currState.xL.minus(basePoint.x).multiplyDivide(dy + 1, dy).plus(basePoint.x);
+			int dy = currState.y - basePoint.getY();
+			Fraction leftProjection = currState.xL.minus(basePoint.getX()).multiplyDivide(dy + 1, dy).plus(basePoint.getX());
 
 			int leftBound = leftUpExtent(currState.xL.floor() + 1, currState.y);
 			if (leftProjection.isLessThan(leftBound)) { // leftProjection < leftBound
@@ -363,7 +363,7 @@ public class Anya extends PathFindingAlgorithm {
 			}
 
 			// (Px-Bx)*(Py-By+1)/(Py-By) + Bx
-			Fraction rightProjection = currState.xR.minus(basePoint.x).multiplyDivide(dy + 1, dy).plus(basePoint.x);
+			Fraction rightProjection = currState.xR.minus(basePoint.getX()).multiplyDivide(dy + 1, dy).plus(basePoint.getX());
 
 			int rightBound = rightUpExtent(currState.xR.ceil() - 1, currState.y);
 			if (!rightProjection.isLessThanOrEqual(rightBound)) { // rightBound < rightProjection
@@ -378,7 +378,7 @@ public class Anya extends PathFindingAlgorithm {
 
 		if (currState.xL.isWholeNumber()) {
 			int xL = currState.xL.n;
-			if (graph.topRightOfBlockedTile(xL, currState.y) && !graph.bottomRightOfBlockedTile(xL, currState.y)) {
+			if (getGraph().topRightOfBlockedTile(xL, currState.y) && !getGraph().bottomRightOfBlockedTile(xL, currState.y)) {
                 /*
                  * .------P======
                  * |XXXXXX|\   /
@@ -393,8 +393,8 @@ public class Anya extends PathFindingAlgorithm {
 				}
 
 				{
-					int dy = currState.y - basePoint.y;
-					Fraction leftProjection = new Fraction((xL - basePoint.x) * (dy + 1), dy).plus(basePoint.x);
+					int dy = currState.y - basePoint.getY();
+					Fraction leftProjection = new Fraction((xL - basePoint.getX()) * (dy + 1), dy).plus(basePoint.getX());
 
 					int leftBound = leftUpExtent(xL, currState.y);
 					if (!leftProjection.isLessThanOrEqual(leftBound)) { // leftBound < leftProjection
@@ -406,7 +406,7 @@ public class Anya extends PathFindingAlgorithm {
 
 		if (currState.xR.isWholeNumber()) {
 			int xR = currState.xR.n;
-			if (graph.topLeftOfBlockedTile(xR, currState.y) && !graph.bottomLeftOfBlockedTile(xR, currState.y)) {
+			if (getGraph().topLeftOfBlockedTile(xR, currState.y) && !getGraph().bottomLeftOfBlockedTile(xR, currState.y)) {
                 /*
                  * ======P------.
                  *  \   /|XXXXXX|
@@ -421,8 +421,8 @@ public class Anya extends PathFindingAlgorithm {
 				}
 
 				{
-					int dy = currState.y - basePoint.y;
-					Fraction rightProjection = new Fraction((xR - basePoint.x) * (dy + 1), dy).plus(basePoint.x);
+					int dy = currState.y - basePoint.getY();
+					Fraction rightProjection = new Fraction((xR - basePoint.getX()) * (dy + 1), dy).plus(basePoint.getX());
 					int rightBound = rightUpExtent(xR, currState.y);
 					if (rightProjection.isLessThan(rightBound)) { // rightProjection < rightBound
 						this.generateUpwardsUnobservable(pivot, rightProjection, new Fraction(rightBound), currState);
@@ -436,13 +436,13 @@ public class Anya extends PathFindingAlgorithm {
 		// Note: basePoint.y > currState.y
 		// Note: basePoint == currState.basePoint
 
-		assert basePoint.y > currState.y;
+		assert basePoint.getY() > currState.y;
 
-		if (graph.topLeftOfBlockedTile(currState.xL.floor(), currState.y)) {
+		if (getGraph().topLeftOfBlockedTile(currState.xL.floor(), currState.y)) {
 			// Is Blocked Below
 			if (currState.xL.isWholeNumber()) {
 				int xL = currState.xL.n;
-				if (xL < basePoint.x && !graph.topRightOfBlockedTile(xL, currState.y)) {
+				if (xL < basePoint.getX() && !getGraph().topRightOfBlockedTile(xL, currState.y)) {
                     /* 
                      *            B  
                      *          .' ? 
@@ -454,8 +454,8 @@ public class Anya extends PathFindingAlgorithm {
                      */
 
 					// (Px-Bx)*(Py-By+1)/(Py-By) + Bx
-					int dy = basePoint.y - currState.y;
-					Fraction leftProjection = new Fraction((xL - basePoint.x) * (dy + 1), dy).plus(basePoint.x);
+					int dy = basePoint.getY() - currState.y;
+					Fraction leftProjection = new Fraction((xL - basePoint.getX()) * (dy + 1), dy).plus(basePoint.getX());
 
 					int leftBound = leftDownExtent(xL, currState.y);
 					if (leftProjection.isLessThan(leftBound)) { // leftProjection < leftBound
@@ -468,7 +468,7 @@ public class Anya extends PathFindingAlgorithm {
 
 			if (currState.xR.isWholeNumber()) {
 				int xR = currState.xR.n;
-				if (basePoint.x < xR && !graph.topLeftOfBlockedTile(xR, currState.y)) {
+				if (basePoint.getX() < xR && !getGraph().topLeftOfBlockedTile(xR, currState.y)) {
                     /* 
                      *    B
                      *   ? '.
@@ -480,8 +480,8 @@ public class Anya extends PathFindingAlgorithm {
                      */
 
 					// (Px-Bx)*(Py-By+1)/(Py-By) + Bx
-					int dy = basePoint.y - currState.y;
-					Fraction rightProjection = new Fraction((xR - basePoint.x) * (dy + 1), dy).plus(basePoint.x);
+					int dy = basePoint.getY() - currState.y;
+					Fraction rightProjection = new Fraction((xR - basePoint.getX()) * (dy + 1), dy).plus(basePoint.getX());
 
 					int rightBound = rightDownExtent(xR, currState.y);
 					if (!rightProjection.isLessThanOrEqual(rightBound)) { // rightBound < rightProjection
@@ -502,8 +502,8 @@ public class Anya extends PathFindingAlgorithm {
              */
 
 			// (Px-Bx)*(Py-By+1)/(Py-By) + Bx
-			int dy = basePoint.y - currState.y;
-			Fraction leftProjection = currState.xL.minus(basePoint.x).multiplyDivide(dy + 1, dy).plus(basePoint.x);
+			int dy = basePoint.getY() - currState.y;
+			Fraction leftProjection = currState.xL.minus(basePoint.getX()).multiplyDivide(dy + 1, dy).plus(basePoint.getX());
 
 			int leftBound = leftDownExtent(currState.xL.floor() + 1, currState.y);
 			if (leftProjection.isLessThan(leftBound)) { // leftProjection < leftBound
@@ -511,7 +511,7 @@ public class Anya extends PathFindingAlgorithm {
 			}
 
 			// (Px-Bx)*(Py-By+1)/(Py-By) + Bx
-			Fraction rightProjection = currState.xR.minus(basePoint.x).multiplyDivide(dy + 1, dy).plus(basePoint.x);
+			Fraction rightProjection = currState.xR.minus(basePoint.getX()).multiplyDivide(dy + 1, dy).plus(basePoint.getX());
 
 			int rightBound = rightDownExtent(currState.xR.ceil() - 1, currState.y);
 			if (!rightProjection.isLessThanOrEqual(rightBound)) { // rightBound < rightProjection
@@ -526,7 +526,7 @@ public class Anya extends PathFindingAlgorithm {
 
 		if (currState.xL.isWholeNumber()) {
 			int xL = currState.xL.n;
-			if (graph.bottomRightOfBlockedTile(xL, currState.y) && !graph.topRightOfBlockedTile(xL, currState.y)) {
+			if (getGraph().bottomRightOfBlockedTile(xL, currState.y) && !getGraph().topRightOfBlockedTile(xL, currState.y)) {
                 /*
                  *           B
                  * |XXXXXX| / \
@@ -541,8 +541,8 @@ public class Anya extends PathFindingAlgorithm {
 				}
 
 				{
-					int dy = basePoint.y - currState.y;
-					Fraction leftProjection = new Fraction((xL - basePoint.x) * (dy + 1), dy).plus(basePoint.x);
+					int dy = basePoint.getY() - currState.y;
+					Fraction leftProjection = new Fraction((xL - basePoint.getX()) * (dy + 1), dy).plus(basePoint.getX());
 
 					int leftBound = leftDownExtent(xL, currState.y);
 					if (!leftProjection.isLessThanOrEqual(leftBound)) { // leftBound < leftProjection
@@ -554,7 +554,7 @@ public class Anya extends PathFindingAlgorithm {
 
 		if (currState.xR.isWholeNumber()) {
 			int xR = currState.xR.n;
-			if (graph.bottomLeftOfBlockedTile(xR, currState.y) && !graph.topLeftOfBlockedTile(xR, currState.y)) {
+			if (getGraph().bottomLeftOfBlockedTile(xR, currState.y) && !getGraph().topLeftOfBlockedTile(xR, currState.y)) {
                 /*
                  *    B
                  *   / \ |XXXXXX|
@@ -569,8 +569,8 @@ public class Anya extends PathFindingAlgorithm {
 				}
 
 				{
-					int dy = basePoint.y - currState.y;
-					Fraction rightProjection = new Fraction((xR - basePoint.x) * (dy + 1), dy).plus(basePoint.x);
+					int dy = basePoint.getY() - currState.y;
+					Fraction rightProjection = new Fraction((xR - basePoint.getX()) * (dy + 1), dy).plus(basePoint.getX());
 					int rightBound = rightDownExtent(xR, currState.y);
 					if (rightProjection.isLessThan(rightBound)) { // rightProjection < rightBound
 						this.generateDownwardsUnobservable(pivot, rightProjection, new Fraction(rightBound), currState);
@@ -632,7 +632,7 @@ public class Anya extends PathFindingAlgorithm {
 	 */
 	private void generateSameLevelStart(Point start, int leftBound, int rightBound) {
 		addSuccessor(null,
-				AnyaState.createStartState(new Fraction(leftBound), new Fraction(rightBound), start.y, start));
+				AnyaState.createStartState(new Fraction(leftBound), new Fraction(rightBound), start.getY(), start));
 	}
 
 	private void generateUpwardsUnobservable(Point basePoint, Fraction leftBound, Fraction rightBound, AnyaState source) {
@@ -653,7 +653,7 @@ public class Anya extends PathFindingAlgorithm {
 
 	private void generateUpwardsStart(Fraction leftBound, Fraction rightBound, Point start) {
 		generateAndSplitIntervals(
-				start.y + 2, start.y + 1,
+				start.getY() + 2, start.getY() + 1,
 				start,
 				leftBound, rightBound,
 				null);
@@ -677,7 +677,7 @@ public class Anya extends PathFindingAlgorithm {
 
 	private void generateDownwardsStart(Fraction leftBound, Fraction rightBound, Point start) {
 		generateAndSplitIntervals(
-				start.y - 1, start.y - 1,
+				start.getY() - 1, start.getY() - 1,
 				start,
 				leftBound, rightBound,
 				null);
@@ -729,39 +729,39 @@ public class Anya extends PathFindingAlgorithm {
 
 
 	private float heuristic(AnyaState currState) {
-		int baseX = currState.basePoint.x;
-		int baseY = currState.basePoint.y;
+		int baseX = currState.basePoint.getX();
+		int baseY = currState.basePoint.getY();
 		Fraction xL = currState.xL;
 		Fraction xR = currState.xR;
 
 		// Special case: base, goal, interval all on same row.
-		if (currState.y == baseY && currState.y == ey) {
+		if (currState.y == baseY && currState.y == getEy()) {
 
 			// Case 1: base and goal on left of interval.
 			// baseX < xL && ex < xL
-			if (!xL.isLessThanOrEqual(baseX) && !xL.isLessThanOrEqual(ex)) {
-				return 2 * xL.toFloat() - baseX - ex; // (xL-baseX) + (xL-ex);
+			if (!xL.isLessThanOrEqual(baseX) && !xL.isLessThanOrEqual(getEx())) {
+				return 2 * xL.toFloat() - baseX - getEx(); // (xL-baseX) + (xL-ex);
 			}
 
 			// Case 2: base and goal on right of interval.
 			// xR < baseX && xR < ex
-			else if (xR.isLessThan(baseX) && xR.isLessThan(ex)) {
-				return baseX + ex - 2 * xL.toFloat(); // (baseX-xL) + (ex-xL)
+			else if (xR.isLessThan(baseX) && xR.isLessThan(getEx())) {
+				return baseX + getEx() - 2 * xL.toFloat(); // (baseX-xL) + (ex-xL)
 			}
 
 			// Case 3: Otherwise, the direct path from base to goal will pass through the interval.
 			else {
-				return Math.abs(baseX - ex);
+				return Math.abs(baseX - getEx());
 			}
 		}
 
 
 		int dy1 = baseY - currState.y;
-		int dy2 = ey - currState.y;
+		int dy2 = getEy() - currState.y;
 
 		// If goal and base on same side of interval, reflect goal about interval -> ey2.
-		int ey2 = ey;
-		if (dy1 * dy2 > 0) ey2 = 2 * currState.y - ey;
+		int ey2 = getEy();
+		if (dy1 * dy2 > 0) ey2 = 2 * currState.y - getEy();
         
         /*  E
          *   '.
@@ -773,7 +773,7 @@ public class Anya extends PathFindingAlgorithm {
 		// cx = bx + (cy-by)(ex-bx)/(ey-by)
 
 		// Find the pivot point on the interval for shortest path from base to goal.
-		float intersectX = baseX + (float) (currState.y - baseY) * (ex - baseX) / (ey2 - baseY);
+		float intersectX = baseX + (float) (currState.y - baseY) * (getEx() - baseX) / (ey2 - baseY);
 		float xlf = xL.toFloat();
 		float xrf = xR.toFloat();
 
@@ -784,7 +784,7 @@ public class Anya extends PathFindingAlgorithm {
 		{
 			// Return sum of euclidean distances. (base~intersection~goal)
 			float dx1 = intersectX - baseX;
-			float dx2 = intersectX - ex;
+			float dx2 = intersectX - getEx();
 
 			return (float) (Math.sqrt(dx1 * dx1 + dy1 * dy1) + Math.sqrt(dx2 * dx2 + dy2 * dy2));
 		}
@@ -811,14 +811,14 @@ public class Anya extends PathFindingAlgorithm {
 		AnyaState current = goalState;
 
 		path[length - 1] = new int[2];
-		path[length - 1][0] = ex;
-		path[length - 1][1] = ey;
+		path[length - 1][0] = getEx();
+		path[length - 1][1] = getEy();
 
 		int index = length - 2;
 		while (current != null) {
 			path[index] = new int[2];
-			path[index][0] = current.basePoint.x;
-			path[index][1] = current.basePoint.y;
+			path[index][0] = current.basePoint.getX();
+			path[index][1] = current.basePoint.getY();
 
 			index--;
 			current = current.parent;
@@ -833,15 +833,15 @@ public class Anya extends PathFindingAlgorithm {
 
 		// Start from goalState and traverse backwards.
 		double pathLength = 0;
-		int currX = ex;
-		int currY = ey;
+		int currX = getEx();
+		int currY = getEy();
 		AnyaState current = goalState;
 
 		while (current != null) {
-			int nextX = current.basePoint.x;
-			int nextY = current.basePoint.y;
+			int nextX = current.basePoint.getX();
+			int nextY = current.basePoint.getY();
 
-			pathLength += graph.distance_double(currX, currY, nextX, nextY);
+			pathLength += getGraph().distance_double(currX, currY, nextX, nextY);
 			current = current.parent;
 			currX = nextX;
 			currY = nextY;
@@ -865,9 +865,9 @@ public class Anya extends PathFindingAlgorithm {
 			line[2] = in.xL.d;
 			line[3] = in.xR.n;
 			line[4] = in.xR.d;
-			line[5] = in.basePoint.x;
-			line[6] = in.basePoint.y;
-			list.add(SnapshotItem.generate(line));
+			line[5] = in.basePoint.getX();
+			line[6] = in.basePoint.getY();
+			list.add(SnapshotItem.Companion.generate(line));
 		}
 
 		if (!pq.isEmpty()) {
@@ -880,7 +880,7 @@ public class Anya extends PathFindingAlgorithm {
 			line[2] = in.xL.d;
 			line[3] = in.xR.n;
 			line[4] = in.xR.d;
-			list.add(SnapshotItem.generate(line));
+			list.add(SnapshotItem.Companion.generate(line));
 		}
 
 		return list;

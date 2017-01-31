@@ -29,10 +29,10 @@ public class BFSVisibilityGraph extends VisibilityGraphAlgorithm {
 		int start = visibilityGraph.startNode();
 		int finish = visibilityGraph.endNode();
 		Queue<Integer> queue = new LinkedList<>();
-		parent = new int[visibilityGraph.size()];
+		setParent(new int[visibilityGraph.size()]);
 		visited = new boolean[visibilityGraph.size()];
-		for (int i = 0; i < parent.length; i++) {
-			parent[i] = -1;
+		for (int i = 0; i < getParent().length; i++) {
+			getParent()[i] = -1;
 		}
 
 		queue.offer(start);
@@ -46,7 +46,7 @@ public class BFSVisibilityGraph extends VisibilityGraphAlgorithm {
 				Edge edge = itr.next();
 				if (!visited[edge.dest]) {
 					visited[edge.dest] = true;
-					parent[edge.dest] = current;
+					getParent()[edge.dest] = current;
 					if (edge.dest == finish) {
 						queue = null;
 						break;

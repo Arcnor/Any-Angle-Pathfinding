@@ -113,8 +113,8 @@ public class DefaultGenerator {
 	 * No longer used as this does not generate very good or realistic grids.
 	 */
 	private static void generateRandomMap(Random rand, GridGraph gridGraph, int frequency) {
-		for (int x = 0; x < gridGraph.sizeX; x++) {
-			for (int y = 0; y < gridGraph.sizeY; y++) {
+		for (int x = 0; x < gridGraph.getSizeX(); x++) {
+			for (int y = 0; y < gridGraph.getSizeY(); y++) {
 				gridGraph.setBlocked(x, y, rand.nextInt() % frequency == 0);
 			}
 		}
@@ -135,8 +135,8 @@ public class DefaultGenerator {
 		;
 		while (didSomething) {
 			didSomething = false;
-			for (int x = 0; x < gridGraph.sizeX; x++) {
-				for (int y = 0; y < gridGraph.sizeY; y++) {
+			for (int x = 0; x < gridGraph.getSizeX(); x++) {
+				for (int y = 0; y < gridGraph.getSizeY(); y++) {
 					if (gridGraph.isBlocked(x, y)) {
 						if (gridGraph.isValidBlock(x + 1, y + 1) && gridGraph.isBlocked(x + 1, y + 1)) {
 							if (!gridGraph.isBlocked(x + 1, y) && !gridGraph.isBlocked(x, y + 1)) {
@@ -169,8 +169,8 @@ public class DefaultGenerator {
 	 * instead of simply spawning random blocks.
 	 */
 	private static void generateRandomBlockMap(Random rand, GridGraph gridGraph, int frequency) {
-		for (int x = 0; x < gridGraph.sizeX; x++) {
-			for (int y = 0; y < gridGraph.sizeY; y++) {
+		for (int x = 0; x < gridGraph.getSizeX(); x++) {
+			for (int y = 0; y < gridGraph.getSizeY(); y++) {
 				if (rand.nextInt(frequency) == 0) {
 					switch (rand.nextInt(3)) {
 						case 0:

@@ -11,10 +11,10 @@ public class LazyThetaStar extends BasicThetaStar {
 
 	@Override
 	public void computePath() {
-		int totalSize = (graph.sizeX + 1) * (graph.sizeY + 1);
+		int totalSize = (getGraph().getSizeX() + 1) * (getGraph().getSizeY() + 1);
 
-		int start = toOneDimIndex(sx, sy);
-		finish = toOneDimIndex(ex, ey);
+		int start = toOneDimIndex(getSx(), getSy());
+		finish = toOneDimIndex(getEx(), getEy());
 
 		pq = new ReusableIndirectHeap(totalSize);
 		this.initialiseMemory(totalSize, Float.POSITIVE_INFINITY, -1, false);
@@ -31,7 +31,7 @@ public class LazyThetaStar extends BasicThetaStar {
 				int parX = toTwoDimX(parentIndex);
 				int parY = toTwoDimY(parentIndex);
 
-				if (!graph.lineOfSight(x, y, parX, parY)) {
+				if (!getGraph().lineOfSight(x, y, parX, parY)) {
 					findPath1Parent(current, x, y);
 				}
 			}
@@ -66,12 +66,12 @@ public class LazyThetaStar extends BasicThetaStar {
 				if (i == 0 && j == 0) continue;
 				int px = x + i;
 				int py = y + j;
-				if (!graph.isValidBlock(px, py)) continue;
-				int index = graph.toOneDimIndex(px, py);
+				if (!getGraph().isValidBlock(px, py)) continue;
+				int index = getGraph().toOneDimIndex(px, py);
 				if (!visited(index)) continue;
-				if (!graph.neighbourLineOfSight(x, y, px, py)) continue;
+				if (!getGraph().neighbourLineOfSight(x, y, px, py)) continue;
 
-				float gValue = distance(index) + graph.distance(x, y, px, py);
+				float gValue = distance(index) + getGraph().distance(x, y, px, py);
 				if (gValue < distance(current)) {
 					setDistance(current, gValue);
 					setParent(current, index);

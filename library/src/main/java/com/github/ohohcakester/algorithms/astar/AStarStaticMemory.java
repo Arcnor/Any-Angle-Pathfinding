@@ -18,7 +18,7 @@ public class AStarStaticMemory extends PathFindingAlgorithm {
 
 
 	public AStarStaticMemory(GridGraph graph, int sx, int sy, int ex, int ey) {
-		super(graph, graph.sizeX, graph.sizeY, sx, sy, ex, ey);
+		super(graph, graph.getSizeX(), graph.getSizeY(), sx, sy, ex, ey);
 	}
 
 	public static AStarStaticMemory postSmooth(GridGraph graph, int sx, int sy, int ex, int ey) {
@@ -43,10 +43,10 @@ public class AStarStaticMemory extends PathFindingAlgorithm {
 
 	@Override
 	public void computePath() {
-		int totalSize = (graph.sizeX + 1) * (graph.sizeY + 1);
+		int totalSize = (getGraph().getSizeX() + 1) * (getGraph().getSizeY() + 1);
 
-		int start = toOneDimIndex(sx, sy);
-		finish = toOneDimIndex(ex, ey);
+		int start = toOneDimIndex(getSx(), getSy());
+		finish = toOneDimIndex(getEx(), getEy());
 
 		pq = new ReusableIndirectHeap(totalSize);
 		this.initialiseMemory(totalSize, Float.POSITIVE_INFINITY, -1, false);
@@ -91,13 +91,13 @@ public class AStarStaticMemory extends PathFindingAlgorithm {
 	}
 
 	protected void tryRelaxNeighbour(int current, int currentX, int currentY, int x, int y) {
-		if (!graph.isValidCoordinate(x, y))
+		if (!getGraph().isValidCoordinate(x, y))
 			return;
 
 		int destination = toOneDimIndex(x, y);
 		if (visited(destination))
 			return;
-		if (!graph.neighbourLineOfSight(currentX, currentY, x, y))
+		if (!getGraph().neighbourLineOfSight(currentX, currentY, x, y))
 			return;
 
 		if (relax(current, destination, weight(currentX, currentY, x, y))) {
@@ -108,12 +108,12 @@ public class AStarStaticMemory extends PathFindingAlgorithm {
 
 	protected float heuristic(int x, int y) {
 		//return 0;
-		return heuristicWeight * graph.distance(x, y, ex, ey);
+		return heuristicWeight * getGraph().distance(x, y, getEx(), getEy());
 	}
 
 
 	protected float weight(int x1, int y1, int x2, int y2) {
-		return graph.distance(x1, y1, x2, y2);
+		return getGraph().distance(x1, y1, x2, y2);
 	}
 
 	protected boolean relax(int u, int v, float weightUV) {
@@ -132,7 +132,7 @@ public class AStarStaticMemory extends PathFindingAlgorithm {
 
 	protected final void initialise(int s) {
 		pq.decreaseKey(s, 0f);
-		Memory.setDistance(s, 0f);
+		Memory.INSTANCE.setDistance(s, 0f);
 	}
 
 
@@ -151,7 +151,7 @@ public class AStarStaticMemory extends PathFindingAlgorithm {
 		int y1 = toTwoDimY(node1);
 		int x2 = toTwoDimX(node2);
 		int y2 = toTwoDimY(node2);
-		return graph.lineOfSight(x1, y1, x2, y2);
+		return getGraph().lineOfSight(x1, y1, x2, y2);
 	}
 
 	protected float physicalDistance(int node1, int node2) {
@@ -159,13 +159,13 @@ public class AStarStaticMemory extends PathFindingAlgorithm {
 		int y1 = toTwoDimY(node1);
 		int x2 = toTwoDimX(node2);
 		int y2 = toTwoDimY(node2);
-		return graph.distance(x1, y1, x2, y2);
+		return getGraph().distance(x1, y1, x2, y2);
 	}
 
 	protected float physicalDistance(int x1, int y1, int node2) {
 		int x2 = toTwoDimX(node2);
 		int y2 = toTwoDimY(node2);
-		return graph.distance(x1, y1, x2, y2);
+		return getGraph().distance(x1, y1, x2, y2);
 	}
 
 	protected void maybePostSmooth() {
@@ -233,26 +233,26 @@ public class AStarStaticMemory extends PathFindingAlgorithm {
 
 
 	protected int parent(int index) {
-		return Memory.parent(index);
+		return Memory.INSTANCE.parent(index);
 	}
 
 	protected void setParent(int index, int value) {
-		Memory.setParent(index, value);
+		Memory.INSTANCE.setParent(index, value);
 	}
 
 	protected float distance(int index) {
-		return Memory.distance(index);
+		return Memory.INSTANCE.distance(index);
 	}
 
 	protected void setDistance(int index, float value) {
-		Memory.setDistance(index, value);
+		Memory.INSTANCE.setDistance(index, value);
 	}
 
 	protected boolean visited(int index) {
-		return Memory.visited(index);
+		return Memory.INSTANCE.visited(index);
 	}
 
 	protected void setVisited(int index, boolean value) {
-		Memory.setVisited(index, value);
+		Memory.INSTANCE.setVisited(index, value);
 	}
 }

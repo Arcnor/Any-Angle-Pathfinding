@@ -79,9 +79,9 @@ public class VisibilityGraph {
 	}
 
 	private void addNodes() {
-		nodeIndex = new int[graph.sizeY + 1][];
+		nodeIndex = new int[graph.getSizeY() + 1][];
 		for (int y = 0; y < nodeIndex.length; y++) {
-			nodeIndex[y] = new int[graph.sizeX + 1];
+			nodeIndex[y] = new int[graph.getSizeX() + 1];
 			for (int x = 0; x < nodeIndex[y].length; x++) {
 				if (isCorner(x, y)) {
 					nodeIndex[y][x] = assignNode(x, y);
@@ -106,8 +106,8 @@ public class VisibilityGraph {
 
 		for (int i = 0; i < nodeList.size() - 1; i++) {
 			Point toPoint = coordinateOf(i);
-			if (graph.lineOfSight(x, y, toPoint.x, toPoint.y)) {
-				float weight = computeWeight(x, y, toPoint.x, toPoint.y);
+			if (graph.lineOfSight(x, y, toPoint.getX(), toPoint.getY())) {
+				float weight = computeWeight(x, y, toPoint.getX(), toPoint.getY());
 				addEdge(i, index, weight);
 				addEdge(index, i, weight);
 			}
@@ -173,8 +173,8 @@ public class VisibilityGraph {
 			Point fromPoint = coordinateOf(i);
 			for (int j = i + 1; j < nodeList.size(); j++) {
 				Point toPoint = coordinateOf(j);
-				if (graph.lineOfSight(fromPoint.x, fromPoint.y, toPoint.x, toPoint.y)) {
-					float weight = computeWeight(fromPoint.x, fromPoint.y, toPoint.x, toPoint.y);
+				if (graph.lineOfSight(fromPoint.getX(), fromPoint.getY(), toPoint.getX(), toPoint.getY())) {
+					float weight = computeWeight(fromPoint.getX(), fromPoint.getY(), toPoint.getX(), toPoint.getY());
 					addEdge(i, j, weight);
 					addEdge(j, i, weight);
 				}

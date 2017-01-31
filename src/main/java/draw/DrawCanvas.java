@@ -30,8 +30,8 @@ public class DrawCanvas extends JPanel {
 
 	public DrawCanvas(GridGraph gridGraph, GridLineSet gridLineSet) {
 		super();
-		int sizeX = gridGraph.sizeX;
-		int sizeY = gridGraph.sizeY;
+		int sizeX = gridGraph.getSizeX();
+		int sizeY = gridGraph.getSizeY();
 		if (sizeX < sizeY) {
 			resY = MAX_RES;
 			resX = resY * sizeX / sizeY;

@@ -30,8 +30,8 @@ public class GridPointDrawer implements Drawer {
 
 		this.resX = resX;
 		this.resY = resY;
-		width = (float) resX / gridGraph.sizeX;
-		height = (float) resY / gridGraph.sizeY;
+		width = (float) resX / gridGraph.getSizeX();
+		height = (float) resY / gridGraph.getSizeY();
 		circleSize = Math.max((int) (width / 4), minCircleSize);
 		circleSize *= CIRCLE_SCALE_FACTOR;
 		halfCircleSize = circleSize / 2;

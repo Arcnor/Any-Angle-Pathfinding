@@ -43,10 +43,10 @@ public class StrictThetaStar extends BasicThetaStar {
 
 	@Override
 	public void computePath() {
-		int totalSize = (graph.sizeX + 1) * (graph.sizeY + 1);
+		int totalSize = (getGraph().getSizeX() + 1) * (getGraph().getSizeY() + 1);
 
-		int start = toOneDimIndex(sx, sy);
-		finish = toOneDimIndex(ex, ey);
+		int start = toOneDimIndex(getSx(), getSy());
+		finish = toOneDimIndex(getEx(), getEy());
 
 		pq = new ReusableIndirectHeap(totalSize);
 		this.initialiseMemory(totalSize, Float.POSITIVE_INFINITY, -1, false);
@@ -85,7 +85,7 @@ public class StrictThetaStar extends BasicThetaStar {
 	}
 
 	protected float heuristic(int x, int y) {
-		return heuristicWeight * graph.distance(x, y, ex, ey);
+		return heuristicWeight * getGraph().distance(x, y, getEx(), getEy());
 
 		// MOD 2 :: Increased Goal Heuristic - Not needed when a Penalty value of 0.42 is used.
 	    /*if (x == ex && y == ey) {
@@ -104,7 +104,7 @@ public class StrictThetaStar extends BasicThetaStar {
 
 
 	protected void tryRelaxNeighbour(int current, int currentX, int currentY, int x, int y) {
-		if (!graph.isValidCoordinate(x, y))
+		if (!getGraph().isValidCoordinate(x, y))
 			return;
 
 		int destination = toOneDimIndex(x, y);
@@ -112,7 +112,7 @@ public class StrictThetaStar extends BasicThetaStar {
 			return;
 		if (parent(current) != -1 && parent(current) == parent(destination)) // OPTIMISATION: [TI]
 			return; // Idea: don't bother trying to relax if parents are equal. using triangle inequality.
-		if (!graph.neighbourLineOfSight(currentX, currentY, x, y))
+		if (!getGraph().neighbourLineOfSight(currentX, currentY, x, y))
 			return;
 
 		if (relax(current, destination, weight(currentX, currentY, x, y))) {
@@ -160,6 +160,6 @@ public class StrictThetaStar extends BasicThetaStar {
 		int y2 = toTwoDimY(u);
 		int x3 = toTwoDimX(p);
 		int y3 = toTwoDimY(p);
-		return graph.isTaut(x1, y1, x2, y2, x3, y3);
+		return getGraph().isTaut(x1, y1, x2, y2, x3, y3);
 	}
 }

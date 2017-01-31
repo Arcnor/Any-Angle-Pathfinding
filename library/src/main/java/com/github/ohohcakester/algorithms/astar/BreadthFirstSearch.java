@@ -22,15 +22,15 @@ public class BreadthFirstSearch extends AStar {
 
 	@Override
 	public void computePath() {
-		int totalSize = (graph.sizeX + 1) * (graph.sizeY + 1);
+		int totalSize = (getGraph().getSizeX() + 1) * (getGraph().getSizeY() + 1);
 
-		int start = toOneDimIndex(sx, sy);
-		finish = toOneDimIndex(ex, ey);
+		int start = toOneDimIndex(getSx(), getSy());
+		finish = toOneDimIndex(getEx(), getEy());
 
 		visited = new boolean[totalSize];
-		parent = new int[totalSize];
-		for (int i = 0; i < parent.length; i++) {
-			parent[i] = -1;
+		setParent(new int[totalSize]);
+		for (int i = 0; i < getParent().length; i++) {
+			getParent()[i] = -1;
 		}
 
 		queue = new LinkedList<>();
@@ -81,7 +81,7 @@ public class BreadthFirstSearch extends AStar {
 	 * Returns true iff finish is found.
 	 */
 	private boolean addToQueue(int current, int index) {
-		parent[index] = current;
+		getParent()[index] = current;
 		queue.offer(index);
 		visited[index] = true;
 		if (index == finish) {
@@ -108,19 +108,19 @@ public class BreadthFirstSearch extends AStar {
 	}
 
 	private boolean topRightOfBlockedTile(int x, int y) {
-		return graph.isBlocked(x - 1, y - 1);
+		return getGraph().isBlocked(x - 1, y - 1);
 	}
 
 	private boolean topLeftOfBlockedTile(int x, int y) {
-		return graph.isBlocked(x, y - 1);
+		return getGraph().isBlocked(x, y - 1);
 	}
 
 	private boolean bottomRightOfBlockedTile(int x, int y) {
-		return graph.isBlocked(x - 1, y);
+		return getGraph().isBlocked(x - 1, y);
 	}
 
 	private boolean bottomLeftOfBlockedTile(int x, int y) {
-		return graph.isBlocked(x, y);
+		return getGraph().isBlocked(x, y);
 	}
 
 }

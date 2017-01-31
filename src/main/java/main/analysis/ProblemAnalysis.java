@@ -29,8 +29,8 @@ public class ProblemAnalysis {
 		VisibilityGraphAlgorithm algo = VisibilityGraphAlgorithm.graphReuse(gridGraph, sx, sy, ex, ey);
 		algo.computePath();
 		int[][] path = algo.getPath();
-		int sizeX = gridGraph.sizeX;
-		int sizeY = gridGraph.sizeY;
+		int sizeX = gridGraph.getSizeX();
+		int sizeY = gridGraph.getSizeY();
 
 		shortestPathLength = Utility.computePathLength(gridGraph, path);
 		straightLineDistance = gridGraph.distance(sx, sy, ex, ey);

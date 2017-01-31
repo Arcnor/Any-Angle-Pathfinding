@@ -14,6 +14,6 @@ public class AStarOctileHeuristic extends AStarStaticMemory {
 	}
 
 	protected float heuristic(int x, int y) {
-		return graph.octileDistance(x, y, ex, ey);
+		return getGraph().octileDistance(x, y, getEx(), getEy());
 	}
 }

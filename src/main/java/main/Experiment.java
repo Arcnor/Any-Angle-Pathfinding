@@ -81,13 +81,13 @@ public class Experiment {
 
 			Point s = points.get(first);
 			Point f = points.get(last);
-			int[][] path = Utility.generatePath(algo, gridGraph, s.x, s.y, f.x, f.y);
+			int[][] path = Utility.generatePath(algo, gridGraph, s.getX(), s.getY(), f.getX(), f.getY());
 			if (path.length >= 2) {
 				double len = Utility.computePathLength(gridGraph, path);
-				startX.offer(s.x);
-				startY.offer(s.y);
-				endX.offer(f.x);
-				endY.offer(f.y);
+				startX.offer(s.getX());
+				startY.offer(s.getY());
+				endX.offer(f.getX());
+				endY.offer(f.getY());
 				length.offer(len);
 			}
 			if (i % 10 == 0) System.out.println("Computed: " + i);
@@ -118,10 +118,10 @@ public class Experiment {
 
 		Random rand = new Random();
 		for (int i = 0; i < amount; i++) {
-			int x1 = rand.nextInt(gridGraph.sizeX);
-			int y1 = rand.nextInt(gridGraph.sizeY);
-			int x2 = rand.nextInt(gridGraph.sizeX);
-			int y2 = rand.nextInt(gridGraph.sizeY);
+			int x1 = rand.nextInt(gridGraph.getSizeX());
+			int y1 = rand.nextInt(gridGraph.getSizeY());
+			int x2 = rand.nextInt(gridGraph.getSizeX());
+			int y2 = rand.nextInt(gridGraph.getSizeY());
 
 			Experiment.testAndAddLine(x1, y1, x2, y2, gridGraph, gridLineSet);
 		}
@@ -487,8 +487,8 @@ public class Experiment {
 			String map = maps[i];
 			System.out.println("Map: " + map);
 			GridGraph gridGraph = GraphImporter.loadStoredMaze(map);
-			int sizeX = gridGraph.sizeX;
-			int sizeY = gridGraph.sizeY;
+			int sizeX = gridGraph.getSizeX();
+			int sizeY = gridGraph.getSizeY();
 
             /*int sizeX = seedRand.nextInt(20) + 300;
             int sizeY = seedRand.nextInt(20) + 300;

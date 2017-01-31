@@ -40,8 +40,8 @@ class AnyaState {
 	}
 
 	public static AnyaState createUnobservableSuccessor(Fraction xL, Fraction xR, int y, Point basePoint, AnyaState sourceInterval) {
-		int dx = basePoint.x - sourceInterval.basePoint.x;
-		int dy = basePoint.y - sourceInterval.basePoint.y;
+		int dx = basePoint.getX() - sourceInterval.basePoint.getX();
+		int dy = basePoint.getY() - sourceInterval.basePoint.getY();
 		return new AnyaState(xL, xR, y,
 				basePoint,
 				sourceInterval.gValue + (float) Math.sqrt(dx * dx + dy * dy),

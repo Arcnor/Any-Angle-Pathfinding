@@ -19,8 +19,8 @@ public class GridGraphDrawer implements Drawer {
 
 	@Override
 	public void draw(Graphics g) {
-		for (int x = 0; x < gridGraph.sizeX; x++) {
-			for (int y = 0; y < gridGraph.sizeY; y++) {
+		for (int x = 0; x < gridGraph.getSizeX(); x++) {
+			for (int y = 0; y < gridGraph.getSizeY(); y++) {
 				if (gridGraph.isBlocked(x, y)) {
 					drawSquare(g, x, y);
 				}
@@ -29,8 +29,8 @@ public class GridGraphDrawer implements Drawer {
 	}
 
 	private void drawSquare(Graphics g, int x, int y) {
-		float width = (float) resX / gridGraph.sizeX;
-		float height = (float) resY / gridGraph.sizeY;
+		float width = (float) resX / gridGraph.getSizeX();
+		float height = (float) resY / gridGraph.getSizeY();
 		float xPos = width * x;
 		float yPos = height * y;
 

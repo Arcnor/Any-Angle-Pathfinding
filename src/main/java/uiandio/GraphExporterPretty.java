@@ -12,7 +12,7 @@ public class GraphExporterPretty extends GraphExporter {
 	protected String currentLineToString() {
 		StringBuilder sb = new StringBuilder("|");
 		String delim = "";
-		for (int i = 0; i < gridGraph.sizeX; i++) {
+		for (int i = 0; i < gridGraph.getSizeX(); i++) {
 			char value = gridGraph.isBlocked(i, line) ? '@' : '-';
 			sb.append(delim).append(value);
 			delim = " ";

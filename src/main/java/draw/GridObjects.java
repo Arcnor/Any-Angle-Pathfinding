@@ -36,8 +36,8 @@ public class GridObjects {
 		GridPointSet gridPointSet = new GridPointSet();
 
 		for (SnapshotItem item : snapshot) {
-			Integer[] path = item.path;
-			Color color = item.color;
+			Integer[] path = item.getPath();
+			Color color = item.getColor();
 			if (path.length == 4) {
 				gridLineSet.addLine(path[0], path[1], path[2], path[3], or(LINE_COLOR, color));
 			} else if (path.length == 2) {
