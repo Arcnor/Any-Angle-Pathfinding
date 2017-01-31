@@ -1,5 +1,6 @@
 package com.github.ohohcakester.algorithms.priorityqueue;
 
+import com.github.ohohcakester.priorityqueue.FastVariableSizeIndirectHeap;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

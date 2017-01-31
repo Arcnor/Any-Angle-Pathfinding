@@ -1,6 +1,6 @@
 package com.github.ohohcakester.algorithms.thetastar;
 
-import com.github.ohohcakester.algorithms.priorityqueue.ReusableIndirectHeap;
+import com.github.ohohcakester.priorityqueue.ReusableIndirectHeap;
 import com.github.ohohcakester.grid.GridGraph;
 
 public class LazyThetaStar extends BasicThetaStar {

@@ -2,7 +2,7 @@ package com.github.ohohcakester.algorithms.astar;
 
 import com.github.ohohcakester.algorithms.PathFindingAlgorithm;
 import com.github.ohohcakester.datatypes.Memory;
-import com.github.ohohcakester.algorithms.priorityqueue.ReusableIndirectHeap;
+import com.github.ohohcakester.priorityqueue.ReusableIndirectHeap;
 import com.github.ohohcakester.grid.GridGraph;
 
 

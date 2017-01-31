@@ -1,6 +1,6 @@
 package com.github.ohohcakester.algorithms.astar;
 
-import com.github.ohohcakester.algorithms.priorityqueue.IndirectHeap;
+import com.github.ohohcakester.priorityqueue.IndirectHeap;
 import com.github.ohohcakester.grid.GridGraph;
 
 import java.util.ArrayList;

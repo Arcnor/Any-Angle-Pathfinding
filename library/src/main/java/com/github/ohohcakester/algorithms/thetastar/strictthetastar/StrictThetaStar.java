@@ -1,6 +1,6 @@
 package com.github.ohohcakester.algorithms.thetastar.strictthetastar;
 
-import com.github.ohohcakester.algorithms.priorityqueue.ReusableIndirectHeap;
+import com.github.ohohcakester.priorityqueue.ReusableIndirectHeap;
 import com.github.ohohcakester.algorithms.thetastar.BasicThetaStar;
 import com.github.ohohcakester.grid.GridGraph;
 
