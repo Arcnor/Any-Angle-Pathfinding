@@ -31,13 +31,13 @@ public class StrictThetaStar extends BasicThetaStar {
 
 	public static StrictThetaStar noHeuristic(GridGraph graph, int sx, int sy, int ex, int ey) {
 		StrictThetaStar algo = new StrictThetaStar(graph, sx, sy, ex, ey);
-		algo.heuristicWeight = 0f;
+		algo.setHeuristicWeight(0f);
 		return algo;
 	}
 
 	public static StrictThetaStar postSmooth(GridGraph graph, int sx, int sy, int ex, int ey) {
 		StrictThetaStar algo = new StrictThetaStar(graph, sx, sy, ex, ey);
-		algo.postSmoothingOn = true;
+		algo.setPostSmoothingOn(true);
 		return algo;
 	}
 
@@ -46,18 +46,18 @@ public class StrictThetaStar extends BasicThetaStar {
 		int totalSize = (getGraph().getSizeX() + 1) * (getGraph().getSizeY() + 1);
 
 		int start = toOneDimIndex(getSx(), getSy());
-		finish = toOneDimIndex(getEx(), getEy());
+		setFinish(toOneDimIndex(getEx(), getEy()));
 
-		pq = new ReusableIndirectHeap(totalSize);
+		setPq(new ReusableIndirectHeap(totalSize));
 		this.initialiseMemory(totalSize, Float.POSITIVE_INFINITY, -1, false);
 
 		initialise(start);
 
-		while (!pq.isEmpty()) {
-			int current = pq.popMinIndex();
+		while (!getPq().isEmpty()) {
+			int current = getPq().popMinIndex();
 			tryFixBufferValue(current);
 
-			if (current == finish || distance(current) == Float.POSITIVE_INFINITY) {
+			if (current == getFinish() || distance(current) == Float.POSITIVE_INFINITY) {
 				maybeSaveSearchSnapshot();
 				break;
 			}
@@ -85,7 +85,7 @@ public class StrictThetaStar extends BasicThetaStar {
 	}
 
 	protected float heuristic(int x, int y) {
-		return heuristicWeight * getGraph().distance(x, y, getEx(), getEy());
+		return getHeuristicWeight() * getGraph().distance(x, y, getEx(), getEy());
 
 		// MOD 2 :: Increased Goal Heuristic - Not needed when a Penalty value of 0.42 is used.
 	    /*if (x == ex && y == ey) {
@@ -117,7 +117,7 @@ public class StrictThetaStar extends BasicThetaStar {
 
 		if (relax(current, destination, weight(currentX, currentY, x, y))) {
 			// If relaxation is done.
-			pq.decreaseKey(destination, distance(destination) + heuristic(x, y));
+			getPq().decreaseKey(destination, distance(destination) + heuristic(x, y));
 		}
 	}
 

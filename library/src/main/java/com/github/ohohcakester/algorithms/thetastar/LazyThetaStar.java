@@ -14,15 +14,15 @@ public class LazyThetaStar extends BasicThetaStar {
 		int totalSize = (getGraph().getSizeX() + 1) * (getGraph().getSizeY() + 1);
 
 		int start = toOneDimIndex(getSx(), getSy());
-		finish = toOneDimIndex(getEx(), getEy());
+		setFinish(toOneDimIndex(getEx(), getEy()));
 
-		pq = new ReusableIndirectHeap(totalSize);
+		setPq(new ReusableIndirectHeap(totalSize));
 		this.initialiseMemory(totalSize, Float.POSITIVE_INFINITY, -1, false);
 
 		initialise(start);
 
-		while (!pq.isEmpty()) {
-			int current = pq.popMinIndex();
+		while (!getPq().isEmpty()) {
+			int current = getPq().popMinIndex();
 			int x = toTwoDimX(current);
 			int y = toTwoDimY(current);
 
@@ -36,7 +36,7 @@ public class LazyThetaStar extends BasicThetaStar {
 				}
 			}
 
-			if (current == finish || distance(current) == Float.POSITIVE_INFINITY) {
+			if (current == getFinish() || distance(current) == Float.POSITIVE_INFINITY) {
 				maybeSaveSearchSnapshot();
 				break;
 			}

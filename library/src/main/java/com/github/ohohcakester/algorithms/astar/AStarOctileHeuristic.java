@@ -9,7 +9,7 @@ public class AStarOctileHeuristic extends AStarStaticMemory {
 
 	public static AStarOctileHeuristic postSmooth(GridGraph graph, int sx, int sy, int ex, int ey) {
 		AStarOctileHeuristic algo = new AStarOctileHeuristic(graph, sx, sy, ex, ey);
-		algo.postSmoothingOn = true;
+		algo.setPostSmoothingOn(true);
 		return algo;
 	}
 

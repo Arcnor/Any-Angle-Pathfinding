@@ -6,7 +6,6 @@ package com.github.ohohcakester.priorityqueue
  * Runtime: O(1)
  */
 class ReusableIndirectHeap(private var heapSize: Int) {
-
 	init {
 		initialise(heapSize, java.lang.Float.POSITIVE_INFINITY)
 	}

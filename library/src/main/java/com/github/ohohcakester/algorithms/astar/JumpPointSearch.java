@@ -14,15 +14,15 @@ public class JumpPointSearch extends AStarStaticMemory {
 
 	public static JumpPointSearch postSmooth(GridGraph graph, int sx, int sy, int ex, int ey) {
 		JumpPointSearch algo = new JumpPointSearch(graph, sx, sy, ex, ey);
-		algo.postSmoothingOn = true;
-		algo.repeatedPostSmooth = false;
+		algo.setPostSmoothingOn(true);
+		algo.setRepeatedPostSmooth(false);
 		return algo;
 	}
 
 	public static JumpPointSearch repeatedPostSmooth(GridGraph graph, int sx, int sy, int ex, int ey) {
 		JumpPointSearch algo = new JumpPointSearch(graph, sx, sy, ex, ey);
-		algo.postSmoothingOn = true;
-		algo.repeatedPostSmooth = true;
+		algo.setPostSmoothingOn(true);
+		algo.setRepeatedPostSmooth(true);
 		return algo;
 	}
 
@@ -35,16 +35,16 @@ public class JumpPointSearch extends AStarStaticMemory {
 		int totalSize = (getGraph().getSizeX() + 1) * (getGraph().getSizeY() + 1);
 
 		int start = toOneDimIndex(getSx(), getSy());
-		finish = toOneDimIndex(getEx(), getEy());
+		setFinish(toOneDimIndex(getEx(), getEy()));
 
-		pq = new ReusableIndirectHeap(totalSize);
+		setPq(new ReusableIndirectHeap(totalSize));
 		this.initialiseMemory(totalSize, Float.POSITIVE_INFINITY, -1, false);
 
 		initialise(start);
 
-		while (!pq.isEmpty()) {
-			int current = pq.popMinIndex();
-			if (current == finish || distance(current) == Float.POSITIVE_INFINITY) {
+		while (!getPq().isEmpty()) {
+			int current = getPq().popMinIndex();
+			if (current == getFinish() || distance(current) == Float.POSITIVE_INFINITY) {
 				maybeSaveSearchSnapshot();
 				break;
 			}
@@ -388,7 +388,7 @@ public class JumpPointSearch extends AStarStaticMemory {
 
 		if (relax(current, destination, getGraph().octileDistance(currX, currY, destX, destY))) {
 			// If relaxation is done.
-			pq.decreaseKey(destination, distance(destination) + heuristic(destX, destY));
+			getPq().decreaseKey(destination, distance(destination) + heuristic(destX, destY));
 		}
 	}
 }

@@ -12,13 +12,13 @@ public class BasicThetaStar extends AStarStaticMemory {
 
 	public static BasicThetaStar postSmooth(GridGraph graph, int sx, int sy, int ex, int ey) {
 		BasicThetaStar bts = new BasicThetaStar(graph, sx, sy, ex, ey);
-		bts.postSmoothingOn = true;
+		bts.setPostSmoothingOn(true);
 		return bts;
 	}
 
 	public static BasicThetaStar noHeuristic(GridGraph graph, int sx, int sy, int ex, int ey) {
 		BasicThetaStar bts = new BasicThetaStar(graph, sx, sy, ex, ey);
-		bts.heuristicWeight = 0;
+		bts.setHeuristicWeight(0);
 		return bts;
 	}
 
@@ -37,7 +37,7 @@ public class BasicThetaStar extends AStarStaticMemory {
 
 		if (relax(current, destination, 0)) {
 			// If relaxation is done.
-			pq.decreaseKey(destination, distance(destination) + heuristic(x, y));
+			getPq().decreaseKey(destination, distance(destination) + heuristic(x, y));
 		}
 	}
 
