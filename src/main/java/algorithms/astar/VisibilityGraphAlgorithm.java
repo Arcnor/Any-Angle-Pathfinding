@@ -1,4 +1,4 @@
-package algorithms;
+package algorithms.astar;
 
 import grid.GridGraph;
 
@@ -10,8 +10,8 @@ import java.util.List;
 import algorithms.datatypes.Point;
 import algorithms.datatypes.SnapshotItem;
 import algorithms.priorityqueue.IndirectHeap;
-import algorithms.visibilitygraph.Edge;
-import algorithms.visibilitygraph.VisibilityGraph;
+import algorithms.astar.visibilitygraph.Edge;
+import algorithms.astar.visibilitygraph.VisibilityGraph;
 
 public class VisibilityGraphAlgorithm extends AStar {
     protected VisibilityGraph visibilityGraph;

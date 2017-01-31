@@ -1,5 +1,6 @@
-package algorithms;
+package algorithms.thetastar;
 
+import algorithms.astar.AStarStaticMemory;
 import grid.GridGraph;
 
 

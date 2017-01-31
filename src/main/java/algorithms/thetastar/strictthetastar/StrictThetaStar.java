@@ -1,7 +1,7 @@
-package algorithms.strictthetastar;
+package algorithms.thetastar.strictthetastar;
 
 import grid.GridGraph;
-import algorithms.BasicThetaStar;
+import algorithms.thetastar.BasicThetaStar;
 import algorithms.priorityqueue.ReusableIndirectHeap;
 
 /**

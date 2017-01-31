@@ -6,11 +6,10 @@ import algorithms.datatypes.Point;
  * Represents the Grid of blocked/unblocked tiles.
  */
 public class GridGraph {
-
     private boolean[][] tiles;
     public final int sizeX;
     public final int sizeY;
-    public final int sizeXplusOne;
+    private final int sizeXplusOne;
 
     private static final float SQRT_TWO = (float)Math.sqrt(2);
     private static final double SQRT_TWO_DOUBLE = Math.sqrt(2);

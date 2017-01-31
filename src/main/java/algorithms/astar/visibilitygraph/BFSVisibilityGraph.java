@@ -1,4 +1,4 @@
-package algorithms.visibilitygraph;
+package algorithms.astar.visibilitygraph;
 
 import grid.GridGraph;
 
@@ -6,7 +6,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Queue;
 
-import algorithms.VisibilityGraphAlgorithm;
+import algorithms.astar.VisibilityGraphAlgorithm;
 import algorithms.datatypes.Point;
 
 public class BFSVisibilityGraph extends VisibilityGraphAlgorithm {

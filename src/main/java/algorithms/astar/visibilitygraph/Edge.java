@@ -1,4 +1,4 @@
-package algorithms.visibilitygraph;
+package algorithms.astar.visibilitygraph;
 
 public class Edge {
 

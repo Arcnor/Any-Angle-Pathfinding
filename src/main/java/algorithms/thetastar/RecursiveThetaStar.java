@@ -1,4 +1,4 @@
-package algorithms;
+package algorithms.thetastar;
 
 import grid.GridGraph;
 

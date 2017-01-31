@@ -2,9 +2,9 @@ package main.analysis;
 
 import grid.GridGraph;
 import main.utility.Utility;
-import algorithms.VisibilityGraphAlgorithm;
-import algorithms.visibilitygraph.BFSVisibilityGraph;
-import algorithms.visibilitygraph.VisibilityGraph;
+import algorithms.astar.VisibilityGraphAlgorithm;
+import algorithms.astar.visibilitygraph.BFSVisibilityGraph;
+import algorithms.astar.visibilitygraph.VisibilityGraph;
 
 public class ProblemAnalysis {
     

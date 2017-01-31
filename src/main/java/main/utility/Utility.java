@@ -8,7 +8,7 @@ import java.util.Arrays;
 import main.AlgoFunction;
 import main.testgen.StartEndPointData;
 import algorithms.PathFindingAlgorithm;
-import algorithms.VisibilityGraphAlgorithm;
+import algorithms.astar.VisibilityGraphAlgorithm;
 import algorithms.datatypes.Point;
 
 public class Utility {

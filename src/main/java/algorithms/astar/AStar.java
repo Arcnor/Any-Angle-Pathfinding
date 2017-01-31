@@ -1,5 +1,6 @@
-package algorithms;
+package algorithms.astar;
 
+import algorithms.PathFindingAlgorithm;
 import algorithms.priorityqueue.IndirectHeap;
 import grid.GridGraph;
 

@@ -2,7 +2,7 @@ package grid;
 
 import java.util.ArrayList;
 
-import algorithms.BreadthFirstSearch;
+import algorithms.astar.BreadthFirstSearch;
 import algorithms.datatypes.Point;
 
 public class ReachableNodes extends BreadthFirstSearch {

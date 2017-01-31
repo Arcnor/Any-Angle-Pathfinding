@@ -1,5 +1,6 @@
-package algorithms;
+package algorithms.astar;
 
+import algorithms.PathFindingAlgorithm;
 import grid.GridGraph;
 import algorithms.datatypes.Memory;
 import algorithms.priorityqueue.ReusableIndirectHeap;

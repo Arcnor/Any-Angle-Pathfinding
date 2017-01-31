@@ -1,4 +1,4 @@
-package algorithms;
+package algorithms.astar;
 import grid.GridGraph;
 import algorithms.priorityqueue.ReusableIndirectHeap;
 

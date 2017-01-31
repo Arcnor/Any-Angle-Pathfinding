@@ -1,5 +1,6 @@
-package algorithms;
+package algorithms.astar;
 
+import algorithms.astar.AStar;
 import grid.GridGraph;
 
 import java.util.ArrayList;

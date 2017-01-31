@@ -1,10 +1,9 @@
-package algorithms.visibilitygraph;
+package algorithms.astar.visibilitygraph;
 
 import grid.GridGraph;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.LinkedList;
 
 import algorithms.datatypes.Point;
 

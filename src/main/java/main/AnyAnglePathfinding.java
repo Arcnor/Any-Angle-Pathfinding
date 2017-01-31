@@ -3,21 +3,21 @@ import grid.GridAndGoals;
 import main.graphgeneration.DefaultGenerator;
 import main.testgen.TestDataGenerator;
 import uiandio.GraphImporter;
-import algorithms.AStar;
-import algorithms.AStarOctileHeuristic;
-import algorithms.AStarStaticMemory;
-import algorithms.AcceleratedAStar;
-import algorithms.AdjustmentThetaStar;
-import algorithms.Anya;
-import algorithms.BasicThetaStar;
-import algorithms.BreadthFirstSearch;
-import algorithms.JumpPointSearch;
-import algorithms.LazyThetaStar;
-import algorithms.RecursiveThetaStar;
-import algorithms.VisibilityGraphAlgorithm;
-import algorithms.strictthetastar.RecursiveStrictThetaStar;
-import algorithms.strictthetastar.StrictThetaStar;
-import algorithms.visibilitygraph.BFSVisibilityGraph;
+import algorithms.astar.AStar;
+import algorithms.astar.AStarOctileHeuristic;
+import algorithms.astar.AStarStaticMemory;
+import algorithms.astar.AcceleratedAStar;
+import algorithms.thetastar.AdjustmentThetaStar;
+import algorithms.anya.Anya;
+import algorithms.thetastar.BasicThetaStar;
+import algorithms.astar.BreadthFirstSearch;
+import algorithms.astar.JumpPointSearch;
+import algorithms.thetastar.LazyThetaStar;
+import algorithms.thetastar.RecursiveThetaStar;
+import algorithms.astar.VisibilityGraphAlgorithm;
+import algorithms.thetastar.strictthetastar.RecursiveStrictThetaStar;
+import algorithms.thetastar.strictthetastar.StrictThetaStar;
+import algorithms.astar.visibilitygraph.BFSVisibilityGraph;
 
 /**
  * Instructions: Look for the main method.

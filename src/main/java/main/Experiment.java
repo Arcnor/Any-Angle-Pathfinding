@@ -13,15 +13,15 @@ import main.graphgeneration.DefaultGenerator;
 import main.utility.Utility;
 import uiandio.FileIO;
 import uiandio.GraphImporter;
-import algorithms.AStar;
-import algorithms.Anya;
-import algorithms.BasicThetaStar;
-import algorithms.JumpPointSearch;
-import algorithms.VisibilityGraphAlgorithm;
+import algorithms.astar.AStar;
+import algorithms.anya.Anya;
+import algorithms.thetastar.BasicThetaStar;
+import algorithms.astar.JumpPointSearch;
+import algorithms.astar.VisibilityGraphAlgorithm;
 import algorithms.datatypes.Point;
-import algorithms.strictthetastar.RecursiveStrictThetaStar;
-import algorithms.strictthetastar.StrictThetaStar;
-import algorithms.visibilitygraph.VisibilityGraph;
+import algorithms.thetastar.strictthetastar.RecursiveStrictThetaStar;
+import algorithms.thetastar.strictthetastar.StrictThetaStar;
+import algorithms.astar.visibilitygraph.VisibilityGraph;
 import draw.GridLineSet;
 
 public class Experiment {
