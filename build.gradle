@@ -1,0 +1,19 @@
+allprojects {
+	repositories {
+		mavenLocal()
+		mavenCentral()
+	}
+
+	apply plugin: 'java'
+
+	dependencies {
+		testCompile 'junit:junit:4.12'
+	}
+}
+
+
+project(':') {
+	dependencies {
+		compile project(':library')
+	}
+}
