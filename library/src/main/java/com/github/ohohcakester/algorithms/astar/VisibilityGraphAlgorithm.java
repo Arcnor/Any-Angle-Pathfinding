@@ -257,10 +257,4 @@ public class VisibilityGraphAlgorithm extends AStar {
 		}
 		addSnapshot(snapshotItemList);
 	}
-
-	@Override
-	public void printStatistics() {
-		System.out.println("Nodes: " + visibilityGraph.size());
-		System.out.println("Edges (Directed): " + visibilityGraph.computeSumDegrees());
-	}
 }

@@ -81,12 +81,6 @@ public abstract class PathFindingAlgorithm {
 	 */
 	public abstract int[][] getPath();
 
-	/**
-	 * An optimal overridable method which prints some statistics when called for.
-	 */
-	public void printStatistics() {
-	}
-
 	protected int toOneDimIndex(int x, int y) {
 		return graph.toOneDimIndex(x, y);
 	}
