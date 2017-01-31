@@ -8,5 +8,7 @@ public class StartGoalPoints {
 		this.sy = sy;
 		this.ex = ex;
 		this.ey = ey;
-	};
+	}
+
+	;
 }

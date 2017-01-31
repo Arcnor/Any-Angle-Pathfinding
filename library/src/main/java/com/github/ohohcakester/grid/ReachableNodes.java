@@ -1,38 +1,39 @@
 package com.github.ohohcakester.grid;
 
-import java.util.ArrayList;
-
 import com.github.ohohcakester.algorithms.astar.BreadthFirstSearch;
 import com.github.ohohcakester.algorithms.datatypes.Point;
 
+import java.util.ArrayList;
+
 public class ReachableNodes extends BreadthFirstSearch {
 
-    private ReachableNodes(GridGraph graph, int sx, int sy, int ex,
-            int ey) {
-        super(graph, sx, sy, ex, ey);
-    }
-    
-    /**
-     * Computes the set of all nodes reachable from (sx,sy) by an unblocked path.
-     * @param graph the grid to use.
-     * @param sx x-coordinate of root node
-     * @param sy y-coordinate of root node
-     * @return An ArrayList of Point objects (nodes reachable from (sx,sy) via an unblocked path).
-     */
-    public static ArrayList<Point> computeReachable(GridGraph graph, int sx, int sy) {
-        ReachableNodes nodes = new ReachableNodes(graph, sx, sy, -10, -10);
-        ArrayList<Point> list = new ArrayList<>();
+	private ReachableNodes(GridGraph graph, int sx, int sy, int ex,
+	                       int ey) {
+		super(graph, sx, sy, ex, ey);
+	}
 
-        nodes.computePath();
-        for (int i=0; i<nodes.visited.length; i++) {
-            if (nodes.visited[i]) {
-                int x = nodes.toTwoDimX(i);
-                int y = nodes.toTwoDimY(i);
-                list.add(new Point(x, y));
-            }
-        }
-        
-        return list;
-    }
+	/**
+	 * Computes the set of all nodes reachable from (sx,sy) by an unblocked path.
+	 *
+	 * @param graph the grid to use.
+	 * @param sx    x-coordinate of root node
+	 * @param sy    y-coordinate of root node
+	 * @return An ArrayList of Point objects (nodes reachable from (sx,sy) via an unblocked path).
+	 */
+	public static ArrayList<Point> computeReachable(GridGraph graph, int sx, int sy) {
+		ReachableNodes nodes = new ReachableNodes(graph, sx, sy, -10, -10);
+		ArrayList<Point> list = new ArrayList<>();
+
+		nodes.computePath();
+		for (int i = 0; i < nodes.visited.length; i++) {
+			if (nodes.visited[i]) {
+				int x = nodes.toTwoDimX(i);
+				int y = nodes.toTwoDimY(i);
+				list.add(new Point(x, y));
+			}
+		}
+
+		return list;
+	}
 
 }
