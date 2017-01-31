@@ -1,11 +1,11 @@
 package main.analysis;
 
-import grid.GridGraph;
+import com.github.ohohcakester.grid.GridGraph;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-import algorithms.datatypes.Point;
+import com.github.ohohcakester.algorithms.datatypes.Point;
 
 public class MazeAnalyser {
     public final MazeAnalysis mazeAnalysis;

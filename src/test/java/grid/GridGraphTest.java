@@ -2,7 +2,7 @@ package grid;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import grid.GridGraph;
+import com.github.ohohcakester.grid.GridGraph;
 import main.graphgeneration.DefaultGenerator;
 
 import org.junit.Test;

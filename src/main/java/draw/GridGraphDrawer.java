@@ -1,5 +1,5 @@
 package draw;
-import grid.GridGraph;
+import com.github.ohohcakester.grid.GridGraph;
 
 import java.awt.Graphics;
 

@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import algorithms.anya.Fraction;
+import com.github.ohohcakester.algorithms.anya.Fraction;
 
 public class GridLineSet {
 

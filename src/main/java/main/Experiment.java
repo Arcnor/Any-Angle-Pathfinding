@@ -1,8 +1,8 @@
 package main;
 
-import grid.GridGraph;
-import grid.ReachableNodes;
-import grid.StartGoalPoints;
+import com.github.ohohcakester.grid.GridGraph;
+import com.github.ohohcakester.grid.ReachableNodes;
+import com.github.ohohcakester.grid.StartGoalPoints;
 
 import java.awt.Color;
 import java.util.ArrayList;
@@ -13,15 +13,15 @@ import main.graphgeneration.DefaultGenerator;
 import main.utility.Utility;
 import uiandio.FileIO;
 import uiandio.GraphImporter;
-import algorithms.astar.AStar;
-import algorithms.anya.Anya;
-import algorithms.thetastar.BasicThetaStar;
-import algorithms.astar.JumpPointSearch;
-import algorithms.astar.VisibilityGraphAlgorithm;
-import algorithms.datatypes.Point;
-import algorithms.thetastar.strictthetastar.RecursiveStrictThetaStar;
-import algorithms.thetastar.strictthetastar.StrictThetaStar;
-import algorithms.astar.visibilitygraph.VisibilityGraph;
+import com.github.ohohcakester.algorithms.astar.AStar;
+import com.github.ohohcakester.algorithms.anya.Anya;
+import com.github.ohohcakester.algorithms.thetastar.BasicThetaStar;
+import com.github.ohohcakester.algorithms.astar.JumpPointSearch;
+import com.github.ohohcakester.algorithms.astar.VisibilityGraphAlgorithm;
+import com.github.ohohcakester.algorithms.datatypes.Point;
+import com.github.ohohcakester.algorithms.thetastar.strictthetastar.RecursiveStrictThetaStar;
+import com.github.ohohcakester.algorithms.thetastar.strictthetastar.StrictThetaStar;
+import com.github.ohohcakester.algorithms.astar.visibilitygraph.VisibilityGraph;
 import draw.GridLineSet;
 
 public class Experiment {

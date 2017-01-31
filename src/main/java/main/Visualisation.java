@@ -1,8 +1,9 @@
 package main;
 
-import grid.GridAndGoals;
-import grid.GridGraph;
-import grid.StartGoalPoints;
+import com.github.ohohcakester.algorithms.PathFindingAlgorithm;
+import com.github.ohohcakester.grid.GridAndGoals;
+import com.github.ohohcakester.grid.GridGraph;
+import com.github.ohohcakester.grid.StartGoalPoints;
 
 import java.awt.Color;
 import java.util.ArrayList;
@@ -13,8 +14,7 @@ import javax.swing.JFrame;
 
 import main.utility.Utility;
 import uiandio.CloseOnExitWindowListener;
-import algorithms.PathFindingAlgorithm;
-import algorithms.datatypes.SnapshotItem;
+import com.github.ohohcakester.algorithms.datatypes.SnapshotItem;
 import draw.DrawCanvas;
 import draw.GridLineSet;
 import draw.GridObjects;

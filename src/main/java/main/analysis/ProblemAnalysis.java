@@ -1,10 +1,10 @@
 package main.analysis;
 
-import grid.GridGraph;
+import com.github.ohohcakester.grid.GridGraph;
 import main.utility.Utility;
-import algorithms.astar.VisibilityGraphAlgorithm;
-import algorithms.astar.visibilitygraph.BFSVisibilityGraph;
-import algorithms.astar.visibilitygraph.VisibilityGraph;
+import com.github.ohohcakester.algorithms.astar.VisibilityGraphAlgorithm;
+import com.github.ohohcakester.algorithms.astar.visibilitygraph.BFSVisibilityGraph;
+import com.github.ohohcakester.algorithms.astar.visibilitygraph.VisibilityGraph;
 
 public class ProblemAnalysis {
     

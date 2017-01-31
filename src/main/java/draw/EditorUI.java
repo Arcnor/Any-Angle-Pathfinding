@@ -1,6 +1,6 @@
 package draw;
 
-import grid.GridGraph;
+import com.github.ohohcakester.grid.GridGraph;
 
 import java.awt.Color;
 import java.util.ArrayList;
@@ -9,7 +9,7 @@ import main.analysis.ProblemAnalysis;
 import main.analysis.TwoPoint;
 import main.testgen.Stringifier;
 import main.testgen.TestDataGenerator;
-import algorithms.datatypes.Point;
+import com.github.ohohcakester.algorithms.datatypes.Point;
 
 public class EditorUI extends DrawCanvas {
     private int sx;

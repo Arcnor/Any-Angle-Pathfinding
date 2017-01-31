@@ -1,23 +1,23 @@
 package main;
-import grid.GridAndGoals;
+import com.github.ohohcakester.grid.GridAndGoals;
 import main.graphgeneration.DefaultGenerator;
 import main.testgen.TestDataGenerator;
 import uiandio.GraphImporter;
-import algorithms.astar.AStar;
-import algorithms.astar.AStarOctileHeuristic;
-import algorithms.astar.AStarStaticMemory;
-import algorithms.astar.AcceleratedAStar;
-import algorithms.thetastar.AdjustmentThetaStar;
-import algorithms.anya.Anya;
-import algorithms.thetastar.BasicThetaStar;
-import algorithms.astar.BreadthFirstSearch;
-import algorithms.astar.JumpPointSearch;
-import algorithms.thetastar.LazyThetaStar;
-import algorithms.thetastar.RecursiveThetaStar;
-import algorithms.astar.VisibilityGraphAlgorithm;
-import algorithms.thetastar.strictthetastar.RecursiveStrictThetaStar;
-import algorithms.thetastar.strictthetastar.StrictThetaStar;
-import algorithms.astar.visibilitygraph.BFSVisibilityGraph;
+import com.github.ohohcakester.algorithms.astar.AStar;
+import com.github.ohohcakester.algorithms.astar.AStarOctileHeuristic;
+import com.github.ohohcakester.algorithms.astar.AStarStaticMemory;
+import com.github.ohohcakester.algorithms.astar.AcceleratedAStar;
+import com.github.ohohcakester.algorithms.thetastar.AdjustmentThetaStar;
+import com.github.ohohcakester.algorithms.anya.Anya;
+import com.github.ohohcakester.algorithms.thetastar.BasicThetaStar;
+import com.github.ohohcakester.algorithms.astar.BreadthFirstSearch;
+import com.github.ohohcakester.algorithms.astar.JumpPointSearch;
+import com.github.ohohcakester.algorithms.thetastar.LazyThetaStar;
+import com.github.ohohcakester.algorithms.thetastar.RecursiveThetaStar;
+import com.github.ohohcakester.algorithms.astar.VisibilityGraphAlgorithm;
+import com.github.ohohcakester.algorithms.thetastar.strictthetastar.RecursiveStrictThetaStar;
+import com.github.ohohcakester.algorithms.thetastar.strictthetastar.StrictThetaStar;
+import com.github.ohohcakester.algorithms.astar.visibilitygraph.BFSVisibilityGraph;
 
 /**
  * Instructions: Look for the main method.

@@ -1,7 +1,7 @@
 package main.graphgeneration;
 
-import grid.GridAndGoals;
-import grid.GridGraph;
+import com.github.ohohcakester.grid.GridAndGoals;
+import com.github.ohohcakester.grid.GridGraph;
 
 import java.util.Random;
 

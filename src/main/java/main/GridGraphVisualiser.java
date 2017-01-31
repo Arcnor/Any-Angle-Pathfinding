@@ -1,6 +1,6 @@
 package main;
 
-import grid.GridGraph;
+import com.github.ohohcakester.grid.GridGraph;
 
 import java.util.ArrayList;
 
@@ -9,7 +9,7 @@ import javax.swing.JFrame;
 import main.analysis.MazeAnalysis;
 import uiandio.CloseOnExitWindowListener;
 import uiandio.GraphImporter;
-import algorithms.datatypes.Point;
+import com.github.ohohcakester.algorithms.datatypes.Point;
 import draw.EditorUI;
 import draw.VisualiserKeyboardControls;
 import draw.VisualiserMouseControls;

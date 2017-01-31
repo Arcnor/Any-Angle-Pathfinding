@@ -1,10 +1,10 @@
 package main.testgen;
-import grid.GridGraph;
+import com.github.ohohcakester.grid.GridGraph;
 
 import java.util.Arrays;
 import java.util.LinkedList;
 
-import algorithms.datatypes.Point;
+import com.github.ohohcakester.algorithms.datatypes.Point;
 
 
 /**

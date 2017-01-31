@@ -1,6 +1,6 @@
 package main.testgen;
 
-import grid.GridGraph;
+import com.github.ohohcakester.grid.GridGraph;
 import main.graphgeneration.DefaultGenerator;
 import main.graphgeneration.GraphInfo;
 

@@ -1,6 +1,6 @@
 package main.testgen;
 
-import grid.GridGraph;
+import com.github.ohohcakester.grid.GridGraph;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -16,7 +16,7 @@ import uiandio.FileIO;
 import uiandio.GraphExporter;
 import uiandio.GraphExporterPretty;
 import uiandio.GraphImporter;
-import algorithms.datatypes.Point;
+import com.github.ohohcakester.algorithms.datatypes.Point;
 
 public class TestDataGenerator {
 

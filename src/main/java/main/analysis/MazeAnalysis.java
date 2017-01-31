@@ -1,13 +1,13 @@
 package main.analysis;
 
-import grid.GridGraph;
-import grid.ReachableNodes;
+import com.github.ohohcakester.grid.GridGraph;
+import com.github.ohohcakester.grid.ReachableNodes;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 
-import algorithms.datatypes.Point;
+import com.github.ohohcakester.algorithms.datatypes.Point;
 
 public class MazeAnalysis {
     

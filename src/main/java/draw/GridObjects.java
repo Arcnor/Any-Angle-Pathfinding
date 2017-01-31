@@ -3,8 +3,8 @@ package draw;
 import java.awt.Color;
 import java.util.List;
 
-import algorithms.anya.Fraction;
-import algorithms.datatypes.SnapshotItem;
+import com.github.ohohcakester.algorithms.anya.Fraction;
+import com.github.ohohcakester.algorithms.datatypes.SnapshotItem;
 
 public class GridObjects {
     private static final Color POINT_COLOR = new Color(0,64,255);

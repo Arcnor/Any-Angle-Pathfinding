@@ -1,6 +1,6 @@
 package main.analysis;
 
-import algorithms.datatypes.Point;
+import com.github.ohohcakester.algorithms.datatypes.Point;
 
 public class TwoPoint {
     public final Point p1, p2;

@@ -1,7 +1,7 @@
 package main;
 
-import grid.GridGraph;
-import grid.StartGoalPoints;
+import com.github.ohohcakester.grid.GridGraph;
+import com.github.ohohcakester.grid.StartGoalPoints;
 
 import java.awt.Color;
 import java.util.ArrayList;
@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import uiandio.GraphImporter;
-import algorithms.datatypes.SnapshotItem;
+import com.github.ohohcakester.algorithms.datatypes.SnapshotItem;
 import draw.DrawCanvas;
 import draw.GridLineSet;
 import draw.GridObjects;

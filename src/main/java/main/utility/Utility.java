@@ -1,15 +1,15 @@
 package main.utility;
 
-import grid.GridGraph;
+import com.github.ohohcakester.algorithms.PathFindingAlgorithm;
+import com.github.ohohcakester.grid.GridGraph;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
 import main.AlgoFunction;
 import main.testgen.StartEndPointData;
-import algorithms.PathFindingAlgorithm;
-import algorithms.astar.VisibilityGraphAlgorithm;
-import algorithms.datatypes.Point;
+import com.github.ohohcakester.algorithms.astar.VisibilityGraphAlgorithm;
+import com.github.ohohcakester.algorithms.datatypes.Point;
 
 public class Utility {
 

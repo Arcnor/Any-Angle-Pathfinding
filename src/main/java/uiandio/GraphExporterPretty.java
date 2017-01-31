@@ -1,6 +1,6 @@
 package uiandio;
 
-import grid.GridGraph;
+import com.github.ohohcakester.grid.GridGraph;
 
 public class GraphExporterPretty extends GraphExporter {
 

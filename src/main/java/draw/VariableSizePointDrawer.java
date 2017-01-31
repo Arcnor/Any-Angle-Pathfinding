@@ -1,6 +1,6 @@
 package draw;
 
-import grid.GridGraph;
+import com.github.ohohcakester.grid.GridGraph;
 
 public class VariableSizePointDrawer extends GridPointDrawer {
 

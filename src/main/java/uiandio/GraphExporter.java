@@ -1,6 +1,6 @@
 package uiandio;
 
-import grid.GridGraph;
+import com.github.ohohcakester.grid.GridGraph;
 
 /**
  * Used to convert a GridGraph to string, line-by-line.<br>
