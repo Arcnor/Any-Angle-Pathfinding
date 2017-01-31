@@ -2,8 +2,8 @@ package com.github.ohohcakester.algorithms.astar;
 
 import com.github.ohohcakester.algorithms.astar.visibilitygraph.Edge;
 import com.github.ohohcakester.algorithms.astar.visibilitygraph.VisibilityGraph;
-import com.github.ohohcakester.algorithms.datatypes.Point;
-import com.github.ohohcakester.algorithms.datatypes.SnapshotItem;
+import com.github.ohohcakester.datatypes.Point;
+import com.github.ohohcakester.datatypes.SnapshotItem;
 import com.github.ohohcakester.algorithms.priorityqueue.IndirectHeap;
 import com.github.ohohcakester.grid.GridGraph;
 

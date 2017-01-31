@@ -1,6 +1,6 @@
 package draw;
 
-import com.github.ohohcakester.algorithms.datatypes.Point;
+import com.github.ohohcakester.datatypes.Point;
 import com.github.ohohcakester.grid.GridGraph;
 import main.analysis.ProblemAnalysis;
 import main.analysis.TwoPoint;

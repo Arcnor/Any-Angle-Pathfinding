@@ -1,8 +1,8 @@
 package com.github.ohohcakester.algorithms.anya;
 
 import com.github.ohohcakester.algorithms.PathFindingAlgorithm;
-import com.github.ohohcakester.algorithms.datatypes.Point;
-import com.github.ohohcakester.algorithms.datatypes.SnapshotItem;
+import com.github.ohohcakester.datatypes.Point;
+import com.github.ohohcakester.datatypes.SnapshotItem;
 import com.github.ohohcakester.algorithms.priorityqueue.FastVariableSizeIndirectHeap;
 import com.github.ohohcakester.grid.GridGraph;
 

@@ -1,6 +1,6 @@
 package com.github.ohohcakester.algorithms.anya;
 
-import com.github.ohohcakester.algorithms.datatypes.Point;
+import com.github.ohohcakester.datatypes.Point;
 
 class AnyaState {
 	public final Fraction xL;

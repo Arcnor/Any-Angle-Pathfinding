@@ -1,7 +1,7 @@
 package draw;
 
 import com.github.ohohcakester.algorithms.anya.Fraction;
-import com.github.ohohcakester.algorithms.datatypes.SnapshotItem;
+import com.github.ohohcakester.datatypes.SnapshotItem;
 
 import java.awt.Color;
 import java.util.List;

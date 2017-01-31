@@ -1,6 +1,6 @@
 package main;
 
-import com.github.ohohcakester.algorithms.datatypes.Point;
+import com.github.ohohcakester.datatypes.Point;
 import com.github.ohohcakester.grid.GridGraph;
 import draw.EditorUI;
 import draw.VisualiserKeyboardControls;

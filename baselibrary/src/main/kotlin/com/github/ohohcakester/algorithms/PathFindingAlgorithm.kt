@@ -1,7 +1,7 @@
 package com.github.ohohcakester.algorithms
 
-import com.github.ohohcakester.algorithms.datatypes.Memory
-import com.github.ohohcakester.algorithms.datatypes.SnapshotItem
+import com.github.ohohcakester.datatypes.Memory
+import com.github.ohohcakester.datatypes.SnapshotItem
 import com.github.ohohcakester.grid.GridGraph
 
 import java.awt.Color

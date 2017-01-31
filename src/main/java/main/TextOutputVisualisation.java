@@ -1,6 +1,6 @@
 package main;
 
-import com.github.ohohcakester.algorithms.datatypes.SnapshotItem;
+import com.github.ohohcakester.datatypes.SnapshotItem;
 import com.github.ohohcakester.grid.GridGraph;
 import com.github.ohohcakester.grid.StartGoalPoints;
 import draw.DrawCanvas;

@@ -1,6 +1,6 @@
 package com.github.ohohcakester.algorithms.astar.visibilitygraph;
 
-import com.github.ohohcakester.algorithms.datatypes.Point;
+import com.github.ohohcakester.datatypes.Point;
 import com.github.ohohcakester.grid.GridGraph;
 
 import java.util.ArrayList;

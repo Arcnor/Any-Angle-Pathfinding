@@ -1,7 +1,7 @@
 package com.github.ohohcakester.grid;
 
 import com.github.ohohcakester.algorithms.astar.BreadthFirstSearch;
-import com.github.ohohcakester.algorithms.datatypes.Point;
+import com.github.ohohcakester.datatypes.Point;
 
 import java.util.ArrayList;
 

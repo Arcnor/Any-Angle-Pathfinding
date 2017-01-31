@@ -2,7 +2,7 @@
 
 package com.github.ohohcakester.grid
 
-import com.github.ohohcakester.algorithms.datatypes.Point
+import com.github.ohohcakester.datatypes.Point
 
 /**
  * Represents the Grid of blocked/unblocked tiles.

@@ -1,6 +1,6 @@
 package main.testgen;
 
-import com.github.ohohcakester.algorithms.datatypes.Point;
+import com.github.ohohcakester.datatypes.Point;
 
 public class StartEndPointData {
 	public final Point start;

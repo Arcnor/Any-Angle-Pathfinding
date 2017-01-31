@@ -1,4 +1,4 @@
-package com.github.ohohcakester.algorithms.datatypes
+package com.github.ohohcakester.datatypes
 
 object Memory {
 	private lateinit var distance: FloatArray
