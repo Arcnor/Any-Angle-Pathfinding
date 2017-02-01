@@ -2,7 +2,7 @@ package main;
 
 import com.github.ohohcakester.algorithms.anya.Anya;
 import com.github.ohohcakester.algorithms.astar.AStar;
-import com.github.ohohcakester.algorithms.astar.JumpPointSearch;
+import com.github.ohohcakester.algorithms.astarstatic.JumpPointSearch;
 import com.github.ohohcakester.algorithms.astar.VisibilityGraphAlgorithm;
 import com.github.ohohcakester.algorithms.astar.visibilitygraph.VisibilityGraph;
 import com.github.ohohcakester.datatypes.Point;

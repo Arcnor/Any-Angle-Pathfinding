@@ -7,7 +7,7 @@ import com.github.ohohcakester.algorithms.astarstatic.AStarOctileHeuristic;
 import com.github.ohohcakester.algorithms.astarstatic.AStarStaticMemory;
 import com.github.ohohcakester.algorithms.astar.AcceleratedAStar;
 import com.github.ohohcakester.algorithms.astar.BreadthFirstSearch;
-import com.github.ohohcakester.algorithms.astar.JumpPointSearch;
+import com.github.ohohcakester.algorithms.astarstatic.JumpPointSearch;
 import com.github.ohohcakester.algorithms.astar.VisibilityGraphAlgorithm;
 import com.github.ohohcakester.algorithms.thetastar.BasicThetaStar;
 import com.github.ohohcakester.algorithms.thetastar.LazyThetaStar;
@@ -128,7 +128,7 @@ public class AlgoTest {
 		AlgoFunction aStarOctilePS = AStarOctileHeuristic.Companion::postSmooth;
 		AlgoFunction bfs = BreadthFirstSearch::new;
 		AlgoFunction jumpPointSearch = JumpPointSearch::new;
-		AlgoFunction jpsPS = JumpPointSearch::postSmooth;
+		AlgoFunction jpsPS = JumpPointSearch.Companion::postSmooth;
 		AlgoFunction lazyThetaStar = LazyThetaStar::new;
 		AlgoFunction basicThetaStar = BasicThetaStar::new;
 		AlgoFunction basicThetaStarPS = BasicThetaStar::postSmooth;

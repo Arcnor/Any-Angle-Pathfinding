@@ -6,7 +6,7 @@ import com.github.ohohcakester.algorithms.astarstatic.AStarOctileHeuristic;
 import com.github.ohohcakester.algorithms.astarstatic.AStarStaticMemory;
 import com.github.ohohcakester.algorithms.astar.AcceleratedAStar;
 import com.github.ohohcakester.algorithms.astar.BreadthFirstSearch;
-import com.github.ohohcakester.algorithms.astar.JumpPointSearch;
+import com.github.ohohcakester.algorithms.astarstatic.JumpPointSearch;
 import com.github.ohohcakester.algorithms.astar.VisibilityGraphAlgorithm;
 import com.github.ohohcakester.algorithms.astar.visibilitygraph.BFSVisibilityGraph;
 import com.github.ohohcakester.algorithms.thetastar.AdjustmentThetaStar;
@@ -236,7 +236,7 @@ public class AnyAnglePathfinding {
 				algoFunction = JumpPointSearch::new;
 				break;
 			case 23:
-				algoFunction = JumpPointSearch::postSmooth;
+				algoFunction = JumpPointSearch.Companion::postSmooth;
 				break;
 			case 24:
 				algoFunction = AStarStaticMemory::new;

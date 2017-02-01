@@ -8,25 +8,35 @@ import com.github.ohohcakester.grid.GridGraph
 
 open class AStarStaticMemory(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) : PathFindingAlgorithm(graph, graph.sizeX, graph.sizeY, sx, sy, ex, ey) {
 	companion object {
-		fun postSmooth(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int): AStarStaticMemory {
-			val aStar = AStarStaticMemory(graph, sx, sy, ex, ey)
-			aStar.postSmoothingOn = true
-			aStar.repeatedPostSmooth = false
-			return aStar
+		@JvmStatic
+		protected fun <T: AStarStaticMemory> postSmooth(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int,
+		                                                constructor: (graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) -> T): T {
+			val r = constructor(graph, sx, sy, ex, ey)
+			r.postSmoothingOn = true
+			r.repeatedPostSmooth = false
+			return r
 		}
 
-		fun repeatedPostSmooth(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int): AStarStaticMemory {
-			val aStar = AStarStaticMemory(graph, sx, sy, ex, ey)
-			aStar.postSmoothingOn = true
-			aStar.repeatedPostSmooth = true
-			return aStar
+		@JvmStatic
+		protected fun <T: AStarStaticMemory> repeatedPostSmooth(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int,
+		                                                constructor: (graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) -> T): T {
+			val r = constructor(graph, sx, sy, ex, ey)
+			r.postSmoothingOn = true
+			r.repeatedPostSmooth = true
+			return r
 		}
 
-		fun dijkstra(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int): AStarStaticMemory {
-			val aStar = AStarStaticMemory(graph, sx, sy, ex, ey)
-			aStar.heuristicWeight = 0f
-			return aStar
+		@JvmStatic
+		protected fun <T: AStarStaticMemory> dijkstra(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int,
+		                                                constructor: (graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) -> T): T {
+			val r = constructor(graph, sx, sy, ex, ey)
+			r.heuristicWeight = 0f
+			return r
 		}
+
+		fun postSmooth(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) = postSmooth(graph, sx, sy, ex, ey, ::AStarStaticMemory)
+		fun repeatedPostSmooth(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) = repeatedPostSmooth(graph, sx, sy, ex, ey, ::AStarStaticMemory)
+		fun dijkstra(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int)= dijkstra(graph, sx, sy, ex, ey, ::AStarStaticMemory)
 	}
 
 	protected var postSmoothingOn = false
