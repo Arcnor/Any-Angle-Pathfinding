@@ -1,4 +1,4 @@
-package com.github.ohohcakester.algorithms.astar
+package com.github.ohohcakester.algorithms.astarstatic
 
 import com.github.ohohcakester.grid.GridGraph
 

@@ -1,5 +1,6 @@
 package com.github.ohohcakester.algorithms.astar;
 
+import com.github.ohohcakester.algorithms.astarstatic.AStarStaticMemory;
 import com.github.ohohcakester.priorityqueue.ReusableIndirectHeap;
 import com.github.ohohcakester.grid.GridGraph;
 

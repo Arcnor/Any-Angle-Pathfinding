@@ -1,6 +1,6 @@
 package com.github.ohohcakester.algorithms.thetastar;
 
-import com.github.ohohcakester.algorithms.astar.AStarStaticMemory;
+import com.github.ohohcakester.algorithms.astarstatic.AStarStaticMemory;
 import com.github.ohohcakester.grid.GridGraph;
 
 

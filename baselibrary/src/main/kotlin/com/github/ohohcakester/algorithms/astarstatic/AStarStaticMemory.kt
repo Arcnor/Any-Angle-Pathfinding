@@ -1,4 +1,4 @@
-package com.github.ohohcakester.algorithms.astar
+package com.github.ohohcakester.algorithms.astarstatic
 
 import com.github.ohohcakester.algorithms.PathFindingAlgorithm
 import com.github.ohohcakester.datatypes.Memory
