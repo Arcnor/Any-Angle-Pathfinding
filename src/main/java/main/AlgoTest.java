@@ -9,7 +9,7 @@ import com.github.ohohcakester.algorithms.astar.AcceleratedAStar;
 import com.github.ohohcakester.algorithms.astar.BreadthFirstSearch;
 import com.github.ohohcakester.algorithms.astarstatic.JumpPointSearch;
 import com.github.ohohcakester.algorithms.astar.VisibilityGraphAlgorithm;
-import com.github.ohohcakester.algorithms.thetastar.BasicThetaStar;
+import com.github.ohohcakester.algorithms.astarstatic.thetastar.BasicThetaStar;
 import com.github.ohohcakester.algorithms.thetastar.LazyThetaStar;
 import com.github.ohohcakester.algorithms.thetastar.RecursiveThetaStar;
 import com.github.ohohcakester.algorithms.thetastar.strictthetastar.RecursiveStrictThetaStar;
@@ -131,7 +131,7 @@ public class AlgoTest {
 		AlgoFunction jpsPS = JumpPointSearch.Companion::postSmooth;
 		AlgoFunction lazyThetaStar = LazyThetaStar::new;
 		AlgoFunction basicThetaStar = BasicThetaStar::new;
-		AlgoFunction basicThetaStarPS = BasicThetaStar::postSmooth;
+		AlgoFunction basicThetaStarPS = BasicThetaStar.Companion::postSmooth;
 		AlgoFunction aStarPS = AStar.Companion::postSmooth;
 		AlgoFunction dijkstra = AStar.Companion::dijkstra;
 		AlgoFunction vgaReuse = VisibilityGraphAlgorithm::graphReuse;

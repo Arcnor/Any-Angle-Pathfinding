@@ -1,5 +1,6 @@
 package com.github.ohohcakester.algorithms.thetastar;
 
+import com.github.ohohcakester.algorithms.astarstatic.thetastar.BasicThetaStar;
 import com.github.ohohcakester.grid.GridGraph;
 
 public class RecursiveThetaStar extends BasicThetaStar {

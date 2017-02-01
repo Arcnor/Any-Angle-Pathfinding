@@ -10,7 +10,7 @@ import com.github.ohohcakester.algorithms.astarstatic.JumpPointSearch;
 import com.github.ohohcakester.algorithms.astar.VisibilityGraphAlgorithm;
 import com.github.ohohcakester.algorithms.astar.visibilitygraph.BFSVisibilityGraph;
 import com.github.ohohcakester.algorithms.thetastar.AdjustmentThetaStar;
-import com.github.ohohcakester.algorithms.thetastar.BasicThetaStar;
+import com.github.ohohcakester.algorithms.astarstatic.thetastar.BasicThetaStar;
 import com.github.ohohcakester.algorithms.thetastar.LazyThetaStar;
 import com.github.ohohcakester.algorithms.thetastar.RecursiveThetaStar;
 import com.github.ohohcakester.algorithms.thetastar.strictthetastar.RecursiveStrictThetaStar;
@@ -166,7 +166,7 @@ public class AnyAnglePathfinding {
 	 * Choose an algorithm.
 	 */
 	static AlgoFunction setDefaultAlgoFunction() {
-		int choice = 7; // adjust this to choose an algorithm
+		int choice = 8; // adjust this to choose an algorithm
 
 		switch (choice) {
 			case 1:
@@ -194,10 +194,10 @@ public class AnyAnglePathfinding {
 				algoFunction = BasicThetaStar::new;
 				break;
 			case 9:
-				algoFunction = BasicThetaStar::noHeuristic;
+				algoFunction = BasicThetaStar.Companion::dijkstra;
 				break;
 			case 10:
-				algoFunction = BasicThetaStar::postSmooth;
+				algoFunction = BasicThetaStar.Companion::postSmooth;
 				break;
 			case 11:
 				algoFunction = AcceleratedAStar::new;

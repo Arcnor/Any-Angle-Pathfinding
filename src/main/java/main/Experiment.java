@@ -6,7 +6,7 @@ import com.github.ohohcakester.algorithms.astarstatic.JumpPointSearch;
 import com.github.ohohcakester.algorithms.astar.VisibilityGraphAlgorithm;
 import com.github.ohohcakester.algorithms.astar.visibilitygraph.VisibilityGraph;
 import com.github.ohohcakester.datatypes.Point;
-import com.github.ohohcakester.algorithms.thetastar.BasicThetaStar;
+import com.github.ohohcakester.algorithms.astarstatic.thetastar.BasicThetaStar;
 import com.github.ohohcakester.algorithms.thetastar.strictthetastar.RecursiveStrictThetaStar;
 import com.github.ohohcakester.algorithms.thetastar.strictthetastar.StrictThetaStar;
 import com.github.ohohcakester.grid.GridGraph;
