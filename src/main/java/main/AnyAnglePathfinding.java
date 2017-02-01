@@ -11,7 +11,7 @@ import com.github.ohohcakester.algorithms.astar.VisibilityGraphAlgorithm;
 import com.github.ohohcakester.algorithms.astar.visibilitygraph.BFSVisibilityGraph;
 import com.github.ohohcakester.algorithms.thetastar.AdjustmentThetaStar;
 import com.github.ohohcakester.algorithms.astarstatic.thetastar.BasicThetaStar;
-import com.github.ohohcakester.algorithms.thetastar.LazyThetaStar;
+import com.github.ohohcakester.algorithms.astarstatic.thetastar.LazyThetaStar;
 import com.github.ohohcakester.algorithms.thetastar.RecursiveThetaStar;
 import com.github.ohohcakester.algorithms.thetastar.strictthetastar.RecursiveStrictThetaStar;
 import com.github.ohohcakester.algorithms.thetastar.strictthetastar.StrictThetaStar;
@@ -65,7 +65,7 @@ public class AnyAnglePathfinding {
 	 * Choose a maze. (a gridGraph setting)
 	 */
 	static GridAndGoals loadMaze() {
-		int choice = 1; // Adjust this to choose a maze.
+		int choice = 3; // Adjust this to choose a maze.
 
 		switch (choice) {
 			case 0: {// UNSEEDED
@@ -166,7 +166,7 @@ public class AnyAnglePathfinding {
 	 * Choose an algorithm.
 	 */
 	static AlgoFunction setDefaultAlgoFunction() {
-		int choice = 8; // adjust this to choose an algorithm
+		int choice = 19; // adjust this to choose an algorithm
 
 		switch (choice) {
 			case 1:
