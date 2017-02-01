@@ -96,9 +96,9 @@ public class StrictThetaStar extends BasicThetaStar {
 	}
 
 	private void tryFixBufferValue(int current) {
-		if (parent(current) < 0 && parent(current) != -1) {
-			setParent(current, parent(current) - Integer.MIN_VALUE);
-			setDistance(current, distance(parent(current)) + physicalDistance(current, parent(current)));
+		if (getParent(current) < 0 && getParent(current) != -1) {
+			setParent(current, getParent(current) - Integer.MIN_VALUE);
+			setDistance(current, distance(getParent(current)) + physicalDistance(current, getParent(current)));
 		}
 	}
 
@@ -110,7 +110,7 @@ public class StrictThetaStar extends BasicThetaStar {
 		int destination = toOneDimIndex(x, y);
 		if (visited(destination))
 			return;
-		if (parent(current) != -1 && parent(current) == parent(destination)) // OPTIMISATION: [TI]
+		if (getParent(current) != -1 && getParent(current) == getParent(destination)) // OPTIMISATION: [TI]
 			return; // Idea: don't bother trying to relax if parents are equal. using triangle inequality.
 		if (!getGraph().neighbourLineOfSight(currentX, currentY, x, y))
 			return;
@@ -124,8 +124,8 @@ public class StrictThetaStar extends BasicThetaStar {
 	@Override
 	protected boolean relax(int u, int v, float weightUV) {
 		// return true iff relaxation is done.
-		int par = parent(u);
-		if (lineOfSight(parent(u), v)) {
+		int par = getParent(u);
+		if (lineOfSight(getParent(u), v)) {
 			float newWeight = distance(par) + physicalDistance(par, v);
 			return relaxTarget(v, par, newWeight);
 		} else {
@@ -149,10 +149,10 @@ public class StrictThetaStar extends BasicThetaStar {
 
 
 	/**
-	 * Checks whether the path v, u, p=parent(u) is taut.
+	 * Checks whether the path v, u, p=getParent(u) is taut.
 	 */
 	private boolean isTaut(int v, int u) {
-		int p = parent(u); // assert u != -1
+		int p = getParent(u); // assert u != -1
 		if (p == -1) return true;
 		int x1 = toTwoDimX(v);
 		int y1 = toTwoDimY(v);

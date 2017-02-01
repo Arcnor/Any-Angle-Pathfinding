@@ -115,9 +115,9 @@ public class RecursiveStrictThetaStar extends BasicThetaStar {
 	}
 
 	private void tryFixBufferValue(int current) {
-		if (parent(current) < 0 && parent(current) != -1) {
-			setParent(current, parent(current) - Integer.MIN_VALUE);
-			setDistance(current, distance(parent(current)) + physicalDistance(current, parent(current)));
+		if (getParent(current) < 0 && getParent(current) != -1) {
+			setParent(current, getParent(current) - Integer.MIN_VALUE);
+			setDistance(current, distance(getParent(current)) + physicalDistance(current, getParent(current)));
 		}
 	}
 
@@ -129,7 +129,7 @@ public class RecursiveStrictThetaStar extends BasicThetaStar {
 		int destination = toOneDimIndex(x, y);
 		if (visited(destination))
 			return;
-		if (parent(current) != -1 && parent(current) == parent(destination)) // OPTIMISATION: [TI]
+		if (getParent(current) != -1 && getParent(current) == getParent(destination)) // OPTIMISATION: [TI]
 			return; // Idea: don't bother trying to relax if parents are equal. using triangle inequality.
 		if (!getGraph().neighbourLineOfSight(currentX, currentY, x, y))
 			return;
@@ -151,7 +151,7 @@ public class RecursiveStrictThetaStar extends BasicThetaStar {
 		if (isTaut(v, u)) {
 			return tryRelaxVertex(u, v, false);
 		} else {
-			int par = parent(u);
+			int par = getParent(u);
 			if (lineOfSight(par, v)) {
 				if (depth == 0) {
 					return tryRelaxVertex(par, v, !isTaut(v, par));
@@ -172,7 +172,7 @@ public class RecursiveStrictThetaStar extends BasicThetaStar {
 		}
 		if (newWeight < distance(v)) {
 			if (isMergeableWithParent(u, v)) {
-				newParent = parent(u);
+				newParent = getParent(u);
 			}
 			setDistance(v, newWeight);
 			setParent(v, newParent);
@@ -181,10 +181,10 @@ public class RecursiveStrictThetaStar extends BasicThetaStar {
 		return false;
 	}
 
-	// If parent(u),u,v collinear, remove u from path, except when u is at an outer corner.
+	// If getParent(u),u,v collinear, remove u from path, except when u is at an outer corner.
 	private boolean isMergeableWithParent(int u, int v) {
 		if (u == -1) return false;
-		int p = parent(u);
+		int p = getParent(u);
 		if (p == -1) return false; // u is start point.
 		int ux = toTwoDimX(u);
 		int uy = toTwoDimY(u);
@@ -224,10 +224,10 @@ public class RecursiveStrictThetaStar extends BasicThetaStar {
 
 
 	/**
-	 * Checks whether the path v, u, p=parent(u) is taut.
+	 * Checks whether the path v, u, p=getParent(u) is taut.
 	 */
 	private boolean isTaut(int v, int u) {
-		int p = parent(u); // assert u != -1
+		int p = getParent(u); // assert u != -1
 		if (p == -1) return true;
 		int x1 = toTwoDimX(v);
 		int y1 = toTwoDimY(v);

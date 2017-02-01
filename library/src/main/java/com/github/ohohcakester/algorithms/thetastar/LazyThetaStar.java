@@ -26,7 +26,7 @@ public class LazyThetaStar extends BasicThetaStar {
 			int x = toTwoDimX(current);
 			int y = toTwoDimY(current);
 
-			int parentIndex = parent(current);
+			int parentIndex = getParent(current);
 			if (parentIndex != -1) {
 				int parX = toTwoDimX(parentIndex);
 				int parY = toTwoDimY(parentIndex);
@@ -83,8 +83,8 @@ public class LazyThetaStar extends BasicThetaStar {
 	@Override
 	protected boolean relax(int u, int v, float weightUV) {
 		// return true iff relaxation is done.
-		if (parent(u) != -1) {
-			u = parent(u);
+		if (getParent(u) != -1) {
+			u = getParent(u);
 		}
 
 		float newWeight = distance(u) + physicalDistance(u, v);

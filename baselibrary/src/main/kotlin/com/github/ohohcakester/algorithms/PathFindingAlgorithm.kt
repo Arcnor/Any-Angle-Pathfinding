@@ -12,12 +12,11 @@ import java.util.HashSet
  * ABSTRACT<br></br>
  * Template for all Path Finding Algorithms used.<br></br>
  */
-abstract class PathFindingAlgorithm(protected var graph: GridGraph, protected val sizeX: Int, protected val sizeY: Int,
+abstract class PathFindingAlgorithm(protected val graph: GridGraph, protected val sizeX: Int, protected val sizeY: Int,
                                     protected val sx: Int, protected val sy: Int, protected val ex: Int, protected val ey: Int) {
 	protected val sizeXplusOne: Int
-	protected open var parent: IntArray? = null
 	private var snapshotCountdown = 0
-	private val snapshotList: ArrayList<List<SnapshotItem>>
+	private val snapshotList = mutableListOf<List<SnapshotItem>>()
 	private var ticketNumber = -1
 
 	protected var isRecording: Boolean = false
@@ -26,7 +25,6 @@ abstract class PathFindingAlgorithm(protected var graph: GridGraph, protected va
 
 	init {
 		this.sizeXplusOne = sizeX + 1
-		snapshotList = ArrayList<List<SnapshotItem>>()
 	}
 
 	protected fun initialiseMemory(size: Int, defaultDistance: Float, defaultParent: Int, defaultVisited: Boolean) {
@@ -51,7 +49,7 @@ abstract class PathFindingAlgorithm(protected var graph: GridGraph, protected va
 	/**
 	 * @return retrieve the trace of the algorithm that has been recorded.
 	 */
-	fun retrieveSnapshotList(): ArrayList<List<SnapshotItem>> {
+	fun retrieveSnapshotList(): List<List<SnapshotItem>> {
 		return snapshotList
 	}
 
@@ -105,27 +103,11 @@ abstract class PathFindingAlgorithm(protected var graph: GridGraph, protected va
 		return toOneDimIndex(ex, ey)
 	}
 
-	private fun getParent(index: Int): Int {
-		if (usingStaticMemory)
-			return Memory.parent(index)
-		else
-			return parent!![index]
-	}
+	protected abstract fun getParent(index: Int): Int
 
-	private fun setParent(index: Int, value: Int) {
-		if (usingStaticMemory)
-			Memory.setParent(index, value)
-		else
-			parent!![index] = value
-	}
+	protected abstract fun setParent(index: Int, value: Int)
 
-	protected val size: Int
-		get() {
-			if (usingStaticMemory)
-				return Memory.size()
-			else
-				return parent!!.size
-		}
+	protected abstract val parentSize: Int
 
 	protected open fun computeSearchSnapshot(): List<SnapshotItem> {
 		val list = ArrayList<SnapshotItem>()
@@ -139,7 +121,7 @@ abstract class PathFindingAlgorithm(protected var graph: GridGraph, protected va
 			}
 		}
 
-		val size = size
+		val size = parentSize
 		for (i in 0..size - 1) {
 			if (getParent(i) != -1) {
 				if (finalPathSet != null && finalPathSet.contains(i)) {

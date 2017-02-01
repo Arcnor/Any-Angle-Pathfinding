@@ -5,6 +5,7 @@ import com.github.ohohcakester.datatypes.Point;
 import com.github.ohohcakester.datatypes.SnapshotItem;
 import com.github.ohohcakester.priorityqueue.FastVariableSizeIndirectHeap;
 import com.github.ohohcakester.grid.GridGraph;
+import kotlin.NotImplementedError;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -886,4 +887,18 @@ public class Anya extends PathFindingAlgorithm {
 		return list;
 	}
 
+	@Override
+	protected int getParent(int index) {
+		throw new NotImplementedError();
+	}
+
+	@Override
+	protected void setParent(int index, int value) {
+		throw new NotImplementedError();
+	}
+
+	@Override
+	protected int getParentSize() {
+		throw new NotImplementedError();
+	}
 }

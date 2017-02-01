@@ -132,8 +132,8 @@ public class AlgoTest {
 		AlgoFunction lazyThetaStar = LazyThetaStar::new;
 		AlgoFunction basicThetaStar = BasicThetaStar::new;
 		AlgoFunction basicThetaStarPS = BasicThetaStar::postSmooth;
-		AlgoFunction aStarPS = AStar::postSmooth;
-		AlgoFunction dijkstra = AStar::dijkstra;
+		AlgoFunction aStarPS = AStar.Companion::postSmooth;
+		AlgoFunction dijkstra = AStar.Companion::dijkstra;
 		AlgoFunction vgaReuse = VisibilityGraphAlgorithm::graphReuse;
 		AlgoFunction vga = VisibilityGraphAlgorithm::new;
 		AlgoFunction accAStar = AcceleratedAStar::new;

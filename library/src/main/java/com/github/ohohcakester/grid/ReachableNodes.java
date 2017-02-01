@@ -25,8 +25,8 @@ public class ReachableNodes extends BreadthFirstSearch {
 		ArrayList<Point> list = new ArrayList<>();
 
 		nodes.computePath();
-		for (int i = 0; i < nodes.visited.length; i++) {
-			if (nodes.visited[i]) {
+		for (int i = 0; i < nodes.getVisited().length; i++) {
+			if (nodes.getVisited()[i]) {
 				int x = nodes.toTwoDimX(i);
 				int y = nodes.toTwoDimY(i);
 				list.add(new Point(x, y));

@@ -150,7 +150,7 @@ open class AStarStaticMemory(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: In
 		var length = 0
 		var current = finish
 		while (current != -1) {
-			current = parent(current)
+			current = getParent(current)
 			length++
 		}
 		return length
@@ -180,10 +180,9 @@ open class AStarStaticMemory(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: In
 
 	protected fun maybePostSmooth() {
 		if (postSmoothingOn) {
-			if (repeatedPostSmooth) {
-				while (postSmooth()) {}
-			} else {
-				postSmooth()
+			when {
+				repeatedPostSmooth -> while (postSmooth()) {}
+				else -> postSmooth()
 			}
 		}
 	}
@@ -193,13 +192,13 @@ open class AStarStaticMemory(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: In
 
 		var current = finish
 		while (current != -1) {
-			var next = parent(current) // we can skip checking this one as it always has LoS to current.
+			var next = getParent(current) // we can skip checking this one as it always has LoS to current.
 			if (next != -1) {
-				next = parent(next)
+				next = getParent(next)
 				while (next != -1) {
 					if (lineOfSight(current, next)) {
 						setParent(current, next)
-						next = parent(next)
+						next = getParent(next)
 						didSomething = true
 						maybeSaveSearchSnapshot()
 					} else {
@@ -208,7 +207,7 @@ open class AStarStaticMemory(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: In
 				}
 			}
 
-			current = parent(current)
+			current = getParent(current)
 		}
 
 		return didSomething
@@ -221,16 +220,18 @@ open class AStarStaticMemory(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: In
 
 			return Array(pathLength()) {
 				val result = intArrayOf(toTwoDimX(current), toTwoDimY(current))
-				current = parent(current)
+				current = getParent(current)
 				result
 			}.reversedArray()
 		}
 
 	override fun selected(index: Int) = visited(index)
 
-	protected fun parent(index: Int) = Memory.parent(index)
+	override fun getParent(index: Int) = Memory.parent(index)
 
-	protected fun setParent(index: Int, value: Int) = Memory.setParent(index, value)
+	override fun setParent(index: Int, value: Int) = Memory.setParent(index, value)
+
+	override val parentSize = Memory.size()
 
 	protected fun distance(index: Int) = Memory.distance(index)
 

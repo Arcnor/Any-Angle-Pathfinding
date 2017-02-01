@@ -30,7 +30,7 @@ public class BasicThetaStar extends AStarStaticMemory {
 		int destination = toOneDimIndex(x, y);
 		if (visited(destination))
 			return;
-		if (parent(current) != -1 && parent(current) == parent(destination)) // OPTIMISATION: [TI]
+		if (getParent(current) != -1 && getParent(current) == getParent(destination)) // OPTIMISATION: [TI]
 			return; // Idea: don't bother trying to relax if parents are equal. using triangle inequality.
 		if (!getGraph().neighbourLineOfSight(currentX, currentY, x, y))
 			return;
@@ -45,8 +45,8 @@ public class BasicThetaStar extends AStarStaticMemory {
 	protected boolean relax(int u, int v, float weightUV) {
 		// return true iff relaxation is done.
 
-		if (lineOfSight(parent(u), v)) {
-			u = parent(u);
+		if (lineOfSight(getParent(u), v)) {
+			u = getParent(u);
 
 			float newWeight = distance(u) + physicalDistance(u, v);
 			if (newWeight < distance(v)) {

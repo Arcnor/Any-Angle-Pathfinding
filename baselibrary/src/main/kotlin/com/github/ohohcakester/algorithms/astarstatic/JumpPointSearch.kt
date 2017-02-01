@@ -216,7 +216,7 @@ class JumpPointSearch(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) : AS
 	private fun computeNeighbours(currentIndex: Int, cx: Int, cy: Int) {
 		neighbourCount = 0
 
-		val parentIndex = parent(currentIndex)
+		val parentIndex = getParent(currentIndex)
 		if (parentIndex == -1) {
 			// is start node.
 			for (y in -1..1) {

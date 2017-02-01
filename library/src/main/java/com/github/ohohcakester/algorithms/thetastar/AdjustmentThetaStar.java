@@ -17,8 +17,8 @@ public class AdjustmentThetaStar extends BasicThetaStar {
 	protected boolean relax(int u, int v, float weightUV) {
 		// return true iff relaxation is done.
 		boolean updated = false;
-		if (lineOfSight(getParent()[u], v)) {
-			u = getParent()[u];
+		if (lineOfSight(getParent(u), v)) {
+			u = getParent(u);
 
 			float newWeight = distance(u) + physicalDistance(u, v);
 			if (newWeight < distance(v)) {
@@ -35,7 +35,7 @@ public class AdjustmentThetaStar extends BasicThetaStar {
 			}
 		}
 
-		if (tryUpdateWithNeighbouringNodes(getParent()[u], v)) {
+		if (tryUpdateWithNeighbouringNodes(getParent(u), v)) {
 			updated = true;
 		}
 		return updated;

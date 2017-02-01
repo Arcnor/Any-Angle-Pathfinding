@@ -1,9 +1,10 @@
 package com.github.ohohcakester.algorithms.astar;
 
-import com.github.ohohcakester.priorityqueue.IndirectHeap;
 import com.github.ohohcakester.grid.GridGraph;
+import com.github.ohohcakester.priorityqueue.FloatIndirectHeap;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class AcceleratedAStar extends AStar {
@@ -12,35 +13,33 @@ public class AcceleratedAStar extends AStar {
 
 	public AcceleratedAStar(GridGraph graph, int sx, int sy, int ex, int ey) {
 		super(graph, sx, sy, ex, ey);
-		postSmoothingOn = false;
+		setPostSmoothingOn(false);
 	}
 
 	@Override
 	public void computePath() {
-		int totalSize = (getGraph().getSizeX() + 1) * (getGraph().getSizeY() + 1);
-
 		int start = toOneDimIndex(getSx(), getSy());
-		finish = toOneDimIndex(getEx(), getEy());
+		setFinish(toOneDimIndex(getEx(), getEy()));
 
-		distance = new Float[totalSize];
-		setParent(new int[totalSize]);
+		Arrays.fill(getDistance(), 0f);
+		Arrays.fill(getParent(), 0);
+		Arrays.fill(getVisited(), false);
 		maxRanges = getGraph().computeMaxDownLeftRanges(); // O(size of gridGraph) computation. See actual method.
 
 		initialise(start);
-		visited = new boolean[totalSize];
 
 		closed = new ArrayList<Integer>();
 
-		pq = new IndirectHeap<Float>(distance, true);
-		pq.heapify();
+		setPq(new FloatIndirectHeap(getDistance(), true));
+		getPq().heapify();
 
-		while (!pq.isEmpty()) {
-			int current = pq.popMinIndex();
-			if (current == finish || distance[current] == Float.POSITIVE_INFINITY) {
+		while (!getPq().isEmpty()) {
+			int current = getPq().popMinIndex();
+			if (current == getFinish() || getDistance()[current] == Float.POSITIVE_INFINITY) {
 				maybeSaveSearchSnapshot();
 				break;
 			}
-			visited[current] = true;
+			getVisited()[current] = true;
 			closed.add(current);
 
 			int x = toTwoDimX(current);
@@ -98,7 +97,7 @@ public class AcceleratedAStar extends AStar {
 
 	private void generateVertex(int current, int currentX, int currentY, int x, int y) {
 		int destination = toOneDimIndex(x, y);
-		if (visited[destination])
+		if (getVisited()[destination])
 			return;
 
 		boolean fValueUpdated = false;
@@ -113,7 +112,7 @@ public class AcceleratedAStar extends AStar {
 		}
 
 		if (fValueUpdated) {
-			pq.decreaseKey(destination, distance[destination] + heuristic(x, y));
+			getPq().decreaseKey(destination, getDistance()[destination] + heuristic(x, y));
 		}
 	}
 
@@ -122,10 +121,10 @@ public class AcceleratedAStar extends AStar {
 		for (int fromNode : closed) {
 			int fromX = toTwoDimX(fromNode);
 			int fromY = toTwoDimY(fromNode);
-			float newFValue = distance[fromNode] + weight(fromX, fromY, destX, destY);
-			if (newFValue < distance[destination]) {
+			float newFValue = getDistance()[fromNode] + weight(fromX, fromY, destX, destY);
+			if (newFValue < getDistance()[destination]) {
 				if (getGraph().lineOfSight(fromX, fromY, destX, destY)) {
-					distance[destination] = newFValue;
+					getDistance()[destination] = newFValue;
 					getParent()[destination] = fromNode;
 					changed = true;
 				}

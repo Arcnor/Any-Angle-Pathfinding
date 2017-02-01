@@ -85,7 +85,7 @@ public class Visualisation {
 			e.printStackTrace();
 		}
 		algo.stopRecording();
-		ArrayList<List<SnapshotItem>> snapshotList = algo.retrieveSnapshotList();
+		List<List<SnapshotItem>> snapshotList = algo.retrieveSnapshotList();
 		ArrayList<GridObjects> gridObjectsList = new ArrayList<>();
 		for (List<SnapshotItem> snapshot : snapshotList) {
 			gridObjectsList.add(GridObjects.create(snapshot));

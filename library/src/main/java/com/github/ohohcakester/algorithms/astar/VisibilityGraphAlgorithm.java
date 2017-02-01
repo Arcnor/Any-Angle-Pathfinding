@@ -4,6 +4,7 @@ import com.github.ohohcakester.algorithms.astar.visibilitygraph.Edge;
 import com.github.ohohcakester.algorithms.astar.visibilitygraph.VisibilityGraph;
 import com.github.ohohcakester.datatypes.Point;
 import com.github.ohohcakester.datatypes.SnapshotItem;
+import com.github.ohohcakester.priorityqueue.FloatIndirectHeap;
 import com.github.ohohcakester.priorityqueue.IndirectHeap;
 import com.github.ohohcakester.grid.GridGraph;
 
@@ -23,14 +24,14 @@ public class VisibilityGraphAlgorithm extends AStar {
 
 	public static VisibilityGraphAlgorithm noHeuristic(GridGraph graph, int sx, int sy, int ex, int ey) {
 		VisibilityGraphAlgorithm algo = new VisibilityGraphAlgorithm(graph, sx, sy, ex, ey);
-		algo.heuristicWeight = 0;
+		algo.setHeuristicWeight(0);
 		return algo;
 	}
 
 	public static VisibilityGraphAlgorithm graphReuseNoHeuristic(GridGraph graph, int sx, int sy, int ex, int ey) {
 		VisibilityGraphAlgorithm algo = new VisibilityGraphAlgorithm(graph, sx, sy, ex, ey);
 		algo.reuseGraph = true;
-		algo.heuristicWeight = 0;
+		algo.setHeuristicWeight(0);
 		return algo;
 	}
 
@@ -52,14 +53,19 @@ public class VisibilityGraphAlgorithm extends AStar {
 	}
 
 	@Override
-	public void computePath() {
+	public int getSize() {
+		// FIXME: This is broken (we should not setup this here...)
 		setupVisibilityGraph();
+		return visibilityGraph.size();
+	}
 
-		distance = new Float[visibilityGraph.size()];
-		setParent(new int[visibilityGraph.size()]);
+	@Override
+	public void computePath() {
+//		setDistance(new Float[visibilityGraph.size()]);
+//		setParent(new int[visibilityGraph.size()]);
 
 		initialise(visibilityGraph.startNode());
-		visited = new boolean[visibilityGraph.size()];
+//		setVisited(new boolean[visibilityGraph.size()]);
 
 		if (slowDijkstra) {
 			slowDijkstra();
@@ -91,7 +97,7 @@ public class VisibilityGraphAlgorithm extends AStar {
 			if (current == -1) {
 				break;
 			}
-			visited[current] = true;
+			getVisited()[current] = true;
 
 			if (current == finish) {
 				break;
@@ -100,7 +106,7 @@ public class VisibilityGraphAlgorithm extends AStar {
 			Iterator<Edge> itr = visibilityGraph.edgeIterator(current);
 			while (itr.hasNext()) {
 				Edge edge = itr.next();
-				if (!visited[edge.dest]) {
+				if (!getVisited()[edge.dest]) {
 					relax(edge);
 				}
 			}
@@ -112,9 +118,9 @@ public class VisibilityGraphAlgorithm extends AStar {
 	private int findMinDistance() {
 		float minDistance = Float.POSITIVE_INFINITY;
 		int minIndex = -1;
-		for (int i = 0; i < distance.length; i++) {
-			if (!visited[i] && distance[i] < minDistance) {
-				minDistance = distance[i];
+		for (int i = 0; i < getDistance().length; i++) {
+			if (!getVisited()[i] && getDistance()[i] < minDistance) {
+				minDistance = getDistance()[i];
 				minIndex = i;
 			}
 		}
@@ -122,13 +128,13 @@ public class VisibilityGraphAlgorithm extends AStar {
 	}
 
 	private void pqDijkstra() {
-		pq = new IndirectHeap<Float>(distance, true);
-		pq.heapify();
+		setPq(new FloatIndirectHeap(getDistance(), true));
+		getPq().heapify();
 
 		int finish = visibilityGraph.endNode();
-		while (!pq.isEmpty()) {
-			int current = pq.popMinIndex();
-			visited[current] = true;
+		while (!getPq().isEmpty()) {
+			int current = getPq().popMinIndex();
+			getVisited()[current] = true;
 
 			if (current == finish) {
 				break;
@@ -137,10 +143,10 @@ public class VisibilityGraphAlgorithm extends AStar {
 			Iterator<Edge> itr = visibilityGraph.edgeIterator(current);
 			while (itr.hasNext()) {
 				Edge edge = itr.next();
-				if (!visited[edge.dest] && relax(edge)) {
+				if (!getVisited()[edge.dest] && relax(edge)) {
 					// If relaxation is done.
 					Point dest = visibilityGraph.coordinateOf(edge.dest);
-					pq.decreaseKey(edge.dest, distance[edge.dest] + heuristic(dest.getX(), dest.getY()));
+					getPq().decreaseKey(edge.dest, getDistance()[edge.dest] + heuristic(dest.getX(), dest.getY()));
 				}
 			}
 
@@ -155,9 +161,9 @@ public class VisibilityGraphAlgorithm extends AStar {
 
 	protected final boolean relax(int u, int v, float weightUV) {
 		// return true iff relaxation is done.
-		float newWeight = distance[u] + weightUV;
-		if (newWeight < distance[v]) {
-			distance[v] = newWeight;
+		float newWeight = getDistance()[u] + weightUV;
+		if (newWeight < getDistance()[v]) {
+			getDistance()[v] = newWeight;
 			getParent()[v] = u;
 			return true;
 		}

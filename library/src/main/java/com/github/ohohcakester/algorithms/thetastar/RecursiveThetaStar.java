@@ -16,8 +16,8 @@ public class RecursiveThetaStar extends BasicThetaStar {
 	protected boolean relax(int u, int v, float weightUV) {
 		// return true iff relaxation is done.
 
-		if (lineOfSight(parent(u), v)) {
-			u = parent(u);
+		if (lineOfSight(getParent(u), v)) {
+			u = getParent(u);
 			return relax(u, v, weightUV);
 		} else {
 			float newWeight = distance(u) + physicalDistance(u, v);

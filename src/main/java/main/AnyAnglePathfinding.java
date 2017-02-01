@@ -166,7 +166,7 @@ public class AnyAnglePathfinding {
 	 * Choose an algorithm.
 	 */
 	static AlgoFunction setDefaultAlgoFunction() {
-		int choice = 8; // adjust this to choose an algorithm
+		int choice = 7; // adjust this to choose an algorithm
 
 		switch (choice) {
 			case 1:
@@ -179,10 +179,10 @@ public class AnyAnglePathfinding {
 				algoFunction = BreadthFirstSearch::postSmooth;
 				break;
 			case 4:
-				algoFunction = AStar::postSmooth;
+				algoFunction = AStar.Companion::postSmooth;
 				break;
 			case 5:
-				algoFunction = AStar::dijkstra;
+				algoFunction = AStar.Companion::dijkstra;
 				break;
 			case 6:
 				algoFunction = Anya::new;
