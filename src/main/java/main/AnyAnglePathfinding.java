@@ -230,7 +230,7 @@ public class AnyAnglePathfinding {
 				algoFunction = AStarOctileHeuristic::new;
 				break;
 			case 21:
-				algoFunction = AStarOctileHeuristic::postSmooth;
+				algoFunction = AStarOctileHeuristic.Companion::postSmooth;
 				break;
 			case 22:
 				algoFunction = JumpPointSearch::new;

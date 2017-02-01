@@ -125,7 +125,7 @@ public class AlgoTest {
 		AlgoFunction aStar = AStar::new;
 		AlgoFunction aStarStatic = AStarStaticMemory::new;
 		AlgoFunction aStarOctile = AStarOctileHeuristic::new;
-		AlgoFunction aStarOctilePS = AStarOctileHeuristic::postSmooth;
+		AlgoFunction aStarOctilePS = AStarOctileHeuristic.Companion::postSmooth;
 		AlgoFunction bfs = BreadthFirstSearch::new;
 		AlgoFunction jumpPointSearch = JumpPointSearch::new;
 		AlgoFunction jpsPS = JumpPointSearch::postSmooth;
