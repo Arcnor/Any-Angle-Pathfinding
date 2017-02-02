@@ -13,7 +13,7 @@ import com.github.ohohcakester.algorithms.astarstatic.thetastar.AdjustmentThetaS
 import com.github.ohohcakester.algorithms.astarstatic.thetastar.BasicThetaStar;
 import com.github.ohohcakester.algorithms.astarstatic.thetastar.LazyThetaStar;
 import com.github.ohohcakester.algorithms.astarstatic.thetastar.RecursiveThetaStar;
-import com.github.ohohcakester.algorithms.thetastar.strictthetastar.RecursiveStrictThetaStar;
+import com.github.ohohcakester.algorithms.astarstatic.thetastar.strict.RecursiveStrictThetaStar;
 import com.github.ohohcakester.algorithms.astarstatic.thetastar.strict.StrictThetaStar;
 import com.github.ohohcakester.grid.GridAndGoals;
 import main.graphgeneration.DefaultGenerator;

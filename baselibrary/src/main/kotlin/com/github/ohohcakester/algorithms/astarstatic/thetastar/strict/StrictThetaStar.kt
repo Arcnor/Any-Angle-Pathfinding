@@ -26,17 +26,6 @@ class StrictThetaStar(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) : Ab
 
 	private val BUFFER_VALUE = 0.42f
 
-	override fun heuristic(x: Int, y: Int): Float {
-		return heuristicWeight * graph.distance(x, y, ex, ey)
-
-		// MOD 2 :: Increased Goal Heuristic - Not needed when a Penalty value of 0.42 is used.
-		/*if (x == ex && y == ey) {
-            return 1.1f;
-        } else {
-            return heuristicWeight*graph.distance(x, y, ex, ey);
-        }*/
-	}
-
 	override fun relax(u: Int, v: Int, weightUV: Float): Boolean {
 		// return true iff relaxation is done.
 		val par = getParent(u)

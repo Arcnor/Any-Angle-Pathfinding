@@ -5,6 +5,17 @@ import com.github.ohohcakester.grid.GridGraph
 import com.github.ohohcakester.priorityqueue.ReusableIndirectHeap
 
 abstract class AbstractStrictThetaStar(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) : BasicThetaStar(graph, sx, sy, ex, ey) {
+	override fun heuristic(x: Int, y: Int): Float {
+		return heuristicWeight * graph.distance(x, y, ex, ey)
+
+		// MOD 2 :: Increased Goal Heuristic - Not needed when a Penalty value of 0.42 is used.
+		/*if (x == ex && y == ey) {
+            return 0.18f; // 0.18f
+        } else {
+            return heuristicWeight*graph.distance(x, y, ex, ey);
+        }*/
+	}
+
 	override fun computePath() {
 		val totalSize = (graph.sizeX + 1) * (graph.sizeY + 1)
 

@@ -7,7 +7,7 @@ import com.github.ohohcakester.algorithms.astar.VisibilityGraphAlgorithm;
 import com.github.ohohcakester.algorithms.astar.visibilitygraph.VisibilityGraph;
 import com.github.ohohcakester.datatypes.Point;
 import com.github.ohohcakester.algorithms.astarstatic.thetastar.BasicThetaStar;
-import com.github.ohohcakester.algorithms.thetastar.strictthetastar.RecursiveStrictThetaStar;
+import com.github.ohohcakester.algorithms.astarstatic.thetastar.strict.RecursiveStrictThetaStar;
 import com.github.ohohcakester.algorithms.astarstatic.thetastar.strict.StrictThetaStar;
 import com.github.ohohcakester.grid.GridGraph;
 import com.github.ohohcakester.grid.ReachableNodes;
@@ -315,8 +315,8 @@ public class Experiment {
 	private static void findStrictThetaStarIssues() {
 //        AlgoFunction basicThetaStar = (gridGraph, sx, sy, ex, ey) -> new BasicThetaStar(gridGraph, sx, sy, ex, ey);;
 //        AlgoFunction strictThetaStar = (gridGraph, sx, sy, ex, ey) -> new StrictThetaStarV1(gridGraph, sx, sy, ex, ey);
-		AlgoFunction basicThetaStar = (gridGraph, sx, sy, ex, ey) -> RecursiveStrictThetaStar.setBuffer(gridGraph, sx, sy, ex, ey, 0.4f);
-		AlgoFunction strictThetaStar = (gridGraph, sx, sy, ex, ey) -> RecursiveStrictThetaStar.setBuffer(gridGraph, sx, sy, ex, ey, 0.2f);
+		AlgoFunction basicThetaStar = (gridGraph, sx, sy, ex, ey) -> RecursiveStrictThetaStar.Companion.setBuffer(gridGraph, sx, sy, ex, ey, 0.4f);
+		AlgoFunction strictThetaStar = (gridGraph, sx, sy, ex, ey) -> RecursiveStrictThetaStar.Companion.setBuffer(gridGraph, sx, sy, ex, ey, 0.2f);
 
 		int wins = 0;
 		int ties = 0;
