@@ -777,7 +777,6 @@ class Anya(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) : PathFindingAl
 		}
 	}
 
-
 	private fun pathLength(): Int {
 		var length = 1
 		var current = goalState
@@ -809,31 +808,6 @@ class Anya(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) : PathFindingAl
 
 			return path as Array<IntArray>
 		}
-
-	//@Override
-	protected // Fail
-			// Start from goalState and traverse backwards.
-	val pathLength: Float
-		get() {
-			if (goalState == null) return -1f
-			var pathLength = 0.0
-			var currX = ex
-			var currY = ey
-			var current = goalState
-
-			while (current != null) {
-				val nextX = current.basePoint.x
-				val nextY = current.basePoint.y
-
-				pathLength += graph.distance_double(currX, currY, nextX, nextY)
-				current = current.parent
-				currX = nextX
-				currY = nextY
-			}
-
-			return pathLength.toFloat()
-		}
-
 
 	override fun computeSearchSnapshot(): List<SnapshotItem> {
 		val list = ArrayList<SnapshotItem>(states.size)
