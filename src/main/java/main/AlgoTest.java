@@ -8,7 +8,7 @@ import com.github.ohohcakester.algorithms.astarstatic.AStarStaticMemory;
 import com.github.ohohcakester.algorithms.astar.AcceleratedAStar;
 import com.github.ohohcakester.algorithms.astar.BreadthFirstSearch;
 import com.github.ohohcakester.algorithms.astarstatic.JumpPointSearch;
-import com.github.ohohcakester.algorithms.astar.VisibilityGraphAlgorithm;
+import com.github.ohohcakester.algorithms.astar.visibilitygraph.VisibilityGraphAlgorithm;
 import com.github.ohohcakester.algorithms.astarstatic.thetastar.BasicThetaStar;
 import com.github.ohohcakester.algorithms.astarstatic.thetastar.LazyThetaStar;
 import com.github.ohohcakester.algorithms.astarstatic.thetastar.RecursiveThetaStar;

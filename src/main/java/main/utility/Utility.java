@@ -1,7 +1,7 @@
 package main.utility;
 
 import com.github.ohohcakester.algorithms.PathFindingAlgorithm;
-import com.github.ohohcakester.algorithms.astar.VisibilityGraphAlgorithm;
+import com.github.ohohcakester.algorithms.astar.visibilitygraph.VisibilityGraphAlgorithm;
 import com.github.ohohcakester.datatypes.Point;
 import com.github.ohohcakester.grid.GridGraph;
 import main.AlgoFunction;
