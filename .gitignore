@@ -43,3 +43,4 @@ pyscripts/output.txt
 .idea/
 AnyAnglePathfinding.iml
 
+build/
