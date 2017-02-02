@@ -27,17 +27,11 @@ allprojects {
 }
 
 
-project(':baselibrary') {
+project(':library') {
 	apply plugin: 'kotlin'
 
 	dependencies {
 		compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-	}
-}
-
-project(':library') {
-	dependencies {
-		compile project(':baselibrary')
 	}
 }
 
