@@ -215,7 +215,7 @@ public class AnyAnglePathfinding {
 				algoFunction = RecursiveStrictThetaStar::new;
 				break;
 			case 16:
-				algoFunction = BFSVisibilityGraph::graphReuse;
+				algoFunction = BFSVisibilityGraph.Companion::graphReuse;
 				break;
 			case 17:
 				algoFunction = null; // reserved

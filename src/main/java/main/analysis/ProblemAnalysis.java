@@ -61,7 +61,7 @@ public class ProblemAnalysis {
 	}
 
 	public int computeMinHeadingChanges(GridGraph gridGraph) {
-		BFSVisibilityGraph algo = BFSVisibilityGraph.graphReuse(gridGraph, sx, sy, ex, ey);
+		BFSVisibilityGraph algo = BFSVisibilityGraph.Companion.graphReuse(gridGraph, sx, sy, ex, ey);
 		algo.computePath();
 		return algo.getPath().length;
 	}
