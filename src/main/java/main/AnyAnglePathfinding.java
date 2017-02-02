@@ -166,7 +166,7 @@ public class AnyAnglePathfinding {
 	 * Choose an algorithm.
 	 */
 	static AlgoFunction setDefaultAlgoFunction() {
-		int choice = 19; // adjust this to choose an algorithm
+		int choice = 6; // adjust this to choose an algorithm
 
 		switch (choice) {
 			case 1:

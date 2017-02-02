@@ -1,10 +1,10 @@
 package com.github.ohohcakester.algorithms.astar
 
-import com.github.ohohcakester.algorithms.PathFindingAlgorithm
+import com.github.ohohcakester.algorithms.BaseAStar
 import com.github.ohohcakester.grid.GridGraph
 import com.github.ohohcakester.priorityqueue.FloatIndirectHeap
 
-open class AStar(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) : PathFindingAlgorithm(graph, graph.sizeX, graph.sizeY, sx, sy, ex, ey) {
+open class AStar(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) : BaseAStar(graph, graph.sizeX, graph.sizeY, sx, sy, ex, ey) {
 	companion object {
 		fun postSmooth(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int): AStar {
 			val aStar = AStar(graph, sx, sy, ex, ey)

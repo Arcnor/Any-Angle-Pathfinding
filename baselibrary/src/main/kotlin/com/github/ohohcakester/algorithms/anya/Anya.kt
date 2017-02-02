@@ -870,15 +870,4 @@ class Anya(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) : PathFindingAl
 
 		return list
 	}
-
-	override fun getParent(index: Int): Int {
-		throw NotImplementedError()
-	}
-
-	override fun setParent(index: Int, value: Int) {
-		throw NotImplementedError()
-	}
-
-	override val parentSize: Int
-		get() = throw NotImplementedError()
 }

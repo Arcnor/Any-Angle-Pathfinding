@@ -1,12 +1,11 @@
 package com.github.ohohcakester.algorithms.astarstatic
 
-import com.github.ohohcakester.algorithms.PathFindingAlgorithm
+import com.github.ohohcakester.algorithms.BaseAStar
 import com.github.ohohcakester.datatypes.Memory
-import com.github.ohohcakester.priorityqueue.ReusableIndirectHeap
 import com.github.ohohcakester.grid.GridGraph
+import com.github.ohohcakester.priorityqueue.ReusableIndirectHeap
 
-
-open class AStarStaticMemory(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) : PathFindingAlgorithm(graph, graph.sizeX, graph.sizeY, sx, sy, ex, ey) {
+open class AStarStaticMemory(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) : BaseAStar(graph, graph.sizeX, graph.sizeY, sx, sy, ex, ey) {
 	companion object {
 		@JvmStatic
 		protected fun <T: AStarStaticMemory> postSmooth(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int,
