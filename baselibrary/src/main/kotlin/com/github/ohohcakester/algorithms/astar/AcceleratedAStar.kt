@@ -2,12 +2,17 @@ package com.github.ohohcakester.algorithms.astar
 
 import com.github.ohohcakester.grid.GridGraph
 import com.github.ohohcakester.priorityqueue.FloatIndirectHeap
-import java.lang.Float
 
 import java.util.ArrayList
 import java.util.Arrays
 
 class AcceleratedAStar(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) : AStar(graph, sx, sy, ex, ey) {
+	companion object {
+		fun postSmooth(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) = postSmooth(graph, sx, sy, ex, ey, ::AcceleratedAStar)
+		fun repeatedPostSmooth(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) = repeatedPostSmooth(graph, sx, sy, ex, ey, ::AcceleratedAStar)
+		fun dijkstra(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) = dijkstra(graph, sx, sy, ex, ey, ::AcceleratedAStar)
+	}
+
 	private var closed: MutableList<Int>? = null
 	private var maxRanges: Array<IntArray>? = null
 

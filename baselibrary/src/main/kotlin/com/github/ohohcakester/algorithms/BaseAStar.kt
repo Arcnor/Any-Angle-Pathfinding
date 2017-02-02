@@ -6,6 +6,38 @@ import java.awt.Color
 
 abstract class BaseAStar(graph: GridGraph, sizeX: Int, sizeY: Int,
                 sx: Int, sy: Int, ex: Int, ey: Int) : PathFindingAlgorithm(graph, sizeX, sizeY, sx, sy, ex, ey) {
+	protected companion object {
+		@JvmStatic
+		fun <T: BaseAStar> postSmooth(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int,
+		                                                constructor: (graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) -> T): T {
+			val r = constructor(graph, sx, sy, ex, ey)
+			r.postSmoothingOn = true
+			r.repeatedPostSmooth = false
+			return r
+		}
+
+		@JvmStatic
+		fun <T: BaseAStar> repeatedPostSmooth(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int,
+		                                                        constructor: (graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) -> T): T {
+			val r = constructor(graph, sx, sy, ex, ey)
+			r.postSmoothingOn = true
+			r.repeatedPostSmooth = true
+			return r
+		}
+
+		@JvmStatic
+		fun <T: BaseAStar> dijkstra(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int,
+		                                              constructor: (graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) -> T): T {
+			val r = constructor(graph, sx, sy, ex, ey)
+			r.heuristicWeight = 0f
+			return r
+		}
+	}
+
+	protected var postSmoothingOn = false
+	protected var repeatedPostSmooth = false
+	protected var heuristicWeight = 1f
+
 	protected abstract fun getParent(index: Int): Int
 
 	protected abstract fun setParent(index: Int, value: Int)

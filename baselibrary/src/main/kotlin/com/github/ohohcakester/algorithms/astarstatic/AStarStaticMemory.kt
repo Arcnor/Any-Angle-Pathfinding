@@ -7,40 +7,10 @@ import com.github.ohohcakester.priorityqueue.ReusableIndirectHeap
 
 open class AStarStaticMemory(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) : BaseAStar(graph, graph.sizeX, graph.sizeY, sx, sy, ex, ey) {
 	companion object {
-		@JvmStatic
-		protected fun <T: AStarStaticMemory> postSmooth(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int,
-		                                                constructor: (graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) -> T): T {
-			val r = constructor(graph, sx, sy, ex, ey)
-			r.postSmoothingOn = true
-			r.repeatedPostSmooth = false
-			return r
-		}
-
-		@JvmStatic
-		protected fun <T: AStarStaticMemory> repeatedPostSmooth(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int,
-		                                                constructor: (graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) -> T): T {
-			val r = constructor(graph, sx, sy, ex, ey)
-			r.postSmoothingOn = true
-			r.repeatedPostSmooth = true
-			return r
-		}
-
-		@JvmStatic
-		protected fun <T: AStarStaticMemory> dijkstra(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int,
-		                                                constructor: (graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) -> T): T {
-			val r = constructor(graph, sx, sy, ex, ey)
-			r.heuristicWeight = 0f
-			return r
-		}
-
 		fun postSmooth(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) = postSmooth(graph, sx, sy, ex, ey, ::AStarStaticMemory)
 		fun repeatedPostSmooth(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) = repeatedPostSmooth(graph, sx, sy, ex, ey, ::AStarStaticMemory)
 		fun dijkstra(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int)= dijkstra(graph, sx, sy, ex, ey, ::AStarStaticMemory)
 	}
-
-	protected var postSmoothingOn = false
-	protected var repeatedPostSmooth = false
-	protected var heuristicWeight = 1f
 
 	protected var pq: ReusableIndirectHeap
 

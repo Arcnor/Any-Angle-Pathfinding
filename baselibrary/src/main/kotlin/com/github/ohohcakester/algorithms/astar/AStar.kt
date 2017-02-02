@@ -6,30 +6,10 @@ import com.github.ohohcakester.priorityqueue.FloatIndirectHeap
 
 open class AStar(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) : BaseAStar(graph, graph.sizeX, graph.sizeY, sx, sy, ex, ey) {
 	companion object {
-		fun postSmooth(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int): AStar {
-			val aStar = AStar(graph, sx, sy, ex, ey)
-			aStar.postSmoothingOn = true
-			aStar.repeatedPostSmooth = false
-			return aStar
-		}
-
-		fun repeatedPostSmooth(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int): AStar {
-			val aStar = AStar(graph, sx, sy, ex, ey)
-			aStar.postSmoothingOn = true
-			aStar.repeatedPostSmooth = true
-			return aStar
-		}
-
-		fun dijkstra(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int): AStar {
-			val aStar = AStar(graph, sx, sy, ex, ey)
-			aStar.heuristicWeight = 0f
-			return aStar
-		}
+		fun postSmooth(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) = postSmooth(graph, sx, sy, ex, ey, ::AStar)
+		fun repeatedPostSmooth(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) = repeatedPostSmooth(graph, sx, sy, ex, ey, ::AStar)
+		fun dijkstra(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) = dijkstra(graph, sx, sy, ex, ey, ::AStar)
 	}
-
-	var postSmoothingOn = false
-	var repeatedPostSmooth = false
-	var heuristicWeight = 1f
 
 	val distance: FloatArray
 	protected val visited: BooleanArray
