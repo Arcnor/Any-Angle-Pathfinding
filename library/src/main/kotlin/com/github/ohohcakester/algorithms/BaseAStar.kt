@@ -1,8 +1,7 @@
 package com.github.ohohcakester.algorithms
 
-import com.github.ohohcakester.datatypes.SnapshotItem
+import com.github.ohohcakester.datatypes.Memory
 import com.github.ohohcakester.grid.GridGraph
-import java.awt.Color
 
 abstract class BaseAStar(graph: GridGraph, sizeX: Int, sizeY: Int,
                 sx: Int, sy: Int, ex: Int, ey: Int) : PathFindingAlgorithm(graph, sizeX, sizeY, sx, sy, ex, ey) {
@@ -38,43 +37,35 @@ abstract class BaseAStar(graph: GridGraph, sizeX: Int, sizeY: Int,
 	protected var repeatedPostSmooth = false
 	protected var heuristicWeight = 1f
 
-	protected abstract fun getParent(index: Int): Int
+	protected fun initialiseMemory(size: Int, defaultDistance: Float, defaultParent: Int, defaultVisited: Boolean) {
+		val ticketNumber = Memory.initialise(size, defaultDistance, defaultParent, defaultVisited)
+		recorder?.initializeStaticMemory(ticketNumber)
+	}
+
+	internal abstract fun getParent(index: Int): Int
 
 	protected abstract fun setParent(index: Int, value: Int)
 
-	protected abstract val parentSize: Int
+	internal abstract val parentSize: Int
 
-	override fun computeSearchSnapshot(): List<SnapshotItem> {
-		val list = java.util.ArrayList<SnapshotItem>()
-		var current = goalParentIndex()
-		var finalPathSet: MutableSet<Int>? = null
-		if (getParent(current) >= 0) {
-			finalPathSet = java.util.HashSet<Int>()
-			while (current != -1) {
-				finalPathSet.add(current)
-				current = getParent(current)
-			}
-		}
+	protected fun toOneDimIndex(x: Int, y: Int) = graph.toOneDimIndex(x, y)
 
-		val size = parentSize
-		for (i in 0..size - 1) {
-			if (getParent(i) != -1) {
-				if (finalPathSet != null && finalPathSet.contains(i)) {
-					list.add(SnapshotItem.generate(snapshotEdge(i), Color.BLUE))
-				} else {
-					list.add(SnapshotItem.generate(snapshotEdge(i)))
-				}
-			}
-			val vertexSnapshot = snapshotVertex(i)
-			if (vertexSnapshot != null) {
-				list.add(SnapshotItem.generate(vertexSnapshot))
-			}
-		}
+	protected fun toTwoDimX(index: Int) = graph.toTwoDimX(index)
 
-		return list
+	protected fun toTwoDimY(index: Int) = graph.toTwoDimY(index)
+
+	protected open fun selected(index: Int) = false
+
+	internal open fun goalParentIndex(): Int {
+		return toOneDimIndex(ex, ey)
 	}
 
-	protected open fun snapshotEdge(endIndex: Int): IntArray {
+	internal open fun snapshotVertex(index: Int) = when {
+		selected(index) -> intArrayOf(toTwoDimX(index), toTwoDimY(index))
+		else -> null
+	}
+
+	internal open fun snapshotEdge(endIndex: Int): IntArray {
 		val edge = intArrayOf(0, 0, toTwoDimX(endIndex), toTwoDimY(endIndex))
 		val startIndex = getParent(endIndex)
 		if (startIndex < 0) {

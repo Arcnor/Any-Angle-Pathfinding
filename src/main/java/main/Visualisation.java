@@ -1,6 +1,11 @@
 package main;
 
+import com.github.ohohcakester.algorithms.BaseAStar;
 import com.github.ohohcakester.algorithms.PathFindingAlgorithm;
+import com.github.ohohcakester.algorithms.anya.Anya;
+import com.github.ohohcakester.algorithms.anya.AnyaRecorder;
+import com.github.ohohcakester.algorithms.BaseAStarRecorder;
+import com.github.ohohcakester.algorithms.PathFindingRecorder;
 import com.github.ohohcakester.datatypes.SnapshotItem;
 import com.github.ohohcakester.grid.GridAndGoals;
 import com.github.ohohcakester.grid.GridGraph;
@@ -77,15 +82,27 @@ public class Visualisation {
 	 */
 	private static ArrayList<GridObjects> recordAlgorithmOperation(AlgoFunction algoFunction,
 	                                                               GridGraph gridGraph, int sx, int sy, int ex, int ey) {
-		PathFindingAlgorithm algo = algoFunction.getAlgo(gridGraph, sx, sy, ex, ey);
-		algo.startRecording();
+		final PathFindingAlgorithm algo = algoFunction.getAlgo(gridGraph, sx, sy, ex, ey);
+
+		final PathFindingRecorder recorder;
+		if (algo instanceof BaseAStar) {
+			recorder = new BaseAStarRecorder((BaseAStar) algo);
+			algo.setRecorder(recorder);
+		} else if (algo instanceof Anya) {
+			recorder = new AnyaRecorder((Anya) algo);
+			algo.setRecorder(recorder);
+		} else {
+			throw new RuntimeException("Unknown algorithm");
+		}
+
+		recorder.startRecording();
 		try {
 			algo.computePath();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		algo.stopRecording();
-		List<List<SnapshotItem>> snapshotList = algo.retrieveSnapshotList();
+		recorder.stopRecording();
+		List<List<SnapshotItem>> snapshotList = recorder.retrieveSnapshotList();
 		ArrayList<GridObjects> gridObjectsList = new ArrayList<>();
 		for (List<SnapshotItem> snapshot : snapshotList) {
 			gridObjectsList.add(GridObjects.create(snapshot));

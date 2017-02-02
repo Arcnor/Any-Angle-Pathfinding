@@ -2,10 +2,8 @@ package com.github.ohohcakester.algorithms.anya
 
 import com.github.ohohcakester.algorithms.PathFindingAlgorithm
 import com.github.ohohcakester.datatypes.Point
-import com.github.ohohcakester.datatypes.SnapshotItem
 import com.github.ohohcakester.grid.GridGraph
 import com.github.ohohcakester.priorityqueue.FastVariableSizeIndirectHeap
-import java.util.ArrayList
 import java.util.Arrays
 import java.util.HashMap
 
@@ -25,8 +23,8 @@ class Anya(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) : PathFindingAl
 	}
 
 	private var goalState: AnyaState? = null
-	private var states = arrayOfNulls<AnyaState>(11)
-	private var pq: FastVariableSizeIndirectHeap? = null
+	internal var states = arrayOfNulls<AnyaState>(11)
+	internal var pq: FastVariableSizeIndirectHeap? = null
 	private var existingStates: HashMap<AnyaState, Int>? = null
 
 	override fun computePath() {
@@ -38,7 +36,7 @@ class Anya(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) : PathFindingAl
 		computeExtents()
 		generateStartingStates()
 
-		while (!pq!!.isEmpty) {
+		while (pq!!.isNotEmpty()) {
 			maybeSaveSearchSnapshot()
 			val currentID = pq!!.popMinIndex()
 			val currState = states[currentID]
@@ -808,40 +806,4 @@ class Anya(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) : PathFindingAl
 
 			return path as Array<IntArray>
 		}
-
-	override fun computeSearchSnapshot(): List<SnapshotItem> {
-		val list = ArrayList<SnapshotItem>(states.size)
-
-		for (state in states) {
-			// y, xLn, xLd, xRn, xRd, px, py
-			if (state == null) continue
-
-			val line = intArrayOf(
-					state.y,
-					state.xL.n,
-					state.xL.d,
-					state.xR.n,
-					state.xR.d,
-					state.basePoint.x,
-					state.basePoint.y
-			)
-			list.add(SnapshotItem.generate(line))
-		}
-
-		if (!pq!!.isEmpty) {
-			val index = pq!!.minIndex
-			val state = states[index]!!
-
-			val line = intArrayOf(
-					state.y,
-					state.xL.n,
-					state.xL.d,
-					state.xR.n,
-					state.xR.d
-			)
-			list.add(SnapshotItem.generate(line))
-		}
-
-		return list
-	}
 }

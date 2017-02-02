@@ -69,7 +69,7 @@ open class VisibilityGraphAlgorithm(graph: GridGraph, sx: Int, sy: Int, ex: Int,
 			visibilityGraph = VisibilityGraph(graph, sx, sy, ex, ey)
 		}
 
-		if (isRecording) {
+		if (recorder?.isRecording ?: false) {
 			visibilityGraph.setSaveSnapshotFunction { saveVisibilityGraphSnapshot() }
 			visibilityGraph.initialise()
 			saveVisibilityGraphSnapshot()

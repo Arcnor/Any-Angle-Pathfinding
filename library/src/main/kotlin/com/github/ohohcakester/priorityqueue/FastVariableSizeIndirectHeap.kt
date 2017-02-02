@@ -223,10 +223,7 @@ class FastVariableSizeIndirectHeap
 		return sb.toString()
 	}
 
-	val isEmpty: Boolean
-		get() = heapSize <= 0
+	fun isNotEmpty() = heapSize > 0
 
-	fun size(): Int {
-		return heapSize
-	}
+	fun size() = heapSize
 }
