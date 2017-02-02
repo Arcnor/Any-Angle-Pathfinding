@@ -362,30 +362,26 @@ class GridGraph(val sizeX: Int, val sizeY: Int) {
 	 * Checks whether the path (x1,y1),(x2,y2),(x3,y3) is taut.
 	 */
 	fun isTaut(x1: Int, y1: Int, x2: Int, y2: Int, x3: Int, y3: Int): Boolean {
-		if (x1 < x2) {
-			if (y1 < y2) {
-				return isTautFromBottomLeft(x1, y1, x2, y2, x3, y3)
-			} else if (y2 < y1) {
-				return isTautFromTopLeft(x1, y1, x2, y2, x3, y3)
-			} else { // y1 == y2
-				return isTautFromLeft(x1, y1, x2, y2, x3, y3)
+		return when {
+			x1 < x2 -> when {
+				y1 < y2 -> isTautFromBottomLeft(x1, y1, x2, y2, x3, y3)
+				y2 < y1 -> isTautFromTopLeft(x1, y1, x2, y2, x3, y3)
+				else -> // y1 == y2
+					isTautFromLeft(x1, y1, x2, y2, x3, y3)
 			}
-		} else if (x2 < x1) {
-			if (y1 < y2) {
-				return isTautFromBottomRight(x1, y1, x2, y2, x3, y3)
-			} else if (y2 < y1) {
-				return isTautFromTopRight(x1, y1, x2, y2, x3, y3)
-			} else { // y1 == y2
-				return isTautFromRight(x1, y1, x2, y2, x3, y3)
+			x2 < x1 -> when {
+				y1 < y2 -> isTautFromBottomRight(x1, y1, x2, y2, x3, y3)
+				y2 < y1 -> isTautFromTopRight(x1, y1, x2, y2, x3, y3)
+				else -> // y1 == y2
+					isTautFromRight(x1, y1, x2, y2, x3, y3)
 			}
-		} else { // x2 == x1
-			if (y1 < y2) {
-				return isTautFromBottom(x1, y1, x2, y2, x3, y3)
-			} else if (y2 < y1) {
-				return isTautFromTop(x1, y1, x2, y2, x3, y3)
-			} else { // y1 == y2
-				throw UnsupportedOperationException("v == u?")
-			}
+			else -> // x2 == x1
+				when {
+					y1 < y2 -> isTautFromBottom(x1, y1, x2, y2, x3, y3)
+					y2 < y1 -> isTautFromTop(x1, y1, x2, y2, x3, y3)
+					else -> // y1 == y2
+						throw UnsupportedOperationException("v == u?")
+				}
 		}
 	}
 
