@@ -9,7 +9,7 @@ import com.github.ohohcakester.algorithms.astar.BreadthFirstSearch;
 import com.github.ohohcakester.algorithms.astarstatic.JumpPointSearch;
 import com.github.ohohcakester.algorithms.astar.VisibilityGraphAlgorithm;
 import com.github.ohohcakester.algorithms.astar.visibilitygraph.BFSVisibilityGraph;
-import com.github.ohohcakester.algorithms.thetastar.AdjustmentThetaStar;
+import com.github.ohohcakester.algorithms.astarstatic.thetastar.AdjustmentThetaStar;
 import com.github.ohohcakester.algorithms.astarstatic.thetastar.BasicThetaStar;
 import com.github.ohohcakester.algorithms.astarstatic.thetastar.LazyThetaStar;
 import com.github.ohohcakester.algorithms.astarstatic.thetastar.RecursiveThetaStar;
@@ -176,7 +176,7 @@ public class AnyAnglePathfinding {
 				algoFunction = BreadthFirstSearch::new;
 				break;
 			case 3:
-				algoFunction = BreadthFirstSearch::postSmooth;
+				algoFunction = BreadthFirstSearch.Companion::postSmooth;
 				break;
 			case 4:
 				algoFunction = AStar.Companion::postSmooth;
