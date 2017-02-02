@@ -52,14 +52,14 @@ public class AVLTreeTest {
 
 		Node<Integer> node = avlTree.getFirst();
 		while (node != null) {
-			System.out.print(node.data + " ");
+			System.out.print(node.getData() + " ");
 			node = node.getNext();
 		}
 		System.out.println();
 
 		node = avlTree.getLast();
 		while (node != null) {
-			System.out.print(node.data + " ");
+			System.out.print(node.getData() + " ");
 			node = node.getPrev();
 		}
 		System.out.println();
@@ -117,12 +117,12 @@ public class AVLTreeTest {
 
 		node = avlTree.getFirst();
 		while (node != null) {
-			System.out.print(node.data + " ");
+			System.out.print(node.getData() + " ");
 			node = node.getNext();
 			if (node != null) {
-				System.out.print(node.data + " ");
+				System.out.print(node.getData() + " ");
 				node = node.getPrev();
-				System.out.print(node.data + " ");
+				System.out.print(node.getData() + " ");
 				node = node.getNext();
 			}
 		}
@@ -130,12 +130,12 @@ public class AVLTreeTest {
 
 		node = avlTree.getLast();
 		while (node != null) {
-			System.out.print(node.data + " ");
+			System.out.print(node.getData() + " ");
 			node = node.getPrev();
 			if (node != null) {
-				System.out.print(node.data + " ");
+				System.out.print(node.getData() + " ");
 				node = node.getNext();
-				System.out.print(node.data + " ");
+				System.out.print(node.getData() + " ");
 				node = node.getPrev();
 			}
 		}
@@ -145,24 +145,24 @@ public class AVLTreeTest {
 	private void printTreeLinkedList(AVLTree<Integer> avlTree) {
 		Node<Integer> node = avlTree.getFirst();
 		while (node != null) {
-			System.out.print(node.data + " ");
-			if (node.next != null)
-				assertTrue(node.data < node.next.data);
+			System.out.print(node.getData() + " ");
+			if (node.getNext() != null)
+				assertTrue(node.getData() < node.getNext().getData());
 			node = node.getNext();
 		}
 		System.out.println();
 
 		node = avlTree.getLast();
 		while (node != null) {
-			System.out.print(node.data + " ");
-			if (node.prev != null)
-				assertTrue(node.data > node.prev.data);
+			System.out.print(node.getData() + " ");
+			if (node.getPrev() != null)
+				assertTrue(node.getData() > node.getPrev().getData());
 			node = node.getPrev();
 		}
 		System.out.println();
 
-		node = avlTree.root;
-		System.out.println(node + " " + node.next);
+		node = avlTree.getRoot();
+		System.out.println(node + " " + node.getNext());
 	}
 
 }
