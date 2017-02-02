@@ -13,7 +13,7 @@ import com.github.ohohcakester.algorithms.astarstatic.thetastar.BasicThetaStar;
 import com.github.ohohcakester.algorithms.astarstatic.thetastar.LazyThetaStar;
 import com.github.ohohcakester.algorithms.astarstatic.thetastar.RecursiveThetaStar;
 import com.github.ohohcakester.algorithms.thetastar.strictthetastar.RecursiveStrictThetaStar;
-import com.github.ohohcakester.algorithms.thetastar.strictthetastar.StrictThetaStar;
+import com.github.ohohcakester.algorithms.astarstatic.thetastar.strict.StrictThetaStar;
 import com.github.ohohcakester.grid.GridGraph;
 import main.analysis.TwoPoint;
 import main.testgen.PathLengthClass;
@@ -145,7 +145,7 @@ public class AlgoTest {
 		//AlgoFunction sVGAv2 = (a,b,c,d,e) -> new StrictVisibilityGraphAlgorithmV2(a,b,c,d,e);
 
 		AlgoFunction strictThetaStar = StrictThetaStar::new;
-		AlgoFunction strictThetaStarPS = StrictThetaStar::postSmooth;
+		AlgoFunction strictThetaStarPS = StrictThetaStar.Companion::postSmooth;
 		AlgoFunction recStrictThetaStar = RecursiveStrictThetaStar::new;
 		AlgoFunction recStrictThetaStarPS = RecursiveStrictThetaStar::postSmooth;
 		AlgoFunction recStrictThetaStar_2 = (a, b, c, d, e) -> RecursiveStrictThetaStar.depthLimit(a, b, c, d, e, 2);
