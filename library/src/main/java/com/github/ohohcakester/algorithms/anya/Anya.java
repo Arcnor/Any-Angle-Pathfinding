@@ -224,8 +224,8 @@ public class Anya extends PathFindingAlgorithm {
 
 		int y = basePoint.getY();
 
-		if (currState.xR.n <= basePoint.getX()) { // currState.xR <= point.x  (explore left)
-			int xL = currState.xL.n;
+		if (currState.xR.getN() <= basePoint.getX()) { // currState.xR <= point.x  (explore left)
+			int xL = currState.xL.getN();
 			if (getGraph().bottomLeftOfBlockedTile(xL, y)) {
 				if (!getGraph().bottomRightOfBlockedTile(xL, y)) {
 	                /* ----- |XXXXXXXX|
@@ -252,9 +252,9 @@ public class Anya extends PathFindingAlgorithm {
 			}
 
 		} else { // point.x <= currState.xL  (explore right)
-			assert basePoint.getX() <= currState.xL.n;
+			assert basePoint.getX() <= currState.xL.getN();
 
-			int xR = currState.xR.n;
+			int xR = currState.xR.getN();
 			if (getGraph().bottomRightOfBlockedTile(xR, y)) {
 				if (!getGraph().bottomLeftOfBlockedTile(xR, y)) {
                     /*  |XXXXXXXX| -----
@@ -293,7 +293,7 @@ public class Anya extends PathFindingAlgorithm {
 		if (getGraph().bottomLeftOfBlockedTile(currState.xL.floor(), currState.y)) {
 			// Is Blocked Above
 			if (currState.xL.isWholeNumber()) {
-				int xL = currState.xL.n;
+				int xL = currState.xL.getN();
 				if (xL < basePoint.getX() && !getGraph().bottomRightOfBlockedTile(xL, currState.y)) {
                     /* 
                      * .-----|XXXXXXX
@@ -319,7 +319,7 @@ public class Anya extends PathFindingAlgorithm {
 			}
 
 			if (currState.xR.isWholeNumber()) {
-				int xR = currState.xR.n;
+				int xR = currState.xR.getN();
 				if (basePoint.getX() < xR && !getGraph().bottomLeftOfBlockedTile(xR, currState.y)) {
                     /* 
                      *  XXXXXXX|-----.
@@ -378,7 +378,7 @@ public class Anya extends PathFindingAlgorithm {
 
 
 		if (currState.xL.isWholeNumber()) {
-			int xL = currState.xL.n;
+			int xL = currState.xL.getN();
 			if (getGraph().topRightOfBlockedTile(xL, currState.y) && !getGraph().bottomRightOfBlockedTile(xL, currState.y)) {
                 /*
                  * .------P======
@@ -406,7 +406,7 @@ public class Anya extends PathFindingAlgorithm {
 		}
 
 		if (currState.xR.isWholeNumber()) {
-			int xR = currState.xR.n;
+			int xR = currState.xR.getN();
 			if (getGraph().topLeftOfBlockedTile(xR, currState.y) && !getGraph().bottomLeftOfBlockedTile(xR, currState.y)) {
                 /*
                  * ======P------.
@@ -442,7 +442,7 @@ public class Anya extends PathFindingAlgorithm {
 		if (getGraph().topLeftOfBlockedTile(currState.xL.floor(), currState.y)) {
 			// Is Blocked Below
 			if (currState.xL.isWholeNumber()) {
-				int xL = currState.xL.n;
+				int xL = currState.xL.getN();
 				if (xL < basePoint.getX() && !getGraph().topRightOfBlockedTile(xL, currState.y)) {
                     /* 
                      *            B  
@@ -468,7 +468,7 @@ public class Anya extends PathFindingAlgorithm {
 			}
 
 			if (currState.xR.isWholeNumber()) {
-				int xR = currState.xR.n;
+				int xR = currState.xR.getN();
 				if (basePoint.getX() < xR && !getGraph().topLeftOfBlockedTile(xR, currState.y)) {
                     /* 
                      *    B
@@ -526,7 +526,7 @@ public class Anya extends PathFindingAlgorithm {
 
 
 		if (currState.xL.isWholeNumber()) {
-			int xL = currState.xL.n;
+			int xL = currState.xL.getN();
 			if (getGraph().bottomRightOfBlockedTile(xL, currState.y) && !getGraph().topRightOfBlockedTile(xL, currState.y)) {
                 /*
                  *           B
@@ -554,7 +554,7 @@ public class Anya extends PathFindingAlgorithm {
 		}
 
 		if (currState.xR.isWholeNumber()) {
-			int xR = currState.xR.n;
+			int xR = currState.xR.getN();
 			if (getGraph().bottomLeftOfBlockedTile(xR, currState.y) && !getGraph().topLeftOfBlockedTile(xR, currState.y)) {
                 /*
                  *    B
@@ -862,10 +862,10 @@ public class Anya extends PathFindingAlgorithm {
 
 			Integer[] line = new Integer[7];
 			line[0] = in.y;
-			line[1] = in.xL.n;
-			line[2] = in.xL.d;
-			line[3] = in.xR.n;
-			line[4] = in.xR.d;
+			line[1] = in.xL.getN();
+			line[2] = in.xL.getD();
+			line[3] = in.xR.getN();
+			line[4] = in.xR.getD();
 			line[5] = in.basePoint.getX();
 			line[6] = in.basePoint.getY();
 			list.add(SnapshotItem.Companion.generate(line));
@@ -877,10 +877,10 @@ public class Anya extends PathFindingAlgorithm {
 
 			Integer[] line = new Integer[5];
 			line[0] = in.y;
-			line[1] = in.xL.n;
-			line[2] = in.xL.d;
-			line[3] = in.xR.n;
-			line[4] = in.xR.d;
+			line[1] = in.xL.getN();
+			line[2] = in.xL.getD();
+			line[3] = in.xR.getN();
+			line[4] = in.xR.getD();
 			list.add(SnapshotItem.Companion.generate(line));
 		}
 
