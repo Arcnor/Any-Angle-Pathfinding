@@ -253,7 +253,7 @@ public class VisibilityGraph {
 
 		ArrayList<Edge> edges = outgoingEdgeList.get(source);
 		for (Edge edge : edges) {
-			if (edge.dest == dest) {
+			if (edge.getDest() == dest) {
 				return edge;
 			}
 		}

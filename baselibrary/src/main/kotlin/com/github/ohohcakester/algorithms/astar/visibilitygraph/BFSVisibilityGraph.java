@@ -44,14 +44,14 @@ public class BFSVisibilityGraph extends VisibilityGraphAlgorithm {
 			Iterator<Edge> itr = getVisibilityGraph().edgeIterator(current);
 			while (itr.hasNext()) {
 				Edge edge = itr.next();
-				if (!getVisited()[edge.dest]) {
-					getVisited()[edge.dest] = true;
-					getParent()[edge.dest] = current;
-					if (edge.dest == finish) {
+				if (!getVisited()[edge.getDest()]) {
+					getVisited()[edge.getDest()] = true;
+					getParent()[edge.getDest()] = current;
+					if (edge.getDest() == finish) {
 						queue = null;
 						break;
 					}
-					queue.offer(edge.dest);
+					queue.offer(edge.getDest());
 				}
 			}
 			maybeSaveSearchSnapshot();
