@@ -14,7 +14,7 @@ open class AStar(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) : BaseASt
 	val distance: FloatArray
 	protected val visited: BooleanArray
 
-	protected lateinit var pq: FloatIndirectHeap
+	private lateinit var pq: FloatIndirectHeap
 
 	protected var finish: Int = 0
 
@@ -78,7 +78,7 @@ open class AStar(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) : BaseASt
 		maybePostSmooth()
 	}
 
-	protected fun tryRelaxNeighbour(current: Int, currentX: Int, currentY: Int, x: Int, y: Int) {
+	private fun tryRelaxNeighbour(current: Int, currentX: Int, currentY: Int, x: Int, y: Int) {
 		if (!graph.isValidCoordinate(x, y))
 			return
 

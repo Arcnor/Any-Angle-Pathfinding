@@ -26,7 +26,7 @@ public class ProblemAnalysis {
 		this.ex = ex;
 		this.ey = ey;
 
-		VisibilityGraphAlgorithm algo = VisibilityGraphAlgorithm.graphReuse(gridGraph, sx, sy, ex, ey);
+		VisibilityGraphAlgorithm algo = VisibilityGraphAlgorithm.Companion.graphReuse(gridGraph, sx, sy, ex, ey);
 		algo.computePath();
 		int[][] path = algo.getPath();
 		int sizeX = gridGraph.getSizeX();

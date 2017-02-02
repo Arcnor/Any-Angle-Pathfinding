@@ -166,7 +166,7 @@ public class AnyAnglePathfinding {
 	 * Choose an algorithm.
 	 */
 	static AlgoFunction setDefaultAlgoFunction() {
-		int choice = 6; // adjust this to choose an algorithm
+		int choice = 7; // adjust this to choose an algorithm
 
 		switch (choice) {
 			case 1:
@@ -203,7 +203,7 @@ public class AnyAnglePathfinding {
 				algoFunction = AcceleratedAStar::new;
 				break;
 			case 12:
-				algoFunction = VisibilityGraphAlgorithm::graphReuse;
+				algoFunction = VisibilityGraphAlgorithm.Companion::graphReuse;
 				break;
 			case 13:
 				algoFunction = AdjustmentThetaStar::new;

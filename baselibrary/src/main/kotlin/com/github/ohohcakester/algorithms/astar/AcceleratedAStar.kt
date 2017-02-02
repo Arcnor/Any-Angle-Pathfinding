@@ -13,6 +13,8 @@ class AcceleratedAStar(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) : A
 		fun dijkstra(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) = dijkstra(graph, sx, sy, ex, ey, ::AcceleratedAStar)
 	}
 
+	private lateinit var pq: FloatIndirectHeap
+
 	private var closed: MutableList<Int>? = null
 	private var maxRanges: Array<IntArray>? = null
 

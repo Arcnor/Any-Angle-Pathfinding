@@ -74,8 +74,8 @@ abstract class BaseAStar(graph: GridGraph, sizeX: Int, sizeY: Int,
 		return list
 	}
 
-	protected open fun snapshotEdge(endIndex: Int): Array<Int> {
-		val edge = arrayOf(0, 0, toTwoDimX(endIndex), toTwoDimY(endIndex))
+	protected open fun snapshotEdge(endIndex: Int): IntArray {
+		val edge = intArrayOf(0, 0, toTwoDimX(endIndex), toTwoDimY(endIndex))
 		val startIndex = getParent(endIndex)
 		if (startIndex < 0) {
 			edge[0] = edge[2]

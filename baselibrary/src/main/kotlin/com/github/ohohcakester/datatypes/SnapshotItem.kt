@@ -8,15 +8,15 @@ import java.util.HashMap
  * Contains a [x1,y1,x2,y2] or [x,y] and a colour.
  * Refer to GridObjects.java for how the path array works.
  */
-class SnapshotItem private constructor(val path: Array<Int>, val color: Color?) {
+class SnapshotItem private constructor(val path: IntArray, val color: Color?) {
 	companion object {
 		private var cached: HashMap<SnapshotItem, SnapshotItem>? = null
 
-		fun generate(path: Array<Int>, color: Color): SnapshotItem {
+		fun generate(path: IntArray, color: Color): SnapshotItem {
 			return getCached(SnapshotItem(path, color))
 		}
 
-		fun generate(path: Array<Int>): SnapshotItem {
+		fun generate(path: IntArray): SnapshotItem {
 			return getCached(SnapshotItem(path, null))
 		}
 

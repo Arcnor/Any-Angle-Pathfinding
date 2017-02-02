@@ -369,7 +369,7 @@ public class Experiment {
 
 	private static void testAlgorithmOptimality() {
 		AlgoFunction testAlgo = Anya::new;
-		AlgoFunction refAlgo = VisibilityGraphAlgorithm::graphReuse;
+		AlgoFunction refAlgo = VisibilityGraphAlgorithm.Companion::graphReuse;
 
 		//printSeed = false; // keep this commented out.
 		Random seedRand = new Random(-2059321351);

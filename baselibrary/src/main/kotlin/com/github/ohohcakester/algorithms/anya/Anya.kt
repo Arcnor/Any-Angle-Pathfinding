@@ -816,7 +816,7 @@ class Anya(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) : PathFindingAl
 			// y, xLn, xLd, xRn, xRd, px, py
 			if (state == null) continue
 
-			val line = arrayOf(
+			val line = intArrayOf(
 					state.y,
 					state.xL.n,
 					state.xL.d,
@@ -832,7 +832,7 @@ class Anya(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) : PathFindingAl
 			val index = pq!!.minIndex
 			val state = states[index]!!
 
-			val line = arrayOf(
+			val line = intArrayOf(
 					state.y,
 					state.xL.n,
 					state.xL.d,

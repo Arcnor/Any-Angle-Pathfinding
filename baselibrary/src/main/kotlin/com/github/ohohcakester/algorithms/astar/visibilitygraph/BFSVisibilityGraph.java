@@ -18,7 +18,7 @@ public class BFSVisibilityGraph extends VisibilityGraphAlgorithm {
 
 	public static BFSVisibilityGraph graphReuse(GridGraph graph, int sx, int sy, int ex, int ey) {
 		BFSVisibilityGraph algo = new BFSVisibilityGraph(graph, sx, sy, ex, ey);
-		algo.reuseGraph = true;
+		algo.setReuseGraph(true);
 		return algo;
 	}
 
@@ -26,8 +26,8 @@ public class BFSVisibilityGraph extends VisibilityGraphAlgorithm {
 	public void computePath() {
 		setupVisibilityGraph();
 
-		int start = visibilityGraph.startNode();
-		int finish = visibilityGraph.endNode();
+		int start = getVisibilityGraph().startNode();
+		int finish = getVisibilityGraph().endNode();
 		Queue<Integer> queue = new LinkedList<>();
 //		setParent(new int[visibilityGraph.size()]);
 //		setVisited(new boolean[visibilityGraph.size()]);
@@ -41,7 +41,7 @@ public class BFSVisibilityGraph extends VisibilityGraphAlgorithm {
 		while (queue != null && !queue.isEmpty()) {
 			int current = queue.poll();
 
-			Iterator<Edge> itr = visibilityGraph.edgeIterator(current);
+			Iterator<Edge> itr = getVisibilityGraph().edgeIterator(current);
 			while (itr.hasNext()) {
 				Edge edge = itr.next();
 				if (!getVisited()[edge.dest]) {

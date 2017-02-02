@@ -134,13 +134,13 @@ public class AlgoTest {
 		AlgoFunction basicThetaStarPS = BasicThetaStar.Companion::postSmooth;
 		AlgoFunction aStarPS = AStar.Companion::postSmooth;
 		AlgoFunction dijkstra = AStar.Companion::dijkstra;
-		AlgoFunction vgaReuse = VisibilityGraphAlgorithm::graphReuse;
+		AlgoFunction vgaReuse = VisibilityGraphAlgorithm.Companion::graphReuse;
 		AlgoFunction vga = VisibilityGraphAlgorithm::new;
 		AlgoFunction accAStar = AcceleratedAStar::new;
 		AlgoFunction anya = Anya::new;
 
 		//AlgoFunction rVGA = (a,b,c,d,e) -> new RestrictedVisibilityGraphAlgorithm(a,b,c,d,e);
-		AlgoFunction vgReuse = (a, b, c, d, e) -> VisibilityGraphAlgorithm.graphReuse(a, b, c, d, e);
+		AlgoFunction vgReuse = (a, b, c, d, e) -> VisibilityGraphAlgorithm.Companion.graphReuse(a, b, c, d, e);
 		//AlgoFunction sVGA = (a,b,c,d,e) -> new StrictVisibilityGraphAlgorithm(a,b,c,d,e);
 		//AlgoFunction sVGAv2 = (a,b,c,d,e) -> new StrictVisibilityGraphAlgorithmV2(a,b,c,d,e);
 

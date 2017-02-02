@@ -97,7 +97,7 @@ abstract class PathFindingAlgorithm(protected val graph: GridGraph, protected va
 	protected abstract fun computeSearchSnapshot(): List<SnapshotItem>
 
 	protected open fun snapshotVertex(index: Int) = when {
-		selected(index) -> arrayOf(toTwoDimX(index), toTwoDimY(index))
+		selected(index) -> intArrayOf(toTwoDimX(index), toTwoDimY(index))
 		else -> null
 	}
 

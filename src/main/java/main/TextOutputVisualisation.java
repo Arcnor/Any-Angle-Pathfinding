@@ -43,10 +43,10 @@ public class TextOutputVisualisation {
 		GridLineSet gridLineSet = new GridLineSet();
 
 		String[] args = textData.split("\n");
-		Integer[][] paths = new Integer[args.length][];
+		int[][] paths = new int[args.length][];
 		for (int i = 0; i < args.length; ++i) {
 			String[] tokens = args[i].split(" ");
-			Integer[] path = new Integer[tokens.length];
+			int[] path = new int[tokens.length];
 			for (int j = 0; j < tokens.length; ++j) {
 				path[j] = Integer.parseInt(tokens[j]);
 			}
