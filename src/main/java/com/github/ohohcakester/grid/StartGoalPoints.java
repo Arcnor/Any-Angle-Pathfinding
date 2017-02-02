@@ -9,6 +9,4 @@ public class StartGoalPoints {
 		this.ex = ex;
 		this.ey = ey;
 	}
-
-	;
 }
