@@ -1,8 +1,6 @@
 package com.github.ohohcakester.algorithms.astar
 
 import com.github.ohohcakester.grid.GridGraph
-
-import java.util.Arrays
 import java.util.LinkedList
 import java.util.Queue
 

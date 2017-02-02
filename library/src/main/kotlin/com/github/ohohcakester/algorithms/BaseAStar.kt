@@ -4,11 +4,11 @@ import com.github.ohohcakester.datatypes.Memory
 import com.github.ohohcakester.grid.GridGraph
 
 abstract class BaseAStar(graph: GridGraph, sizeX: Int, sizeY: Int,
-                sx: Int, sy: Int, ex: Int, ey: Int) : PathFindingAlgorithm(graph, sizeX, sizeY, sx, sy, ex, ey) {
+                         sx: Int, sy: Int, ex: Int, ey: Int) : PathFindingAlgorithm(graph, sizeX, sizeY, sx, sy, ex, ey) {
 	protected companion object {
 		@JvmStatic
-		fun <T: BaseAStar> postSmooth(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int,
-		                                                constructor: (graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) -> T): T {
+		fun <T : BaseAStar> postSmooth(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int,
+		                               constructor: (graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) -> T): T {
 			val r = constructor(graph, sx, sy, ex, ey)
 			r.postSmoothingOn = true
 			r.repeatedPostSmooth = false
@@ -16,8 +16,8 @@ abstract class BaseAStar(graph: GridGraph, sizeX: Int, sizeY: Int,
 		}
 
 		@JvmStatic
-		fun <T: BaseAStar> repeatedPostSmooth(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int,
-		                                                        constructor: (graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) -> T): T {
+		fun <T : BaseAStar> repeatedPostSmooth(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int,
+		                                       constructor: (graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) -> T): T {
 			val r = constructor(graph, sx, sy, ex, ey)
 			r.postSmoothingOn = true
 			r.repeatedPostSmooth = true
@@ -25,8 +25,8 @@ abstract class BaseAStar(graph: GridGraph, sizeX: Int, sizeY: Int,
 		}
 
 		@JvmStatic
-		fun <T: BaseAStar> dijkstra(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int,
-		                                              constructor: (graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) -> T): T {
+		fun <T : BaseAStar> dijkstra(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int,
+		                             constructor: (graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) -> T): T {
 			val r = constructor(graph, sx, sy, ex, ey)
 			r.heuristicWeight = 0f
 			return r

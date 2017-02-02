@@ -3,12 +3,12 @@ package main;
 import com.github.ohohcakester.algorithms.PathFindingAlgorithm;
 import com.github.ohohcakester.algorithms.anya.Anya;
 import com.github.ohohcakester.algorithms.astar.AStar;
-import com.github.ohohcakester.algorithms.astarstatic.AStarOctileHeuristic;
-import com.github.ohohcakester.algorithms.astarstatic.AStarStaticMemory;
 import com.github.ohohcakester.algorithms.astar.AcceleratedAStar;
 import com.github.ohohcakester.algorithms.astar.BreadthFirstSearch;
-import com.github.ohohcakester.algorithms.astarstatic.JumpPointSearch;
 import com.github.ohohcakester.algorithms.astar.visibilitygraph.VisibilityGraphAlgorithm;
+import com.github.ohohcakester.algorithms.astarstatic.AStarOctileHeuristic;
+import com.github.ohohcakester.algorithms.astarstatic.AStarStaticMemory;
+import com.github.ohohcakester.algorithms.astarstatic.JumpPointSearch;
 import com.github.ohohcakester.algorithms.astarstatic.thetastar.BasicThetaStar;
 import com.github.ohohcakester.algorithms.astarstatic.thetastar.LazyThetaStar;
 import com.github.ohohcakester.algorithms.astarstatic.thetastar.RecursiveThetaStar;
@@ -553,7 +553,7 @@ public class AlgoTest {
 	@Deprecated
 	private static void runTestAllAlgos() {
 	    /*AnyAnglePathfinding.algoFunction = (gridGraph, sx, sy, ex, ey) -> new AStar(gridGraph, sx, sy, ex, ey);
-        runTests("AStar_TI");
+	    runTests("AStar_TI");
 
         AnyAnglePathfinding.algoFunction = (gridGraph, sx, sy, ex, ey) -> new BreadthFirstSearch(gridGraph, sx, sy, ex, ey);
         runTests("BFS");

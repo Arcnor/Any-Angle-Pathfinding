@@ -1,11 +1,11 @@
 package main;
 
 import com.github.ohohcakester.algorithms.BaseAStar;
+import com.github.ohohcakester.algorithms.BaseAStarRecorder;
 import com.github.ohohcakester.algorithms.PathFindingAlgorithm;
+import com.github.ohohcakester.algorithms.PathFindingRecorder;
 import com.github.ohohcakester.algorithms.anya.Anya;
 import com.github.ohohcakester.algorithms.anya.AnyaRecorder;
-import com.github.ohohcakester.algorithms.BaseAStarRecorder;
-import com.github.ohohcakester.algorithms.PathFindingRecorder;
 import com.github.ohohcakester.datatypes.SnapshotItem;
 import com.github.ohohcakester.grid.GridAndGoals;
 import com.github.ohohcakester.grid.GridGraph;

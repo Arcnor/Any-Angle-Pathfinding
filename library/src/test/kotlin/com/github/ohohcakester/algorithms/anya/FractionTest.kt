@@ -1,8 +1,7 @@
 package com.github.ohohcakester.algorithms.anya
 
-import org.junit.Test
-
 import org.junit.Assert.assertEquals
+import org.junit.Test
 
 class FractionTest {
 	@Test

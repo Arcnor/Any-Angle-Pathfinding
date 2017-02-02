@@ -1,6 +1,5 @@
 package com.github.ohohcakester.algorithms.astarstatic.thetastar.strict
 
-import com.github.ohohcakester.algorithms.astarstatic.thetastar.strict.AbstractStrictThetaStar
 import com.github.ohohcakester.grid.GridGraph
 
 /**

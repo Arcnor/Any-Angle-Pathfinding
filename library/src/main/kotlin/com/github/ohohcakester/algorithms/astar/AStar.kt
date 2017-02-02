@@ -161,7 +161,8 @@ open class AStar(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) : BaseASt
 	protected fun maybePostSmooth() {
 		if (postSmoothingOn) {
 			if (repeatedPostSmooth) {
-				while (postSmooth()) {}
+				while (postSmooth()) {
+				}
 			} else {
 				postSmooth()
 			}

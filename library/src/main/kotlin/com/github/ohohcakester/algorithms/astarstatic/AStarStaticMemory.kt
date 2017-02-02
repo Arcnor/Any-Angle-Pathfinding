@@ -9,7 +9,7 @@ open class AStarStaticMemory(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: In
 	companion object {
 		fun postSmooth(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) = postSmooth(graph, sx, sy, ex, ey, ::AStarStaticMemory)
 		fun repeatedPostSmooth(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) = repeatedPostSmooth(graph, sx, sy, ex, ey, ::AStarStaticMemory)
-		fun dijkstra(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int)= dijkstra(graph, sx, sy, ex, ey, ::AStarStaticMemory)
+		fun dijkstra(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) = dijkstra(graph, sx, sy, ex, ey, ::AStarStaticMemory)
 	}
 
 	protected var pq: ReusableIndirectHeap
@@ -150,7 +150,8 @@ open class AStarStaticMemory(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: In
 	protected fun maybePostSmooth() {
 		if (postSmoothingOn) {
 			when {
-				repeatedPostSmooth -> while (postSmooth()) {}
+				repeatedPostSmooth -> while (postSmooth()) {
+				}
 				else -> postSmooth()
 			}
 		}

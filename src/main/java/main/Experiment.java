@@ -2,13 +2,13 @@ package main;
 
 import com.github.ohohcakester.algorithms.anya.Anya;
 import com.github.ohohcakester.algorithms.astar.AStar;
-import com.github.ohohcakester.algorithms.astarstatic.JumpPointSearch;
-import com.github.ohohcakester.algorithms.astar.visibilitygraph.VisibilityGraphAlgorithm;
 import com.github.ohohcakester.algorithms.astar.visibilitygraph.VisibilityGraph;
-import com.github.ohohcakester.datatypes.Point;
+import com.github.ohohcakester.algorithms.astar.visibilitygraph.VisibilityGraphAlgorithm;
+import com.github.ohohcakester.algorithms.astarstatic.JumpPointSearch;
 import com.github.ohohcakester.algorithms.astarstatic.thetastar.BasicThetaStar;
 import com.github.ohohcakester.algorithms.astarstatic.thetastar.strict.RecursiveStrictThetaStar;
 import com.github.ohohcakester.algorithms.astarstatic.thetastar.strict.StrictThetaStar;
+import com.github.ohohcakester.datatypes.Point;
 import com.github.ohohcakester.grid.GridGraph;
 import com.github.ohohcakester.grid.ReachableNodes;
 import com.github.ohohcakester.grid.StartGoalPoints;

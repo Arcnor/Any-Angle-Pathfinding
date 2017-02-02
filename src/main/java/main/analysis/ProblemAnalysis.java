@@ -1,8 +1,8 @@
 package main.analysis;
 
-import com.github.ohohcakester.algorithms.astar.visibilitygraph.VisibilityGraphAlgorithm;
 import com.github.ohohcakester.algorithms.astar.visibilitygraph.BFSVisibilityGraph;
 import com.github.ohohcakester.algorithms.astar.visibilitygraph.VisibilityGraph;
+import com.github.ohohcakester.algorithms.astar.visibilitygraph.VisibilityGraphAlgorithm;
 import com.github.ohohcakester.grid.GridGraph;
 import main.utility.Utility;
 

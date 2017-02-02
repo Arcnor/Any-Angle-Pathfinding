@@ -3,7 +3,7 @@ package com.github.ohohcakester.algorithms
 import com.github.ohohcakester.datatypes.SnapshotItem
 import java.awt.Color
 
-class BaseAStarRecorder(val algorithm: BaseAStar): PathFindingRecorder() {
+class BaseAStarRecorder(val algorithm: BaseAStar) : PathFindingRecorder() {
 	override fun computeSearchSnapshot(): List<SnapshotItem> {
 		val list = java.util.ArrayList<SnapshotItem>()
 		var current = algorithm.goalParentIndex()

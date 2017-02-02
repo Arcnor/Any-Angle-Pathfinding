@@ -27,6 +27,7 @@ internal class AnyaState private constructor(val xL: Fraction, val xR: Fraction,
 					sourceInterval)
 		}
 	}
+
 	var hValue: Float = 0.toFloat()
 	val fValue: Float
 		get() = gValue + hValue

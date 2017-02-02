@@ -2,13 +2,13 @@ package main;
 
 import com.github.ohohcakester.algorithms.anya.Anya;
 import com.github.ohohcakester.algorithms.astar.AStar;
-import com.github.ohohcakester.algorithms.astarstatic.AStarOctileHeuristic;
-import com.github.ohohcakester.algorithms.astarstatic.AStarStaticMemory;
 import com.github.ohohcakester.algorithms.astar.AcceleratedAStar;
 import com.github.ohohcakester.algorithms.astar.BreadthFirstSearch;
-import com.github.ohohcakester.algorithms.astarstatic.JumpPointSearch;
-import com.github.ohohcakester.algorithms.astar.visibilitygraph.VisibilityGraphAlgorithm;
 import com.github.ohohcakester.algorithms.astar.visibilitygraph.BFSVisibilityGraph;
+import com.github.ohohcakester.algorithms.astar.visibilitygraph.VisibilityGraphAlgorithm;
+import com.github.ohohcakester.algorithms.astarstatic.AStarOctileHeuristic;
+import com.github.ohohcakester.algorithms.astarstatic.AStarStaticMemory;
+import com.github.ohohcakester.algorithms.astarstatic.JumpPointSearch;
 import com.github.ohohcakester.algorithms.astarstatic.thetastar.AdjustmentThetaStar;
 import com.github.ohohcakester.algorithms.astarstatic.thetastar.BasicThetaStar;
 import com.github.ohohcakester.algorithms.astarstatic.thetastar.LazyThetaStar;

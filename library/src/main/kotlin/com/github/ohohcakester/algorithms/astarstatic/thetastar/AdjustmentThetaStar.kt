@@ -13,7 +13,7 @@ class AdjustmentThetaStar(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) 
 		fun repeatedPostSmooth(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) = repeatedPostSmooth(graph, sx, sy, ex, ey, ::AdjustmentThetaStar)
 		fun dijkstra(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) = dijkstra(graph, sx, sy, ex, ey, ::AdjustmentThetaStar)
 	}
-	
+
 	override fun relax(u: Int, v: Int, weightUV: Float): Boolean {
 		var u = u
 		// return true iff relaxation is done.
