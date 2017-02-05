@@ -140,8 +140,9 @@ class Fraction : Comparable<Fraction> {
 	}
 
 	override fun equals(obj: Any?): Boolean {
-		val o = obj as Fraction?
-		return n * o!!.d == o.n * d
+		if (obj !is Fraction) return false
+		val o = obj
+		return n * o.d == o.n * d
 	}
 
 	override fun toString(): String {

@@ -249,7 +249,7 @@ class VisibilityGraph(private val graph: GridGraph, private val sx: Int, private
 
 		fun getStoredGraph(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int): VisibilityGraph {
 			val result: VisibilityGraph
-			if (storedGridGraph != graph || storedVisibilityGraph == null) {
+			if (storedGridGraph !== graph || storedVisibilityGraph == null) {
 				//("Get new graph");
 				result = VisibilityGraph(graph, sx, sy, ex, ey)
 				storedVisibilityGraph = result

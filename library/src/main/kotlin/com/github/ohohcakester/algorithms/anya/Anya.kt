@@ -406,7 +406,7 @@ class Anya(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) : PathFindingAl
 
 				run {
 					val rightBound = rightAnyExtent(xR, currState.y)
-					generateSameLevelUnobservable(Point(xR, currState.y), xR, rightBound, currState)
+					generateSameLevelUnobservable(pivot, xR, rightBound, currState)
 				}
 
 				run {
@@ -554,7 +554,7 @@ class Anya(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) : PathFindingAl
 
 				run {
 					val rightBound = rightAnyExtent(xR, currState.y)
-					generateSameLevelUnobservable(Point(xR, currState.y), xR, rightBound, currState)
+					generateSameLevelUnobservable(pivot, xR, rightBound, currState)
 				}
 
 				run {

@@ -9,7 +9,7 @@ import com.github.ohohcakester.grid.GridGraph
  */
 abstract class PathFindingAlgorithm(
 		protected val graph: GridGraph, protected val sizeX: Int, protected val sizeY: Int,
-		protected val sx: Int, protected val sy: Int, protected val ex: Int, protected val ey: Int) {
+		val sx: Int, val sy: Int, val ex: Int, val ey: Int) {
 
 	var recorder: PathFindingRecorder? = null
 

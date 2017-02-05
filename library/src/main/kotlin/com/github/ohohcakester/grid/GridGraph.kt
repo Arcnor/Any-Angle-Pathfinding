@@ -2,8 +2,6 @@
 
 package com.github.ohohcakester.grid
 
-import com.github.ohohcakester.datatypes.Point
-
 /**
  * Represents the Grid of blocked/unblocked tiles.
  */
@@ -211,67 +209,6 @@ class GridGraph(val sizeX: Int, val sizeY: Int) {
 		}
 		return true
 	}
-
-	fun findFirstBlockedTile(x1: Int, y1: Int, dx: Int, dy: Int): Point {
-		var x1 = x1
-		var y1 = y1
-		var dx = dx
-		var dy = dy
-
-		var f = 0
-
-		var signY = 1
-		var signX = 1
-		var offsetX = 0
-		var offsetY = 0
-
-		if (dy < 0) {
-			dy *= -1
-			signY = -1
-			offsetY = -1
-		}
-		if (dx < 0) {
-			dx *= -1
-			signX = -1
-			offsetX = -1
-		}
-
-		if (dx >= dy) {
-			while (true) {
-				f += dy
-				if (f >= dx) {
-					if (isBlocked(x1 + offsetX, y1 + offsetY))
-						return Point(x1 + offsetX, y1 + offsetY)
-					y1 += signY
-					f -= dx
-				}
-				if (f != 0 && isBlocked(x1 + offsetX, y1 + offsetY))
-					return Point(x1 + offsetX, y1 + offsetY)
-				if (dy == 0 && isBlocked(x1 + offsetX, y1) && isBlocked(x1 + offsetX, y1 - 1))
-					return Point(x1 + offsetX, -1)
-
-				x1 += signX
-			}
-		} else {
-			while (true) {
-				f += dx
-				if (f >= dy) {
-					if (isBlocked(x1 + offsetX, y1 + offsetY))
-						return Point(x1 + offsetX, y1 + offsetY)
-					x1 += signX
-					f -= dy
-				}
-				if (f != 0 && isBlocked(x1 + offsetX, y1 + offsetY))
-					return Point(x1 + offsetX, y1 + offsetY)
-				if (dx == 0 && isBlocked(x1, y1 + offsetY) && isBlocked(x1 - 1, y1 + offsetY))
-					return Point(-1, y1 + offsetY)
-
-				y1 += signY
-			}
-		}
-		//return null;
-	}
-
 
 	/**
 	 * Used by Accelerated A* and MazeAnalysis.
