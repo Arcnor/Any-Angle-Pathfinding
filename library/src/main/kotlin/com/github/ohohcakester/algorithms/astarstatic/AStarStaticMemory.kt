@@ -5,11 +5,13 @@ import com.github.ohohcakester.datatypes.Memory
 import com.github.ohohcakester.grid.GridGraph
 import com.github.ohohcakester.priorityqueue.ReusableIndirectHeap
 
-open class AStarStaticMemory(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) : BaseAStar(graph, graph.sizeX, graph.sizeY, sx, sy, ex, ey) {
+open class AStarStaticMemory<out P>(graph: GridGraph,
+                                    sx: Int, sy: Int, ex: Int, ey: Int,
+                                    pointConstructor: (x: Int, y: Int) -> P) : BaseAStar<P>(graph, graph.sizeX, graph.sizeY, sx, sy, ex, ey, pointConstructor) {
 	companion object {
-		fun postSmooth(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) = postSmooth(graph, sx, sy, ex, ey, ::AStarStaticMemory)
-		fun repeatedPostSmooth(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) = repeatedPostSmooth(graph, sx, sy, ex, ey, ::AStarStaticMemory)
-		fun dijkstra(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) = dijkstra(graph, sx, sy, ex, ey, ::AStarStaticMemory)
+		fun <P> postSmooth(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int, pointConstructor: (x: Int, y: Int) -> P) = postSmooth(graph, sx, sy, ex, ey, pointConstructor, ::AStarStaticMemory)
+		fun <P> repeatedPostSmooth(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int, pointConstructor: (x: Int, y: Int) -> P) = repeatedPostSmooth(graph, sx, sy, ex, ey, pointConstructor, ::AStarStaticMemory)
+		fun <P> dijkstra(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int, pointConstructor: (x: Int, y: Int) -> P) = dijkstra(graph, sx, sy, ex, ey, pointConstructor, ::AStarStaticMemory)
 	}
 
 	protected var pq: ReusableIndirectHeap
@@ -184,15 +186,15 @@ open class AStarStaticMemory(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: In
 	}
 
 
-	override val path: Array<IntArray>
+	override val path: List<P>
 		get() {
 			var current = finish
 
-			return Array(pathLength()) {
-				val result = intArrayOf(toTwoDimX(current), toTwoDimY(current))
+			return List(pathLength()) {
+				val result = makePoint(toTwoDimX(current), toTwoDimY(current))
 				current = getParent(current)
 				result
-			}.reversedArray()
+			}.reversed()
 		}
 
 	override fun selected(index: Int) = visited(index)

@@ -2,14 +2,15 @@ package com.github.ohohcakester.grid;
 
 import com.github.ohohcakester.algorithms.astar.BreadthFirstSearch;
 import com.github.ohohcakester.datatypes.Point;
+import kotlin.jvm.functions.Function2;
 
 import java.util.ArrayList;
 
-public class ReachableNodes extends BreadthFirstSearch {
+public class ReachableNodes<P> extends BreadthFirstSearch<P> {
 
 	private ReachableNodes(GridGraph graph, int sx, int sy, int ex,
-	                       int ey) {
-		super(graph, sx, sy, ex, ey);
+	                       int ey, Function2<Integer, Integer, P> pointConstructor) {
+		super(graph, sx, sy, ex, ey, pointConstructor);
 	}
 
 	/**
@@ -21,7 +22,7 @@ public class ReachableNodes extends BreadthFirstSearch {
 	 * @return An ArrayList of Point objects (nodes reachable from (sx,sy) via an unblocked path).
 	 */
 	public static ArrayList<Point> computeReachable(GridGraph graph, int sx, int sy) {
-		ReachableNodes nodes = new ReachableNodes(graph, sx, sy, -10, -10);
+		ReachableNodes nodes = new ReachableNodes<>(graph, sx, sy, -10, -10, Point::new);
 		ArrayList<Point> list = new ArrayList<>();
 
 		nodes.computePath();

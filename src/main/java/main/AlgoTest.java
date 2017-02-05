@@ -14,7 +14,9 @@ import com.github.ohohcakester.algorithms.astarstatic.thetastar.LazyThetaStar;
 import com.github.ohohcakester.algorithms.astarstatic.thetastar.RecursiveThetaStar;
 import com.github.ohohcakester.algorithms.astarstatic.thetastar.strict.RecursiveStrictThetaStar;
 import com.github.ohohcakester.algorithms.astarstatic.thetastar.strict.StrictThetaStar;
+import com.github.ohohcakester.datatypes.Point;
 import com.github.ohohcakester.grid.GridGraph;
+import kotlin.jvm.functions.Function2;
 import main.analysis.TwoPoint;
 import main.testgen.PathLengthClass;
 import main.testgen.StandardMazes;
@@ -26,6 +28,7 @@ import uiandio.FileIO;
 import uiandio.GraphImporter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 interface TestFunction {
 	public void test(String mazeName, GridGraph gridGraph,
@@ -140,7 +143,7 @@ public class AlgoTest {
 		AlgoFunction anya = Anya::new;
 
 		//AlgoFunction rVGA = (a,b,c,d,e) -> new RestrictedVisibilityGraphAlgorithm(a,b,c,d,e);
-		AlgoFunction vgReuse = (a, b, c, d, e) -> VisibilityGraphAlgorithm.Companion.graphReuse(a, b, c, d, e);
+		AlgoFunction vgReuse = (a, b, c, d, e, pointConstructor) -> VisibilityGraphAlgorithm.Companion.graphReuse(a, b, c, d, e, Point::new);
 		//AlgoFunction sVGA = (a,b,c,d,e) -> new StrictVisibilityGraphAlgorithm(a,b,c,d,e);
 		//AlgoFunction sVGAv2 = (a,b,c,d,e) -> new StrictVisibilityGraphAlgorithmV2(a,b,c,d,e);
 
@@ -148,7 +151,7 @@ public class AlgoTest {
 		AlgoFunction strictThetaStarPS = StrictThetaStar.Companion::postSmooth;
 		AlgoFunction recStrictThetaStar = RecursiveStrictThetaStar::new;
 		AlgoFunction recStrictThetaStarPS = RecursiveStrictThetaStar.Companion::postSmooth;
-		AlgoFunction recStrictThetaStar_2 = (a, b, c, d, e) -> RecursiveStrictThetaStar.Companion.depthLimit(a, b, c, d, e, 2);
+		AlgoFunction recStrictThetaStar_2 = (a, b, c, d, e, pointConstructor) -> RecursiveStrictThetaStar.Companion.depthLimit(a, b, c, d, e, Point::new, 2);
 
 		AlgoFunction recursiveThetaStar = RecursiveThetaStar::new;
 
@@ -479,7 +482,7 @@ public class AlgoTest {
 
 		long start = System.nanoTime();
 		for (int i = 0; i < nTrials; i++) {
-			AlgoTest.testAlgorithmSpeed(algoFunction, gridGraph, startX, startY, endX, endY);
+			AlgoTest.testAlgorithmSpeed(algoFunction, gridGraph, startX, startY, endX, endY, Point::new);
 		}
 		long end = System.nanoTime();
 
@@ -504,7 +507,7 @@ public class AlgoTest {
 		for (int s = 0; s < sampleSize; s++) {
 			long start = System.nanoTime();
 			for (int i = 0; i < nTrials; i++) {
-				AlgoTest.testAlgorithmSpeed(algoFunction, gridGraph, startX, startY, endX, endY);
+				AlgoTest.testAlgorithmSpeed(algoFunction, gridGraph, startX, startY, endX, endY, Point::new);
 			}
 			long end = System.nanoTime();
 			//System.gc();
@@ -527,7 +530,7 @@ public class AlgoTest {
 	private static TestResult testAlgorithmPathLength(GridGraph gridGraph,
 	                                                  AlgoFunction algoFunction, TwoPoint tp) {
 
-		int[][] path = Utility.generatePath(algoFunction, gridGraph,
+		List<Point> path = Utility.generatePath(algoFunction, gridGraph,
 				tp.p1.getX(), tp.p1.getY(), tp.p2.getX(), tp.p2.getY());
 		double pathLength = Utility.computePathLength(gridGraph, path);
 		boolean isTaut = Utility.isPathTaut(gridGraph, path);
@@ -698,7 +701,7 @@ public class AlgoTest {
 		for (int s = 0; s < sampleSize; s++) {
 			long start = System.nanoTime();
 			for (int i = 0; i < nTrials; i++) {
-				AlgoTest.testAlgorithmSpeed(algoFunction, gridGraph, startX, startY, endX, endY);
+				AlgoTest.testAlgorithmSpeed(algoFunction, gridGraph, startX, startY, endX, endY, Point::new);
 			}
 			long end = System.nanoTime();
 			System.gc();
@@ -714,7 +717,7 @@ public class AlgoTest {
 		double sampleVariance = (secondMomentTimesN - sampleSize * (mean * mean)) / (sampleSize - 1);
 		double standardDeviation = Math.sqrt(sampleVariance);
 
-		int[][] path = Utility.generatePath(algoFunction, gridGraph, startX, startY, endX, endY);
+		List<Point> path = Utility.generatePath(algoFunction, gridGraph, startX, startY, endX, endY);
 		double pathLength = Utility.computePathLength(gridGraph, path);
 		boolean isTaut = Utility.isPathTaut(gridGraph, path);
 
@@ -726,9 +729,9 @@ public class AlgoTest {
 	 * Tells the algorithm to compute a path. returns nothing.
 	 * Used to test how long the algorithm takes to complete the computation.
 	 */
-	private static void testAlgorithmSpeed(AlgoFunction algoFunction, GridGraph gridGraph, int sx, int sy,
-	                                       int ex, int ey) {
-		PathFindingAlgorithm algo = algoFunction.getAlgo(gridGraph, sx, sy, ex, ey);
+	private static <P> void testAlgorithmSpeed(AlgoFunction<P> algoFunction, GridGraph gridGraph, int sx, int sy,
+	                                           int ex, int ey, Function2<Integer, Integer, P> pointConstructor) {
+		PathFindingAlgorithm<P> algo = algoFunction.getAlgo(gridGraph, sx, sy, ex, ey, pointConstructor);
 		algo.computePath();
 	}
 

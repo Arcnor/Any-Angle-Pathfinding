@@ -4,11 +4,13 @@ import com.github.ohohcakester.algorithms.BaseAStar
 import com.github.ohohcakester.grid.GridGraph
 import com.github.ohohcakester.priorityqueue.FloatIndirectHeap
 
-open class AStar(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) : BaseAStar(graph, graph.sizeX, graph.sizeY, sx, sy, ex, ey) {
+open class AStar<out P>(graph: GridGraph,
+                    sx: Int, sy: Int, ex: Int, ey: Int,
+                    pointConstructor: (x: Int, y: Int) -> P) : BaseAStar<P>(graph, graph.sizeX, graph.sizeY, sx, sy, ex, ey, pointConstructor) {
 	companion object {
-		fun postSmooth(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) = postSmooth(graph, sx, sy, ex, ey, ::AStar)
-		fun repeatedPostSmooth(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) = repeatedPostSmooth(graph, sx, sy, ex, ey, ::AStar)
-		fun dijkstra(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) = dijkstra(graph, sx, sy, ex, ey, ::AStar)
+		fun <P> postSmooth(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int, pointConstructor: (x: Int, y: Int) -> P) = postSmooth(graph, sx, sy, ex, ey, pointConstructor, ::AStar)
+		fun <P> repeatedPostSmooth(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int, pointConstructor: (x: Int, y: Int) -> P) = repeatedPostSmooth(graph, sx, sy, ex, ey, pointConstructor, ::AStar)
+		fun <P> dijkstra(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int, pointConstructor: (x: Int, y: Int) -> P) = dijkstra(graph, sx, sy, ex, ey, pointConstructor, ::AStar)
 	}
 
 	val distance: FloatArray
@@ -196,15 +198,15 @@ open class AStar(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) : BaseASt
 	}
 
 
-	override val path: Array<IntArray>
+	override val path: List<P>
 		get() {
 			var current = finish
 
-			return Array(pathLength()) {
-				val result = intArrayOf(toTwoDimX(current), toTwoDimY(current))
+			return List(pathLength()) {
+				val result = makePoint(toTwoDimX(current), toTwoDimY(current))
 				current = getParent(current)
 				result
-			}.reversedArray()
+			}.reversed()
 		}
 
 	override fun selected(index: Int) = visited[index]

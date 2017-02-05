@@ -4,7 +4,9 @@ import com.github.ohohcakester.algorithms.astarstatic.thetastar.BasicThetaStar
 import com.github.ohohcakester.grid.GridGraph
 import com.github.ohohcakester.priorityqueue.ReusableIndirectHeap
 
-abstract class AbstractStrictThetaStar(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) : BasicThetaStar(graph, sx, sy, ex, ey) {
+abstract class AbstractStrictThetaStar<out P>(graph: GridGraph,
+                                              sx: Int, sy: Int, ex: Int, ey: Int,
+                                              pointConstructor: (x: Int, y: Int) -> P) : BasicThetaStar<P>(graph, sx, sy, ex, ey, pointConstructor) {
 	override fun heuristic(x: Int, y: Int): Float {
 		return heuristicWeight * graph.distance(x, y, ex, ey)
 

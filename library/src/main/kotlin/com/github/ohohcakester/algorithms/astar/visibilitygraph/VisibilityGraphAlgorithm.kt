@@ -7,29 +7,31 @@ import com.github.ohohcakester.priorityqueue.FloatIndirectHeap
 import java.awt.Color
 import java.util.ArrayList
 
-open class VisibilityGraphAlgorithm(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) : AStar(graph, sx, sy, ex, ey) {
+open class VisibilityGraphAlgorithm<out P>(graph: GridGraph,
+                                           sx: Int, sy: Int, ex: Int, ey: Int,
+                                           pointConstructor: (x: Int, y: Int) -> P) : AStar<P>(graph, sx, sy, ex, ey, pointConstructor) {
 	companion object {
-		fun noHeuristic(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int): VisibilityGraphAlgorithm {
-			val algo = VisibilityGraphAlgorithm(graph, sx, sy, ex, ey)
+		fun <P> noHeuristic(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int, pointConstructor: (x: Int, y: Int) -> P): VisibilityGraphAlgorithm<P> {
+			val algo = VisibilityGraphAlgorithm(graph, sx, sy, ex, ey, pointConstructor)
 			algo.heuristicWeight = 0f
 			return algo
 		}
 
-		fun graphReuseNoHeuristic(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int): VisibilityGraphAlgorithm {
-			val algo = VisibilityGraphAlgorithm(graph, sx, sy, ex, ey)
+		fun <P> graphReuseNoHeuristic(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int, pointConstructor: (x: Int, y: Int) -> P): VisibilityGraphAlgorithm<P> {
+			val algo = VisibilityGraphAlgorithm(graph, sx, sy, ex, ey, pointConstructor)
 			algo.reuseGraph = true
 			algo.heuristicWeight = 0f
 			return algo
 		}
 
-		fun graphReuse(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int): VisibilityGraphAlgorithm {
-			val algo = VisibilityGraphAlgorithm(graph, sx, sy, ex, ey)
+		fun <P> graphReuse(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int, pointConstructor: (x: Int, y: Int) -> P): VisibilityGraphAlgorithm<P> {
+			val algo = VisibilityGraphAlgorithm(graph, sx, sy, ex, ey, pointConstructor)
 			algo.reuseGraph = true
 			return algo
 		}
 
-		fun graphReuseSlowDijkstra(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int): VisibilityGraphAlgorithm {
-			val algo = VisibilityGraphAlgorithm(graph, sx, sy, ex, ey)
+		fun <P> graphReuseSlowDijkstra(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int, pointConstructor: (x: Int, y: Int) -> P): VisibilityGraphAlgorithm<P> {
+			val algo = VisibilityGraphAlgorithm(graph, sx, sy, ex, ey, pointConstructor)
 			algo.reuseGraph = true
 			algo.slowDijkstra = true
 			return algo
@@ -169,25 +171,19 @@ open class VisibilityGraphAlgorithm(graph: GridGraph, sx: Int, sy: Int, ex: Int,
 		return length
 	}
 
-	override val path: Array<IntArray>
+	override val path: List<P>
 		get() {
 			val length = pathLength()
-			val path = arrayOfNulls<IntArray>(length)
 			var current = visibilityGraph.endNode()
-
-			var index = length - 1
-			while (current != -1) {
+			return List(length) {
 				val point = visibilityGraph.coordinateOf(current)
 				val x = point.x
 				val y = point.y
 
-				path[index] = intArrayOf(x, y)
-
-				index--
 				current = parent[current]
-			}
 
-			return path as Array<IntArray>
+				makePoint(x, y)
+			}.reversed()
 		}
 
 	override fun goalParentIndex(): Int {

@@ -35,7 +35,7 @@ class IndirectHeapTest {
 			assertEquals(i.toLong(), (pq.popMinIndex() * 73 % 239).toLong())
 		}
 
-		assertEquals(false, pq.isEmpty)
+		assertEquals(true, pq.isNotEmpty())
 		assertEquals(139, pq.size().toLong())
 
 		val newHandles = IntArray(139)

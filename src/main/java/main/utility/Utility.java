@@ -8,28 +8,28 @@ import main.AlgoFunction;
 import main.testgen.StartEndPointData;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.List;
 
 public class Utility {
 
 	/**
 	 * Compute the length of a given path. (Using euclidean distance)
 	 */
-	public static double computePathLength(GridGraph gridGraph, int[][] path) {
+	public static double computePathLength(GridGraph gridGraph, List<Point> path) {
 		path = removeDuplicatesInPath(path);
 		double pathLength = 0;
-		for (int i = 0; i < path.length - 1; i++) {
-			pathLength += gridGraph.distance_double(path[i][0], path[i][1],
-					path[i + 1][0], path[i + 1][1]);
+		for (int i = 0; i < path.size() - 1; i++) {
+			pathLength += gridGraph.distance_double(path.get(i).getX(), path.get(i).getY(),
+					path.get(i + 1).getX(), path.get(i + 1).getY());
 		}
 		return pathLength;
 	}
 
 	public static double computeOptimalPathLength(GridGraph gridGraph, Point start, Point end) {
 		// Optimal algorithm.
-		PathFindingAlgorithm algo = new VisibilityGraphAlgorithm(gridGraph, start.getX(), start.getY(), end.getX(), end.getY());
+		PathFindingAlgorithm<Point> algo = new VisibilityGraphAlgorithm<>(gridGraph, start.getX(), start.getY(), end.getX(), end.getY(), Point::new);
 		algo.computePath();
-		int[][] path = algo.getPath();
+		List<Point> path = algo.getPath();
 		path = removeDuplicatesInPath(path);
 		return computePathLength(gridGraph, path);
 	}
@@ -46,23 +46,26 @@ public class Utility {
 		return fixedProblems;
 	}
 
-	public static int[][] removeDuplicatesInPath(int[][] path) {
-		if (path.length <= 2) return path;
+	public static List<Point> removeDuplicatesInPath(List<Point> path) {
+		if (path.size() <= 2) return path;
 
-		int[][] newPath = new int[path.length][];
+		List<Point> newPath = new ArrayList<>(path.size());
+		for (int j = 0; j < path.size(); j++) {
+			newPath.add(new Point(0, 0));
+		}
 		int index = 0;
-		newPath[0] = path[0];
-		for (int i = 1; i < path.length - 1; ++i) {
-			if (isCollinear(path[i][0], path[i][1], path[i + 1][0], path[i + 1][1], newPath[index][0], newPath[index][1])) {
+		newPath.add(path.get(0));
+		for (int i = 1; i < path.size() - 1; ++i) {
+			if (isCollinear(path.get(i).getX(), path.get(i).getY(), path.get(i + 1).getX(), path.get(i + 1).getY(), newPath.get(index).getX(), newPath.get(index).getY())) {
 				// skip
 			} else {
 				index++;
-				newPath[index] = path[i];
+				newPath.set(index, path.get(i));
 			}
 		}
 		index++;
-		newPath[index] = path[path.length - 1];
-		return Arrays.copyOf(newPath, index + 1);
+		newPath.set(index, path.get(path.size() - 1));
+		return newPath;
 	}
 
 	private static boolean isCollinear(int x1, int y1, int x2, int y2, int x3, int y3) {
@@ -74,20 +77,19 @@ public class Utility {
 	 *
 	 * @return an array of int[2] indicating the coordinates of the path.
 	 */
-	public static int[][] generatePath(AlgoFunction algoFunction, GridGraph gridGraph,
+	public static List<Point> generatePath(AlgoFunction<Point> algoFunction, GridGraph gridGraph,
 	                                   int sx, int sy, int ex, int ey) {
-		PathFindingAlgorithm algo = algoFunction.getAlgo(gridGraph, sx, sy, ex, ey);
+		PathFindingAlgorithm<Point> algo = algoFunction.getAlgo(gridGraph, sx, sy, ex, ey, Point::new);
 		algo.computePath();
 
-		int[][] path = algo.getPath();
-		return path;
+		return algo.getPath();
 	}
 
-	public static boolean isPathTaut(GridGraph gridGraph, int[][] path) {
+	public static boolean isPathTaut(GridGraph gridGraph, List<Point> path) {
 		int v1 = 0;
 		int v2 = 1;
-		for (int v3 = 2; v3 < path.length; ++v3) {
-			if (!gridGraph.isTaut(path[v1][0], path[v1][1], path[v2][0], path[v2][1], path[v3][0], path[v3][1]))
+		for (int v3 = 2; v3 < path.size(); ++v3) {
+			if (!gridGraph.isTaut(path.get(v1).getX(), path.get(v1).getY(), path.get(v2).getX(), path.get(v2).getY(), path.get(v3).getX(), path.get(v3).getY()))
 				return false;
 			++v1;
 			++v2;

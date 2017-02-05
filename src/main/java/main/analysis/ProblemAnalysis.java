@@ -3,8 +3,11 @@ package main.analysis;
 import com.github.ohohcakester.algorithms.astar.visibilitygraph.BFSVisibilityGraph;
 import com.github.ohohcakester.algorithms.astar.visibilitygraph.VisibilityGraph;
 import com.github.ohohcakester.algorithms.astar.visibilitygraph.VisibilityGraphAlgorithm;
+import com.github.ohohcakester.datatypes.Point;
 import com.github.ohohcakester.grid.GridGraph;
 import main.utility.Utility;
+
+import java.util.List;
 
 public class ProblemAnalysis {
 
@@ -26,9 +29,9 @@ public class ProblemAnalysis {
 		this.ex = ex;
 		this.ey = ey;
 
-		VisibilityGraphAlgorithm algo = VisibilityGraphAlgorithm.Companion.graphReuse(gridGraph, sx, sy, ex, ey);
+		VisibilityGraphAlgorithm<Point> algo = VisibilityGraphAlgorithm.Companion.graphReuse(gridGraph, sx, sy, ex, ey, Point::new);
 		algo.computePath();
-		int[][] path = algo.getPath();
+		List<Point> path = algo.getPath();
 		int sizeX = gridGraph.getSizeX();
 		int sizeY = gridGraph.getSizeY();
 
@@ -38,7 +41,7 @@ public class ProblemAnalysis {
 		distanceCoverage = computeDistanceCoverage(straightLineDistance, sizeX, sizeY);
 		minMapCoverage = computerMinMapCoverage(shortestPathLength, sizeX, sizeY);
 
-		shortestPathHeadingChanges = path.length;
+		shortestPathHeadingChanges = path.size();
 		VisibilityGraph visibilityGraph = algo.getVisibilityGraph();
 		minHeadingChanges = computeMinHeadingChanges(gridGraph);
 	}
@@ -61,9 +64,9 @@ public class ProblemAnalysis {
 	}
 
 	public int computeMinHeadingChanges(GridGraph gridGraph) {
-		BFSVisibilityGraph algo = BFSVisibilityGraph.Companion.graphReuse(gridGraph, sx, sy, ex, ey);
+		BFSVisibilityGraph algo = BFSVisibilityGraph.Companion.graphReuse(gridGraph, sx, sy, ex, ey, Point::new);
 		algo.computePath();
-		return algo.getPath().length;
+		return algo.getPath().size();
 	}
 
 	@Override

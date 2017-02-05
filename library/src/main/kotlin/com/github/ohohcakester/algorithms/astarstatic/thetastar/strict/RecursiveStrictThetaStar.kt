@@ -30,23 +30,25 @@ import com.github.ohohcakester.grid.GridGraph
  * the final vertex. The slightly higher heuristic encourages the algorithm
  * to explore a little more first.
  */
-class RecursiveStrictThetaStar(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) : AbstractStrictThetaStar(graph, sx, sy, ex, ey) {
+class RecursiveStrictThetaStar<out P>(graph: GridGraph,
+                                      sx: Int, sy: Int, ex: Int, ey: Int,
+                                      pointConstructor: (x: Int, y: Int) -> P) : AbstractStrictThetaStar<P>(graph, sx, sy, ex, ey, pointConstructor) {
 	companion object {
-		fun setBuffer(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int, bufferValue: Float): RecursiveStrictThetaStar {
-			val algo = RecursiveStrictThetaStar(graph, sx, sy, ex, ey)
+		fun <P> setBuffer(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int, pointConstructor: (x: Int, y: Int) -> P, bufferValue: Float): RecursiveStrictThetaStar<P> {
+			val algo = RecursiveStrictThetaStar(graph, sx, sy, ex, ey, pointConstructor)
 			algo.BUFFER_VALUE = bufferValue
 			return algo
 		}
 
-		fun depthLimit(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int, depthLimit: Int): RecursiveStrictThetaStar {
-			val algo = RecursiveStrictThetaStar(graph, sx, sy, ex, ey)
+		fun <P> depthLimit(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int, pointConstructor: (x: Int, y: Int) -> P, depthLimit: Int): RecursiveStrictThetaStar<P> {
+			val algo = RecursiveStrictThetaStar(graph, sx, sy, ex, ey, pointConstructor)
 			algo.DEPTH_LIMIT = depthLimit
 			return algo
 		}
 
-		fun postSmooth(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) = postSmooth(graph, sx, sy, ex, ey, ::RecursiveStrictThetaStar)
-		fun repeatedPostSmooth(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) = repeatedPostSmooth(graph, sx, sy, ex, ey, ::RecursiveStrictThetaStar)
-		fun dijkstra(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) = dijkstra(graph, sx, sy, ex, ey, ::RecursiveStrictThetaStar)
+		fun <P> postSmooth(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int, pointConstructor: (x: Int, y: Int) -> P) = postSmooth(graph, sx, sy, ex, ey, pointConstructor, ::RecursiveStrictThetaStar)
+		fun <P> repeatedPostSmooth(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int, pointConstructor: (x: Int, y: Int) -> P) = repeatedPostSmooth(graph, sx, sy, ex, ey, pointConstructor, ::RecursiveStrictThetaStar)
+		fun <P> dijkstra(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int, pointConstructor: (x: Int, y: Int) -> P) = dijkstra(graph, sx, sy, ex, ey, pointConstructor, ::RecursiveStrictThetaStar)
 	}
 
 	private var DEPTH_LIMIT = -1

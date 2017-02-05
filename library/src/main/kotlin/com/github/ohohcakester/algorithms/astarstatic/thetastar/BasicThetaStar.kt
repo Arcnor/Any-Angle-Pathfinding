@@ -3,11 +3,13 @@ package com.github.ohohcakester.algorithms.astarstatic.thetastar
 import com.github.ohohcakester.algorithms.astarstatic.AStarStaticMemory
 import com.github.ohohcakester.grid.GridGraph
 
-open class BasicThetaStar(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) : AStarStaticMemory(graph, sx, sy, ex, ey) {
+open class BasicThetaStar<out P>(graph: GridGraph,
+                                 sx: Int, sy: Int, ex: Int, ey: Int,
+                                 pointConstructor: (x: Int, y: Int) -> P) : AStarStaticMemory<P>(graph, sx, sy, ex, ey, pointConstructor) {
 	companion object {
-		fun postSmooth(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) = postSmooth(graph, sx, sy, ex, ey, ::BasicThetaStar)
-		fun repeatedPostSmooth(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) = repeatedPostSmooth(graph, sx, sy, ex, ey, ::BasicThetaStar)
-		fun dijkstra(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) = dijkstra(graph, sx, sy, ex, ey, ::BasicThetaStar)
+		fun <P> postSmooth(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int, pointConstructor: (x: Int, y: Int) -> P) = postSmooth(graph, sx, sy, ex, ey, pointConstructor, ::BasicThetaStar)
+		fun <P> repeatedPostSmooth(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int, pointConstructor: (x: Int, y: Int) -> P) = repeatedPostSmooth(graph, sx, sy, ex, ey, pointConstructor, ::BasicThetaStar)
+		fun <P> dijkstra(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int, pointConstructor: (x: Int, y: Int) -> P) = dijkstra(graph, sx, sy, ex, ey, pointConstructor, ::BasicThetaStar)
 	}
 
 	override fun tryRelaxNeighbour(current: Int, currentX: Int, currentY: Int, x: Int, y: Int) {

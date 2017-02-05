@@ -2,7 +2,9 @@ package com.github.ohohcakester.algorithms.astarstatic.thetastar
 
 import com.github.ohohcakester.grid.GridGraph
 
-class RecursiveThetaStar(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) : BasicThetaStar(graph, sx, sy, ex, ey) {
+class RecursiveThetaStar<out P>(graph: GridGraph,
+                                sx: Int, sy: Int, ex: Int, ey: Int,
+                                pointConstructor: (x: Int, y: Int) -> P) : BasicThetaStar<P>(graph, sx, sy, ex, ey, pointConstructor) {
 	companion object {
 		private tailrec fun gcd(a: Int, b: Int): Int {
 			return if (a == 0) b else gcd(b % a, a)

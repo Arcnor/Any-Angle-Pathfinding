@@ -3,7 +3,7 @@ package com.github.ohohcakester.algorithms.anya
 import com.github.ohohcakester.algorithms.PathFindingRecorder
 import com.github.ohohcakester.datatypes.SnapshotItem
 
-class AnyaRecorder(val algorithm: Anya) : PathFindingRecorder() {
+class AnyaRecorder<P>(val algorithm: Anya<P>) : PathFindingRecorder() {
 	override fun computeSearchSnapshot(): List<SnapshotItem> {
 		val states = algorithm.states
 		val list = java.util.ArrayList<SnapshotItem>(states.size)

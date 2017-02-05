@@ -7,9 +7,10 @@ import com.github.ohohcakester.grid.GridGraph
  * ABSTRACT<br></br>
  * Template for all Path Finding Algorithms used.<br></br>
  */
-abstract class PathFindingAlgorithm(
+abstract class PathFindingAlgorithm<out P>(
 		protected val graph: GridGraph, protected val sizeX: Int, protected val sizeY: Int,
-		val sx: Int, val sy: Int, val ex: Int, val ey: Int) {
+		val sx: Int, val sy: Int, val ex: Int, val ey: Int,
+		private val pointConstructor: (x: Int, y: Int) -> P) {
 
 	var recorder: PathFindingRecorder? = null
 
@@ -21,7 +22,9 @@ abstract class PathFindingAlgorithm(
 	/**
 	 * @return retrieve the path computed by the algorithm
 	 */
-	abstract val path: Array<IntArray>
+	abstract val path: List<P>
+
+	protected fun makePoint(x: Int, y: Int) = pointConstructor(x, y)
 
 	protected fun maybeSaveSearchSnapshot() {
 		recorder?.maybeSaveSearchSnapshot()

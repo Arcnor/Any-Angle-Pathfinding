@@ -4,10 +4,12 @@ import com.github.ohohcakester.grid.GridGraph
 import java.util.LinkedList
 import java.util.Queue
 
-class BFSVisibilityGraph(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) : VisibilityGraphAlgorithm(graph, sx, sy, ex, ey) {
+class BFSVisibilityGraph<out P>(graph: GridGraph,
+                                sx: Int, sy: Int, ex: Int, ey: Int,
+                                pointConstructor: (x: Int, y: Int) -> P) : VisibilityGraphAlgorithm<P>(graph, sx, sy, ex, ey, pointConstructor) {
 	companion object {
-		fun graphReuse(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int): BFSVisibilityGraph {
-			val algo = BFSVisibilityGraph(graph, sx, sy, ex, ey)
+		fun <P> graphReuse(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int, pointConstructor: (x: Int, y: Int) -> P): BFSVisibilityGraph<P> {
+			val algo = BFSVisibilityGraph(graph, sx, sy, ex, ey, pointConstructor)
 			algo.reuseGraph = true
 			return algo
 		}

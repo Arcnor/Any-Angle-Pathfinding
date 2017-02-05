@@ -6,11 +6,11 @@ import com.github.ohohcakester.priorityqueue.FloatIndirectHeap
 import java.util.ArrayList
 import java.util.Arrays
 
-class AcceleratedAStar(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) : AStar(graph, sx, sy, ex, ey) {
+class AcceleratedAStar<out P>(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int, pointConstructor: (x: Int, y: Int) -> P) : AStar<P>(graph, sx, sy, ex, ey, pointConstructor) {
 	companion object {
-		fun postSmooth(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) = postSmooth(graph, sx, sy, ex, ey, ::AcceleratedAStar)
-		fun repeatedPostSmooth(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) = repeatedPostSmooth(graph, sx, sy, ex, ey, ::AcceleratedAStar)
-		fun dijkstra(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) = dijkstra(graph, sx, sy, ex, ey, ::AcceleratedAStar)
+		fun <P> postSmooth(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int, pointConstructor: (x: Int, y: Int) -> P) = postSmooth(graph, sx, sy, ex, ey, pointConstructor, ::AcceleratedAStar)
+		fun <P> repeatedPostSmooth(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int, pointConstructor: (x: Int, y: Int) -> P) = repeatedPostSmooth(graph, sx, sy, ex, ey, pointConstructor, ::AcceleratedAStar)
+		fun <P> dijkstra(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int, pointConstructor: (x: Int, y: Int) -> P) = dijkstra(graph, sx, sy, ex, ey, pointConstructor, ::AcceleratedAStar)
 	}
 
 	private lateinit var pq: FloatIndirectHeap

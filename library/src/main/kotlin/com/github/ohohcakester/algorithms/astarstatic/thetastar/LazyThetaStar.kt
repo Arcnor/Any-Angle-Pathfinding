@@ -3,11 +3,13 @@ package com.github.ohohcakester.algorithms.astarstatic.thetastar
 import com.github.ohohcakester.grid.GridGraph
 import com.github.ohohcakester.priorityqueue.ReusableIndirectHeap
 
-class LazyThetaStar(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) : BasicThetaStar(graph, sx, sy, ex, ey) {
+class LazyThetaStar<out P>(graph: GridGraph,
+                           sx: Int, sy: Int, ex: Int, ey: Int,
+                           pointConstructor: (x: Int, y: Int) -> P) : BasicThetaStar<P>(graph, sx, sy, ex, ey, pointConstructor) {
 	companion object {
-		fun postSmooth(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) = postSmooth(graph, sx, sy, ex, ey, ::LazyThetaStar)
-		fun repeatedPostSmooth(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) = repeatedPostSmooth(graph, sx, sy, ex, ey, ::LazyThetaStar)
-		fun dijkstra(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) = dijkstra(graph, sx, sy, ex, ey, ::LazyThetaStar)
+		fun <P> postSmooth(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int, pointConstructor: (x: Int, y: Int) -> P) = postSmooth(graph, sx, sy, ex, ey, pointConstructor, ::LazyThetaStar)
+		fun <P> repeatedPostSmooth(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int, pointConstructor: (x: Int, y: Int) -> P) = repeatedPostSmooth(graph, sx, sy, ex, ey, pointConstructor, ::LazyThetaStar)
+		fun <P> dijkstra(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int, pointConstructor: (x: Int, y: Int) -> P) = dijkstra(graph, sx, sy, ex, ey, pointConstructor, ::LazyThetaStar)
 	}
 
 	override fun computePath() {

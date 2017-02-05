@@ -6,6 +6,7 @@ import com.github.ohohcakester.algorithms.PathFindingAlgorithm;
 import com.github.ohohcakester.algorithms.PathFindingRecorder;
 import com.github.ohohcakester.algorithms.anya.Anya;
 import com.github.ohohcakester.algorithms.anya.AnyaRecorder;
+import com.github.ohohcakester.datatypes.Point;
 import com.github.ohohcakester.datatypes.SnapshotItem;
 import com.github.ohohcakester.grid.GridAndGoals;
 import com.github.ohohcakester.grid.GridGraph;
@@ -51,11 +52,11 @@ public class Visualisation {
 		GridLineSet gridLineSet = new GridLineSet();
 
 		try {
-			int[][] path = Utility.generatePath(algo, gridGraph, p.sx, p.sy, p.ex, p.ey);
+			List<Point> path = Utility.generatePath(algo, gridGraph, p.sx, p.sy, p.ex, p.ey);
 
-			for (int i = 0; i < path.length - 1; i++) {
-				gridLineSet.addLine(path[i][0], path[i][1],
-						path[i + 1][0], path[i + 1][1], Color.BLUE);
+			for (int i = 0; i < path.size() - 1; i++) {
+				gridLineSet.addLine(path.get(i).getX(), path.get(i).getY(),
+						path.get(i + 1).getX(), path.get(i + 1).getY(), Color.BLUE);
 			}
 			double pathLength = Utility.computePathLength(gridGraph, path);
 			System.out.println("Path Length: " + pathLength);
@@ -63,7 +64,7 @@ public class Visualisation {
 			boolean isTaut = Utility.isPathTaut(gridGraph, path);
 			System.out.println("Is Taut: " + (isTaut ? "YES" : "NO"));
 
-			System.out.println(Arrays.deepToString(path));
+			System.out.println(Arrays.deepToString(path.toArray(new Point[path.size()])));
 		} catch (Exception e) {
 			System.out.println("Exception occurred during algorithm operation!");
 			e.printStackTrace();
@@ -80,16 +81,16 @@ public class Visualisation {
 	/**
 	 * Records a trace of the current algorithm into a LinkedList of GridObjects.
 	 */
-	private static ArrayList<GridObjects> recordAlgorithmOperation(AlgoFunction algoFunction,
+	private static ArrayList<GridObjects> recordAlgorithmOperation(AlgoFunction<Point> algoFunction,
 	                                                               GridGraph gridGraph, int sx, int sy, int ex, int ey) {
-		final PathFindingAlgorithm algo = algoFunction.getAlgo(gridGraph, sx, sy, ex, ey);
+		final PathFindingAlgorithm<Point> algo = algoFunction.getAlgo(gridGraph, sx, sy, ex, ey, Point::new);
 
 		final PathFindingRecorder recorder;
 		if (algo instanceof BaseAStar) {
-			recorder = new BaseAStarRecorder((BaseAStar) algo);
+			recorder = new BaseAStarRecorder<>((BaseAStar<Point>) algo);
 			algo.setRecorder(recorder);
 		} else if (algo instanceof Anya) {
-			recorder = new AnyaRecorder((Anya) algo);
+			recorder = new AnyaRecorder<>((Anya<Point>) algo);
 			algo.setRecorder(recorder);
 		} else {
 			throw new RuntimeException("Unknown algorithm");

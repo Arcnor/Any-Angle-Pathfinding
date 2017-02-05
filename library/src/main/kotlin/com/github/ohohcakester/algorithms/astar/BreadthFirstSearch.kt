@@ -4,11 +4,13 @@ import com.github.ohohcakester.grid.GridGraph
 import java.util.LinkedList
 import java.util.Queue
 
-open class BreadthFirstSearch(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) : AStar(graph, sx, sy, ex, ey) {
+open class BreadthFirstSearch<out P>(graph: GridGraph,
+                                     sx: Int, sy: Int, ex: Int, ey: Int,
+                                     pointConstructor: (x: Int, y: Int) -> P) : AStar<P>(graph, sx, sy, ex, ey, pointConstructor) {
 	companion object {
-		fun postSmooth(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) = postSmooth(graph, sx, sy, ex, ey, ::BreadthFirstSearch)
-		fun repeatedPostSmooth(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) = repeatedPostSmooth(graph, sx, sy, ex, ey, ::BreadthFirstSearch)
-		fun dijkstra(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) = dijkstra(graph, sx, sy, ex, ey, ::BreadthFirstSearch)
+		fun <P> postSmooth(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int, pointConstructor: (x: Int, y: Int) -> P) = postSmooth(graph, sx, sy, ex, ey, pointConstructor, ::BreadthFirstSearch)
+		fun <P> repeatedPostSmooth(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int, pointConstructor: (x: Int, y: Int) -> P) = repeatedPostSmooth(graph, sx, sy, ex, ey, pointConstructor, ::BreadthFirstSearch)
+		fun <P> dijkstra(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int, pointConstructor: (x: Int, y: Int) -> P) = dijkstra(graph, sx, sy, ex, ey, pointConstructor, ::BreadthFirstSearch)
 	}
 
 	private lateinit var queue: Queue<Int>

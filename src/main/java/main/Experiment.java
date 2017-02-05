@@ -21,6 +21,7 @@ import uiandio.GraphImporter;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Random;
 
 public class Experiment {
@@ -81,8 +82,8 @@ public class Experiment {
 
 			Point s = points.get(first);
 			Point f = points.get(last);
-			int[][] path = Utility.generatePath(algo, gridGraph, s.getX(), s.getY(), f.getX(), f.getY());
-			if (path.length >= 2) {
+			List<Point> path = Utility.generatePath(algo, gridGraph, s.getX(), s.getY(), f.getX(), f.getY());
+			if (path.size() >= 2) {
 				double len = Utility.computePathLength(gridGraph, path);
 				startX.offer(s.getX());
 				startY.offer(s.getY());
@@ -104,8 +105,8 @@ public class Experiment {
 	 * Use setDefaultAlgoFunction to choose the algorithm.
 	 */
 	private static boolean hasSolution(AlgoFunction algo, GridGraph gridGraph, StartGoalPoints p) {
-		int[][] path = Utility.generatePath(algo, gridGraph, p.sx, p.sy, p.ex, p.ey);
-		return path.length > 1;
+		List<Point> path = Utility.generatePath(algo, gridGraph, p.sx, p.sy, p.ex, p.ey);
+		return path.size() > 1;
 	}
 
 	/**
@@ -147,8 +148,8 @@ public class Experiment {
 	private static void testAgainstReferenceAlgorithm() {
 		AnyAnglePathfinding.setDefaultAlgoFunction();
 
-		AlgoFunction currentAlgo = AnyAnglePathfinding.setDefaultAlgoFunction();
-		AlgoFunction referenceAlgo = AStar::new;
+		AlgoFunction<Point> currentAlgo = AnyAnglePathfinding.setDefaultAlgoFunction();
+		AlgoFunction<Point> referenceAlgo = AStar::new;
 
 		Random seedRand = new Random(3);
 		int initial = seedRand.nextInt();
@@ -171,7 +172,7 @@ public class Experiment {
 			int ey = p2 / (sizeX + 1);
 
 			GridGraph gridGraph = DefaultGenerator.generateSeededGraphOnlyOld(seed, sizeX, sizeY, ratio);
-			int[][] path = Utility.generatePath(referenceAlgo, gridGraph, sx, sy, ex, ey);
+			List<Point> path = Utility.generatePath(referenceAlgo, gridGraph, sx, sy, ex, ey);
 			double referencePathLength = Utility.computePathLength(gridGraph, path);
 			boolean referenceValid = (referencePathLength > 0.00001f);
 
@@ -241,8 +242,8 @@ public class Experiment {
 
 	private static void findUpperBound() {
 		System.out.println("Strict Theta Star");
-		AlgoFunction testAlgo = (gridGraph, sx, sy, ex, ey) -> new RecursiveStrictThetaStar(gridGraph, sx, sy, ex, ey);
-		AlgoFunction optimalAlgo = (gridGraph, sx, sy, ex, ey) -> new VisibilityGraphAlgorithm(gridGraph, sx, sy, ex, ey);
+		AlgoFunction testAlgo = (gridGraph, sx, sy, ex, ey, pointConstructor) -> new RecursiveStrictThetaStar(gridGraph, sx, sy, ex, ey, pointConstructor);
+		AlgoFunction optimalAlgo = (gridGraph, sx, sy, ex, ey, pointConstructor) -> new VisibilityGraphAlgorithm(gridGraph, sx, sy, ex, ey, pointConstructor);
 
 		double upperBound = 1.5;
 		double maxRatio = 1;
@@ -279,7 +280,7 @@ public class Experiment {
 			//if (ex > 22) break;
 
 
-			int[][] path = Utility.generatePath(testAlgo, gridGraph, sx, sy, ex, ey);
+			List<Point> path = Utility.generatePath(testAlgo, gridGraph, sx, sy, ex, ey);
 			double testPathLength = Utility.computePathLength(gridGraph, path);
 
 			path = Utility.generatePath(optimalAlgo, gridGraph, sx, sy, ex, ey);
@@ -315,8 +316,8 @@ public class Experiment {
 	private static void findStrictThetaStarIssues() {
 //        AlgoFunction basicThetaStar = (gridGraph, sx, sy, ex, ey) -> new BasicThetaStar(gridGraph, sx, sy, ex, ey);;
 //        AlgoFunction strictThetaStar = (gridGraph, sx, sy, ex, ey) -> new StrictThetaStarV1(gridGraph, sx, sy, ex, ey);
-		AlgoFunction basicThetaStar = (gridGraph, sx, sy, ex, ey) -> RecursiveStrictThetaStar.Companion.setBuffer(gridGraph, sx, sy, ex, ey, 0.4f);
-		AlgoFunction strictThetaStar = (gridGraph, sx, sy, ex, ey) -> RecursiveStrictThetaStar.Companion.setBuffer(gridGraph, sx, sy, ex, ey, 0.2f);
+		AlgoFunction basicThetaStar = (gridGraph, sx, sy, ex, ey, pointConstructor) -> RecursiveStrictThetaStar.Companion.setBuffer(gridGraph, sx, sy, ex, ey, pointConstructor, 0.4f);
+		AlgoFunction strictThetaStar = (gridGraph, sx, sy, ex, ey, pointConstructor) -> RecursiveStrictThetaStar.Companion.setBuffer(gridGraph, sx, sy, ex, ey, pointConstructor, 0.2f);
 
 		int wins = 0;
 		int ties = 0;
@@ -341,7 +342,7 @@ public class Experiment {
 			int ey = p2 / (sizeX + 1);
 
 			GridGraph gridGraph = DefaultGenerator.generateSeededGraphOnly(seed, sizeX, sizeY, ratio);
-			int[][] path = Utility.generatePath(basicThetaStar, gridGraph, sx, sy, ex, ey);
+			List<Point> path = Utility.generatePath(basicThetaStar, gridGraph, sx, sy, ex, ey);
 			double basicPathLength = Utility.computePathLength(gridGraph, path);
 
 			path = Utility.generatePath(strictThetaStar, gridGraph, sx, sy, ex, ey);
@@ -395,7 +396,7 @@ public class Experiment {
 			double restPathLength = 0, normalPathLength = 0;
 			try {
 				GridGraph gridGraph = DefaultGenerator.generateSeededGraphOnly(seed, sizeX, sizeY, ratio);
-				int[][] path = Utility.generatePath(testAlgo, gridGraph, sx, sy, ex, ey);
+				List<Point> path = Utility.generatePath(testAlgo, gridGraph, sx, sy, ex, ey);
 				path = Utility.removeDuplicatesInPath(path);
 				restPathLength = Utility.computePathLength(gridGraph, path);
 
@@ -430,14 +431,14 @@ public class Experiment {
 	}
 
 	private static boolean testTautness(GridGraph gridGraph, AlgoFunction algo, int sx, int sy, int ex, int ey) {
-		int[][] path = Utility.generatePath(algo, gridGraph, sx, sy, ex, ey);
+		List<Point> path = Utility.generatePath(algo, gridGraph, sx, sy, ex, ey);
 		path = Utility.removeDuplicatesInPath(path);
 		return Utility.isPathTaut(gridGraph, path);
 	}
 
 	private static boolean hasSolution(GridGraph gridGraph, AlgoFunction algo, int sx, int sy, int ex, int ey) {
-		int[][] path = Utility.generatePath(algo, gridGraph, sx, sy, ex, ey);
-		return path.length > 1;
+		List<Point> path = Utility.generatePath(algo, gridGraph, sx, sy, ex, ey);
+		return path.size() > 1;
 	}
 
 	private static void countTautPaths() {

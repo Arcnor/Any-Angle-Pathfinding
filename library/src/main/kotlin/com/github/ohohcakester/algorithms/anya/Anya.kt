@@ -7,7 +7,9 @@ import com.github.ohohcakester.priorityqueue.FastVariableSizeIndirectHeap
 import java.util.Arrays
 import java.util.HashMap
 
-class Anya(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) : PathFindingAlgorithm(graph, graph.sizeX, graph.sizeY, sx, sy, ex, ey) {
+class Anya<P>(graph: GridGraph,
+              sx: Int, sy: Int, ex: Int, ey: Int,
+              pointConstructor: (x: Int, y: Int) -> P) : PathFindingAlgorithm<P>(graph, graph.sizeX, graph.sizeY, sx, sy, ex, ey, pointConstructor) {
 	companion object {
 		private var rightDownExtents: Array<IntArray>? = null
 		private var leftDownExtents: Array<IntArray>? = null
@@ -785,25 +787,17 @@ class Anya(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) : PathFindingAl
 		return length
 	}
 
-	override // Fail
-			// Start from goalState and traverse backwards.
-	val path: Array<IntArray>
+	override val path: List<P>
 		get() {
-			if (goalState == null) return emptyArray()
+			if (goalState == null) return emptyList()
+
 			val length = pathLength()
-			val path = arrayOfNulls<IntArray>(length)
 			var current = goalState
 
-			path[length - 1] = intArrayOf(ex, ey)
-
-			var index = length - 2
-			while (current != null) {
-				path[index] = intArrayOf(current.basePoint.x, current.basePoint.y)
-
-				index--
-				current = current.parent
-			}
-
-			return path as Array<IntArray>
+			return List(length - 1) {
+				val point = current!!.basePoint
+				current = current!!.parent
+				makePoint(point.x, point.y)
+			}.reversed().plus(makePoint(ex, ey))
 		}
 }

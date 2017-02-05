@@ -3,11 +3,13 @@ package com.github.ohohcakester.algorithms.astarstatic
 import com.github.ohohcakester.grid.GridGraph
 import com.github.ohohcakester.priorityqueue.ReusableIndirectHeap
 
-class JumpPointSearch(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) : AStarStaticMemory(graph, sx, sy, ex, ey) {
+class JumpPointSearch<out P>(graph: GridGraph,
+                             sx: Int, sy: Int, ex: Int, ey: Int,
+                             pointConstructor: (x: Int, y: Int) -> P) : AStarStaticMemory<P>(graph, sx, sy, ex, ey, pointConstructor) {
 	companion object {
-		fun postSmooth(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) = postSmooth(graph, sx, sy, ex, ey, ::JumpPointSearch)
-		fun repeatedPostSmooth(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) = repeatedPostSmooth(graph, sx, sy, ex, ey, ::JumpPointSearch)
-		fun dijkstra(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int) = dijkstra(graph, sx, sy, ex, ey, ::JumpPointSearch)
+		fun <P> postSmooth(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int, pointConstructor: (x: Int, y: Int) -> P) = postSmooth(graph, sx, sy, ex, ey, pointConstructor, ::JumpPointSearch)
+		fun <P> repeatedPostSmooth(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int, pointConstructor: (x: Int, y: Int) -> P) = repeatedPostSmooth(graph, sx, sy, ex, ey, pointConstructor, ::JumpPointSearch)
+		fun <P> dijkstra(graph: GridGraph, sx: Int, sy: Int, ex: Int, ey: Int, pointConstructor: (x: Int, y: Int) -> P) = dijkstra(graph, sx, sy, ex, ey, pointConstructor, ::JumpPointSearch)
 	}
 
 	private val neighboursdX = IntArray(8)
